@@ -1,0 +1,38 @@
+.navbar {
+  display: flex;
+  align-items: center;
+  background-color: #000;
+  padding: 10px 20px;
+  border-bottom: 2px solid #39FF14;
+  color: #39FF14;
+  font-family: 'Orbitron', sans-serif;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.navbar-logo {
+  flex-grow: 1;
+  font-size: 1.5rem;
+}
+
+.navbar-links {
+  list-style: none;
+  display: flex;
+  gap: 16px;
+  margin: 0;
+  padding: 0;
+}
+
+.navbar-links li button {
+  background: none;
+  border: none;
+  color: #39FF14;
+  font-size: 1rem;
+  cursor: pointer;
+  font-family: 'Roboto', sans-serif;
+}
+
+.navbar-links li button:hover {
+  color: #1E90FF;
+}

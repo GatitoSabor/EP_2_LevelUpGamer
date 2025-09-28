@@ -1,0 +1,124 @@
+.auth-tabs-container {
+  max-width: 360px;
+  margin: 50px auto;
+  background: #363434; /* gris oscuro */
+  padding: 25px;
+  border-radius: 16px;
+  box-shadow: 0 0 40px rgba(128, 0, 128, 0.6); /* sombra purpura */
+  color: #ddd; /* gris claro */
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  overflow: hidden;
+  position: relative;
+}
+
+.tabs {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 25px;
+  position: relative;
+}
+
+/* Barra animada del tab activo */
+.tabs::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 50%;
+  height: 4px;
+  background: linear-gradient(270deg, #7b2ff7, #9336fd, #7b2ff7);
+  background-size: 600% 600%;
+  border-radius: 5px 5px 0 0;
+  animation: gradientShift 6s ease infinite;
+  transform: translateX(calc(var(--active-tab) * 100%));
+  transition: transform 0.4s ease;
+  z-index: 1;
+}
+
+@keyframes gradientShift {
+  0% {background-position:0% 50%;}
+  50% {background-position:100% 50%;}
+  100% {background-position:0% 50%;}
+}
+
+.tab-button {
+  background: transparent;
+  border: none;
+  color: #aaa;
+  font-weight: 600;
+  font-size: 1.3rem;
+  padding: 10px 30px;
+  cursor: pointer;
+  position: relative;
+  transition: color 0.3s ease;
+  z-index: 2;
+}
+
+.tab-button:hover {
+  color: #bb86fc; /* morado claro */
+}
+
+.tab-button.active {
+  color: #bb86fc;
+  font-weight: 700;
+  animation: bounce 0.5s;
+  z-index: 3;
+}
+
+@keyframes bounce {
+  0%, 100% {transform: translateY(0);}
+  50% {transform: translateY(-8px);}
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  animation: slideIn 0.4s ease forwards;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.form input {
+  padding: 14px 18px;
+  border-radius: 12px;
+  border: none;
+  font-size: 1.1rem;
+  background-color: #555555; /* gris medio */
+  color: #eee;
+  transition: background-color 0.3s;
+  outline-offset: 2px;
+  outline-color: #bb86fc;
+}
+
+.form input:focus {
+  background-color: #7b2ff7; /* morado */
+  color: white;
+}
+
+.submit-btn {
+  background: linear-gradient(135deg, #7b2ff7, #9336fd);
+  color: white;
+  border: none;
+  padding: 16px;
+  font-weight: 700;
+  border-radius: 14px;
+  cursor: pointer;
+  font-size: 1.15rem;
+  transition: background 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 6px 10px rgba(123, 47, 247, 0.7);
+}
+
+.submit-btn:hover {
+  background: linear-gradient(135deg, #9336fd, #7b2ff7);
+  box-shadow: 0 8px 14px rgba(147, 54, 253, 0.85);
+}

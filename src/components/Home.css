@@ -1,0 +1,7 @@
+.react-spring-3d-carousel .carousel-slide img {
+  max-width: 250px;
+  margin: 0 5px;  /* margen pequeño para juntarlas pero separadas visualmente */
+  border-radius: 10px;
+  object-fit: contain;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+}
