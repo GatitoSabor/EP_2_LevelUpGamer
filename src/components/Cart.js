@@ -1,121 +1,67 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 export default function Cart({ cart, incrementQuantity, decrementQuantity, removeFromCart, totalPrice }) {
-  return React.createElement(
-    'section',
-    { className: 'cart' },
-    React.createElement('h2', null, `Carro (${cart.length} ${cart.length === 1 ? 'item' : 'items'})`),
-    React.createElement(
-      'div',
-      { className: 'cart-content' },
-      React.createElement(
-        'div',
-        { className: 'cart-items' },
-        cart.length === 0
-          ? React.createElement('p', null, 'No hay productos en el carrito.')
-          : cart.map(item =>
-              React.createElement(
-                'div',
-                { key: item.id, className: 'cart-item' },
-                React.createElement('img', {
-                  src: item.image,
-                  alt: item.name,
-                  className: 'cart-item-image',
-                }),
-                React.createElement(
-                  'div',
-                  { className: 'cart-item-info' },
-                  React.createElement('h3', null, item.name),
-                  React.createElement('p', null, item.description),
-                  React.createElement(
-                    'div',
-                    { className: 'quantity-controls' },
-                    React.createElement(
-                      'button',
-                      { onClick: () => decrementQuantity(item.id) },
-                      '-',
-                    ),
-                    React.createElement('span', null, item.quantity),
-                    React.createElement(
-                      'button',
-                      { onClick: () => incrementQuantity(item.id) },
-                      '+',
-                    ),
-                  ),
-                ),
-                React.createElement(
-                  'div',
-                  { className: 'cart-item-pricing' },
-                  React.createElement(
-                    'p',
-                    { className: 'price-discounted' },
-                    `$${(item.price * 0.94).toLocaleString('es-CL')}`,
-                  ),
-                  React.createElement(
-                    'p',
-                    { className: 'price-original' },
-                    `$${item.price.toLocaleString('es-CL')}`,
-                  ),
-                  React.createElement(
-                    'p',
-                    { className: 'payment-method' },
-                    'Transferencias',
-                  ),
-                  React.createElement(
-                    'p',
-                    { className: 'subtotal' },
-                    `$${(item.price * item.quantity * 0.94).toLocaleString('es-CL')}`,
-                  ),
-                ),
-                React.createElement(
-                  'button',
-                  {
-                    className: 'remove-btn',
-                    onClick: () => removeFromCart(item.id),
-                  },
-                  'Eliminar',
-                ),
-              ),
-            ),
-      ),
-      React.createElement(
-        'aside',
-        { className: 'cart-summary' },
-        React.createElement('h3', null, `Resumen (${cart.length} productos)`),
-        React.createElement(
-          'div',
-          { className: 'summary-row' },
-          React.createElement('p', null, 'Pago con transferencias'),
-          React.createElement(
-            'p',
-            { className: 'summary-price' },
-            `$${(totalPrice * 0.94).toLocaleString('es-CL')}`,
-          ),
-          React.createElement('small', null, 'Transferencia y Banco Estado'),
-        ),
-        React.createElement(
-          'div',
-          { className: 'summary-row' },
-          React.createElement('p', null, 'Otros medios de pago'),
-          React.createElement(
-            'p',
-            { className: 'summary-price' },
-            `$${totalPrice.toLocaleString('es-CL')}`,
-          ),
-          React.createElement('small', null, 'Webpay/Onepay'),
-        ),
-        React.createElement(
-          'div',
-          { className: 'summary-total' },
-          React.createElement('p', null, 'TOTAL'),
-          React.createElement('p', null, '-'),
-        ),
-        React.createElement(
-          'button',
-          { className: 'checkout-btn' },
-          'Iniciar pago',
-        ),
-      ),
-    ),
+  return (
+    <section className="cart">
+      <h2>
+        Carro ({cart.length} {cart.length === 1 ? 'item' : 'items'})
+      </h2>
+      <div className="cart-content">
+        <div className="cart-items">
+          {cart.length === 0 ? (
+            <p>No hay productos en el carrito.</p>
+          ) : (
+            cart.map((item) => (
+              <div key={item.id} className="cart-item">
+                <img src={item.image} alt={item.name} className="cart-item-image" />
+                <div className="cart-item-info">
+                  <h3>{item.name}</h3>
+                  <p>{item.description}</p>
+                  <div className="quantity-controls">
+                    <button onClick={() => decrementQuantity(item.id)}>-</button>
+                    <span>{item.quantity}</span>
+                    <button onClick={() => incrementQuantity(item.id)}>+</button>
+                  </div>
+                </div>
+                <div className="cart-item-pricing">
+                  <p className="price-discounted">
+                    ${ (item.price * (1 - (item.discount ?? 0))).toLocaleString('es-CL') }
+                  </p>
+                  {item.discount && item.discount > 0 && (
+                    <p className="price-original">${item.price.toLocaleString('es-CL')}</p>
+                  )}
+                  <p className="payment-method">Transferencias</p>
+                  <p className="subtotal">
+                    ${ ((item.price * (1 - (item.discount ?? 0))) * item.quantity).toLocaleString('es-CL') }
+                  </p>
+                </div>
+                <button className="remove-btn" onClick={() => removeFromCart(item.id)}>
+                  Eliminar
+                </button>
+              </div>
+            ))
+          )}
+        </div>
+
+        <aside className="cart-summary">
+          <h3>Resumen ({cart.length} productos)</h3>
+          <div className="summary-row">
+            <p>Pago con transferencias</p>
+            <p className="summary-price">${totalPrice.toLocaleString('es-CL')}</p>
+            <small>Transferencia y Banco Estado</small>
+          </div>
+          <div className="summary-row">
+            <p>Otros medios de pago</p>
+            <p className="summary-price">${(totalPrice / 0.94).toLocaleString('es-CL')}</p>
+            <small>Webpay/Onepay</small>
+          </div>
+          <div className="summary-total">
+            <p>TOTAL</p>
+            <p>-</p>
+          </div>
+          <button className="checkout-btn">Iniciar pago</button>
+        </aside>
+      </div>
+    </section>
   );
 }

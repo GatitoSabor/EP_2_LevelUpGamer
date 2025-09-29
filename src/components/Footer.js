@@ -1,5 +1,5 @@
 import React from 'react';
-import { FaInstagram, FaFacebookF, FaTwitter } from 'react-icons/fa'; // importar iconos
+import { FaInstagram, FaFacebookF, FaTwitter, FaWhatsapp } from 'react-icons/fa'; // importar iconos
 import './Footer.css';
 
 export default function Footer() {
@@ -28,6 +28,7 @@ export default function Footer() {
           <li><a href="https://instagram.com" target="_blank" rel="noopener noreferrer"><FaInstagram /></a></li>
           <li><a href="https://facebook.com" target="_blank" rel="noopener noreferrer"><FaFacebookF /></a></li>
           <li><a href="https://twitter.com" target="_blank" rel="noopener noreferrer"><FaTwitter /></a></li>
+          <li><a href="https://web.whatsapp.com/" target="_blank" rel="noopener noreferrer"><FaWhatsapp /></a></li>
         </ul>
       </div>
     </footer>

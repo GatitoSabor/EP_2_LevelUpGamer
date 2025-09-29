@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
+import ProductDetailModal from './ProductDetailModal';
 
-export default function Catalog({ products, onAddToCart }) {
+export default function Catalog({ products, onAddToCart, setSelectedProduct }) {
   const [filters, setFilters] = useState({
     marca: '',
     categoria: '',
@@ -61,12 +62,32 @@ export default function Catalog({ products, onAddToCart }) {
           <p>No hay productos</p>
         ) : (
           filteredProducts.map(product => (
-            <div key={product.id} className="product-card">
+            <div
+              key={product.id}
+              className="product-card"
+              onClick={() => setSelectedProduct(product)}
+              style={{ cursor: 'pointer' }}
+            >
               <img src={product.image} alt={product.name} />
               <h4>{product.name}</h4>
               <p>{product.description}</p>
-              <p className="price">${product.price.toLocaleString('es-CL')}</p>
-              <button onClick={() => onAddToCart(product)}>Añadir al carrito</button>
+              <p className="price">
+                {product.discount && product.discount > 0 ? (
+                  <>
+                    <span className="price-discounted">
+                      ${ (product.price * (1 - product.discount)).toLocaleString('es-CL') }
+                    </span>{' '}
+                    <span className="price-original">
+                      ${ product.price.toLocaleString('es-CL') }
+                    </span>
+                  </>
+                ) : (
+                  <>${ product.price.toLocaleString('es-CL') }</>
+                )}
+              </p>
+              {product.discount && product.discount > 0 && (
+                <p className="discount-label">Descuento {Math.round(product.discount * 100)}%</p>
+              )}
             </div>
           ))
         )}

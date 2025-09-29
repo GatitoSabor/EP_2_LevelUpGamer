@@ -1,0 +1,144 @@
+.product-detail-page {
+  background-color: white; /* fondo blanco */
+  box-shadow: none;
+  border-radius: 0;
+  padding: 0;
+  margin: 0;
+}
+
+.product-detail-wrapper {
+  background-color: white;
+  padding: 20px 30px;
+  border-radius: 12px;
+  box-shadow: 0 0 20px rgba(0,0,0,0.1);
+
+  box-sizing: border-box; /* Para incluir padding y border en el ancho */
+  width: 100vw;           /* Que ocupe todo el ancho de la ventana */
+  max-width: 100vw;       /* No exceda la ventana */
+  position: relative;     /* Para uso con calc */
+  left: 50%;              /* Mover 50% a la derecha */
+  right: 50%;             /* Mover 50% a la izquierda */
+  margin-left: -50vw;     /* Compensar left para que quede pegado a la izquierda ventana */
+  margin-right: -50vw;    /* Compensar right para que quede pegado a la derecha ventana */
+  margin-top: -48px;
+  margin-bottom: -48px;
+}
+
+.back-btn {
+  cursor: pointer;
+  background-color: transparent;
+  border: none;
+  font-size: 1.1rem;
+  color: #5a5af3;
+  font-weight: 700;
+  margin-bottom: 20px;
+  transition: color 0.3s ease;
+}
+
+.back-btn:hover {
+  color: #3f3fcf;
+}
+
+.product-main-info {
+  display: flex;
+  gap: 30px;
+  margin-bottom: 50px;
+}
+
+.image-container {
+  flex: 3;
+  max-height: 450px;
+  overflow: hidden;
+  border-radius: 12px;
+  box-shadow: 0 0 15px rgba(90, 90, 243, 0.3);
+}
+
+.image-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  border-radius: 12px;
+}
+
+.info-container {
+  flex: 1.2;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  justify-content: flex-start;
+  padding: 10px 15px;
+  background-color: #f7f7f7;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.07);
+}
+
+.info-container h2 {
+  margin-top: 0;
+  font-size: 1.8rem;
+  font-weight: 800;
+  color: #222;
+}
+
+.info-container .price {
+  font-size: 1.4rem;
+  font-weight: 800;
+  color: #5a5af3;
+}
+
+.add-to-cart-btn,
+.buy-now-btn {
+  background-color: #5a5af3;
+  border: none;
+  padding: 14px 15px;
+  font-weight: 700;
+  font-size: 1.1rem;
+  color: white;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.add-to-cart-btn:hover,
+.buy-now-btn:hover {
+  background-color: #3f3fcf;
+}
+
+.buy-now-btn {
+  margin-top: auto;
+}
+
+.stock-info {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #555;
+}
+
+.stock-info span {
+  font-weight: 900;
+  color: #222;
+}
+
+.additional-info {
+  background: white;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 1px 8px rgba(0,0,0,0.1);
+}
+
+.additional-info h3 {
+  margin-top: 0;
+  color: #5a5af3;
+  margin-bottom: 10px;
+}
+
+.additional-info p {
+  line-height: 1.5;
+  color: #444;
+}
+
+.button-group {
+  display: flex;
+  gap: 10px; /* espacio reducido entre botones */
+  flex-wrap: nowrap;
+}
+

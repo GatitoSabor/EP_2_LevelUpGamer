@@ -22,8 +22,25 @@
 
 .price {
   font-weight: bold;
-  color: #1E90FF;
   margin: 10px 0;
+  display: flex;
+  gap: 10px;
+  align-items: baseline;
+  justify-content: center;
+}
+
+.price-discounted {
+  color: #9336fd;
+  font-size: 1.2rem;
+  font-weight: 900;
+}
+
+.price-original {
+  color: #a3a3a3;
+  text-decoration: line-through;
+  font-size: 1rem;
+  font-weight: 600;
+  opacity: 0.8;
 }
 
 .product-card button {
@@ -65,4 +82,12 @@
   animation: flyToCart 0.7s forwards;
   background-color: rgba(147, 54, 253, 0.85);
   color: white;
+}
+
+.discount-label {
+  display: block;
+  color: #e60000;
+  font-weight: bold;
+  font-size: 0.85rem;
+  margin-top: 4px;
 }

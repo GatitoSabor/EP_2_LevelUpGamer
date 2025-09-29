@@ -2,11 +2,12 @@
   display: flex;
   justify-content: space-around;
   background-color: #2f2f2f;
-  color: #ddd;
+  color: #9b68ff;
   padding: 25px 40px;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   flex-wrap: wrap;
   gap: 25px;
+  border-top: 2px solid #9b68ff;
 }
 
 .footer-section {
@@ -17,7 +18,7 @@
 .footer-section h4 {
   font-weight: 700;
   margin-bottom: 18px;
-  color: #9b68ff;
+  color: #b9a1ff;
 }
 
 .footer-section ul {
@@ -31,7 +32,7 @@
 }
 
 .footer-section a {
-  color: #ccc;
+  color: #d0cfff;
   text-decoration: none;
   font-weight: 500;
   transition: color 0.3s;
@@ -50,7 +51,7 @@
 
 .social-links a {
   font-size: 24px;
-  color: #ccc;
+  color: #d0cfff;
 }
 
 .social-links a:hover {
