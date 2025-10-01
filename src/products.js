@@ -80,6 +80,7 @@ const products = [
     id: "SG001",
     name: "Silla Gamer Secretlab Titan",
     description: "Comodidad y ergonomía para largas sesiones de juego.",
+    descriptionmodal: "",
     price: 349990,
     image: sillaImg,
     marca: "Secretlab",
@@ -394,7 +395,8 @@ const products = [
     price: 3990,
     image: keycap1,
     marca: "KeycapLand",
-    categoria: "Keycaps"
+    categoria: "Keycaps",
+    juego: "Valorant"
   },
   {
     id: 'KC002',
@@ -403,7 +405,8 @@ const products = [
     price: 3990,
     image: keycap6,
     marca: "KeycapLand",
-    categoria: "Keycaps"
+    categoria: "Keycaps",
+    juego: "Valorant"
   },
   {
     id: 'KC003',
@@ -412,7 +415,8 @@ const products = [
     price: 3990,
     image: keycap2,
     marca: "KeycapLand",
-    categoria: "Keycaps"
+    categoria: "Keycaps",
+    juego: "Valorant"
   },
   {
     id: 'KC004',
@@ -421,7 +425,8 @@ const products = [
     price: 3990,
     image: keycap3,
     marca: "KeycapLand",
-    categoria: "Keycaps"
+    categoria: "Keycaps",
+    juego: "Valorant"
   },
   {
     id: 'KC005',
@@ -430,7 +435,8 @@ const products = [
     price: 3990,
     image: keycap4,
     marca: "KeycapLand",
-    categoria: "Keycaps"
+    categoria: "Keycaps",
+    juego: "Valorant"
   },
   {
     id: 'KC006',
@@ -439,7 +445,8 @@ const products = [
     price: 3990,
     image: keycap5,
     marca: "KeycapLand",
-    categoria: "Keycaps"
+    categoria: "Keycaps",
+    juego: "Valorant"
   },
   {
     id: 'KC007',
@@ -448,7 +455,8 @@ const products = [
     price: 3990,
     image: keycap7,
     marca: "KeycapLand",
-    categoria: "Keycaps"
+    categoria: "Keycaps",
+    juego: "Valorant"
   },
   {
     id: 'KC008',
@@ -457,7 +465,8 @@ const products = [
     price: 3990,
     image: keycap8,
     marca: "KeycapLand",
-    categoria: "Keycaps"
+    categoria: "Keycaps",
+    juego: "Valorant"
   },
   /*Mousepad*/
   {
@@ -467,7 +476,8 @@ const products = [
     price: 14990,
     image: mousepad1,
     marca: "MousepadLab",
-    categoria: "Mousepad"
+    categoria: "Mousepad",
+    juego: "Valorant"
   },
   {
     id: 'MP002',
@@ -476,7 +486,8 @@ const products = [
     price: 14990,
     image: mousepad2,
     marca: "MousepadLab",
-    categoria: "Mousepad"
+    categoria: "Mousepad",
+    juego: "Valorant"
   },
   {
     id: 'MP003',

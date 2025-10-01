@@ -64,27 +64,62 @@ function LoginForm({ onLogin }) {
 function SignUpForm({ onSignUp }) {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [fullName, setFullName] = useState('');
+  const [rut, setRut] = useState('');
+  const [birthDate, setBirthDate] = useState('');
+  const [email, setEmail] = useState('');
+
   const handleSubmit = e => {
     e.preventDefault();
-    onSignUp({ username, password });
+    onSignUp({ username, password, fullName, rut, birthDate, email });
   };
+
   return (
     <form onSubmit={handleSubmit} className="form">
-      <input 
-        type="text" 
-        placeholder="Usuario" 
-        value={username} 
-        onChange={e => setUsername(e.target.value)} 
+      <input
+        type="text"
+        placeholder="Usuario"
+        value={username}
+        onChange={e => setUsername(e.target.value)}
         required
       />
-      <input 
-        type="password" 
-        placeholder="Contraseña" 
-        value={password} 
-        onChange={e => setPassword(e.target.value)} 
+      <input
+        type="password"
+        placeholder="Contraseña"
+        value={password}
+        onChange={e => setPassword(e.target.value)}
+        required
+      />
+      <input
+        type="text"
+        placeholder="Nombre completo"
+        value={fullName}
+        onChange={e => setFullName(e.target.value)}
+        required
+      />
+      <input
+        type="text"
+        placeholder="RUT"
+        value={rut}
+        onChange={e => setRut(e.target.value)}
+        required
+      />
+      <input
+        type="date"
+        placeholder="Fecha de nacimiento"
+        value={birthDate}
+        onChange={e => setBirthDate(e.target.value)}
+        required
+      />
+      <input
+        type="email"
+        placeholder="Correo electrónico"
+        value={email}
+        onChange={e => setEmail(e.target.value)}
         required
       />
       <button type="submit" className="submit-btn">Registrar</button>
     </form>
   );
 }
+

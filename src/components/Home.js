@@ -6,8 +6,9 @@ import './Home.css';
 import products from '../products';
 import ProductDetailModal from './ProductDetailModal';
 import promoImage from '../assets/promos/promo.jpg';
+import promoVal from '../assets/promos/valo.jpg';
 
-export default function Home({ onAddToCart, onBuyNow }) {
+export default function Home({ onAddToCart, onBuyNow, onShowDiscountProducts, onShowValorantProducts }) {
   const [goToSlide, setGoToSlide] = useState(0);
   const [selectedProduct, setSelectedProduct] = useState(null);
 
@@ -19,6 +20,20 @@ export default function Home({ onAddToCart, onBuyNow }) {
 
   const productIdsToShow = ["SG003","CG002","CG004","AU002","AU003"];
   const filteredProducts = products.filter(p => productIdsToShow.includes(p.id));
+
+  const valorantProducts = products.filter(p => p.juego === 'Valorant').slice(0, 5);
+
+  const handlePromoClick = () => {
+    if (onShowDiscountProducts) {
+      onShowDiscountProducts();
+    }
+  };
+
+  const handleValorantPromoClick = () => {
+    if (onShowValorantProducts) {
+      onShowValorantProducts();
+    }
+  };
 
   if (selectedProduct) {
     return (
@@ -45,7 +60,6 @@ export default function Home({ onAddToCart, onBuyNow }) {
       </p>
 
       <h2 className="section-title">Productos destacados</h2>
-
       <div className="main-carousel" style={{ width: '80%', height: '300px', margin: '0 auto' }}>
         <Carousel
           slides={slides}
@@ -60,22 +74,26 @@ export default function Home({ onAddToCart, onBuyNow }) {
         />
       </div>
 
+      {/* Promo normal con productos */}
       <div style={{ display: 'flex', gap: '20px', marginTop: '40px', alignItems: 'center', justifyContent: 'center' }}>
-        <div style={{ flex: '0 0 250px', position: 'relative' }}>
-          <img src={promoImage} alt="Promoción Gamer" className="promo-image" />
-          <div className="promo-text-box">
-            <p><strong>¡Despacho Gratis!</strong></p>
-            <p>En productos seleccionados</p>
-            <button className="btn-ver-productos">Ver productos</button>
-          </div>
+        <div
+          style={{ flex: '0 0 300px', position: 'relative', cursor: 'pointer' }}
+          onClick={handlePromoClick}
+        >
+          <img
+            src={promoImage}
+            alt="Promoción Gamer"
+            className="promo-image"
+            style={{ objectFit: 'contain' }}
+          />
         </div>
 
-        <div style={{ flex: '1 1 auto', display: 'flex', gap: '15px', flexWrap: 'wrap', justifyContent: 'center' }}>
+        <div className="products-container">
           {filteredProducts.map(product => (
             <div
               key={product.id}
               className="discounted-product-card"
-              style={{ cursor: 'pointer', flex: '0 1 calc(20% - 15px)', margin: '0 6px' }}
+              style={{ cursor: 'pointer', margin: '0 3px' }}
               onClick={() => setSelectedProduct(product)}
             >
               {product.label && (
@@ -94,6 +112,47 @@ export default function Home({ onAddToCart, onBuyNow }) {
               <p className="payment-method">Transferencias</p>
             </div>
           ))}
+        </div>
+      </div>
+
+      {/* Bloque inverso: productos Valorant y luego promo para Valorant */}
+      <div style={{ display: 'flex', gap: '20px', marginTop: '60px', alignItems: 'center', justifyContent: 'center' }}>
+        <div className="products-container">
+          {valorantProducts.map(product => (
+            <div
+              key={product.id}
+              className="discounted-product-card"
+              style={{ cursor: 'pointer', margin: '0 3px' }}
+              onClick={() => setSelectedProduct(product)}
+            >
+              {product.label && (
+                <div className={`product-label ${product.label.toLowerCase().replace(/\s/g, '-')}`}>
+                  {product.label}
+                </div>
+              )}
+              <img src={product.image} alt={product.name} className="discounted-product-image" />
+              <h3 className="discounted-product-name">{product.name}</h3>
+              <p className="discounted-product-price">
+                <span className="original-price">${product.price.toLocaleString('es-CL')}</span>
+                <span className="discounted-price">
+                  ${((product.price * (1 - (product.discount || 0)))).toLocaleString('es-CL')}
+                </span>
+              </p>
+              <p className="payment-method">Transferencias</p>
+            </div>
+          ))}
+        </div>
+
+        <div
+          style={{ flex: '0 0 300px', position: 'relative', cursor: 'pointer' }}
+          onClick={handleValorantPromoClick}
+        >
+          <img
+            src={promoVal}
+            alt="Promoción Valorant"
+            className="promo-image"
+            style={{ objectFit: 'contain' }}
+          />
         </div>
       </div>
     </div>

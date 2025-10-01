@@ -3,7 +3,7 @@ import { FaShoppingCart } from 'react-icons/fa';
 import SearchDropdown from './SearchDropdown';
 import './Navbar.css';
 
-export default function Navbar({ onNavChange, cartCount, products, onSelectProduct, clearSignal }) {
+export default function Navbar({ user, onNavChange, cartCount, products, onSelectProduct, clearSignal, onLogout }) {
   return (
     <nav className="navbar">
       <div
@@ -21,7 +21,17 @@ export default function Navbar({ onNavChange, cartCount, products, onSelectProdu
       />
 
       <ul className="navbar-links">
-        <li><button onClick={() => onNavChange('login')}>Registro / Login</button></li>
+        {/* Renderizado condicional: si hay usuario */}
+        {user ? (
+          <>
+            <li><button onClick={() => onNavChange('miCuenta')}>Mi Cuenta</button></li>
+            <li><button onClick={onLogout}>Cerrar sesión</button></li>
+          </>
+        ) : (
+          <>
+            <li><button onClick={() => onNavChange('login')}>Registro / Login</button></li>
+          </>
+        )}
         <li><button onClick={() => onNavChange('catalogo')}>Catálogo</button></li>
         <li>
           <button onClick={() => onNavChange('carrito')} className="cart-button">

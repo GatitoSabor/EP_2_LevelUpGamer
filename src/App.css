@@ -409,3 +409,38 @@ header h1 {
   font-size: 0.9rem;
   margin-top: 5px;
 }
+
+.coupon-apply {
+  margin-bottom: 15px;
+  display: flex;
+  gap: 10px;
+}
+
+.coupon-apply input {
+  flex-grow: 1;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 1rem;
+}
+
+.coupon-apply button {
+  padding: 10px 20px;
+  background-color: #5a3fed;
+  border: none;
+  color: white;
+  font-weight: 700;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.coupon-apply button:hover {
+  background-color: #473acb;
+}
+
+.coupon-error {
+  color: red;
+  font-weight: 600;
+  margin-bottom: 15px;
+}

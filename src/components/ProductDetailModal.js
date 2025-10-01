@@ -48,7 +48,7 @@ export default function ProductDetailModal({ product, onClose, onAddToCart, onBu
 
         <section className="additional-info">
           <h3>Descripción</h3>
-          <p>{product.description}</p>
+          <p>{product.descriptionmodal}</p>
 
           <h3>Productos relacionados</h3>
           <p>Próximamente...</p>
