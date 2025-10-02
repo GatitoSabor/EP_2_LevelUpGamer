@@ -4,6 +4,9 @@ import './MiCuenta.css';
 export default function MiCuenta({ user, setUser, compras, cupones, setCuponesInternos }) {
   const [activeTab, setActiveTab] = useState('compras');
   const [puntos, setPuntos] = useState(user?.puntos || 5000);
+  const [direcciones, setDirecciones] = useState(user?.direcciones || []);
+  const [nuevaDireccion, setNuevaDireccion] = useState('');
+  const [editIndex, setEditIndex] = useState(null);
 
   const descuentos = [
     { id: 1, texto: "Descuento del 10% para cualquier producto", puntos: 500, descuentoPorc: 10 },
@@ -11,6 +14,54 @@ export default function MiCuenta({ user, setUser, compras, cupones, setCuponesIn
     { id: 3, texto: "Canjea 500 puntos por un cupón de $5.000", puntos: 500, valorFijo: 5000 },
     { id: 4, texto: "Envío gratuito", puntos: 300 }
   ];
+
+  // Añade estas funciones dentro del componente
+  const handleAddDireccion = () => {
+    if (nuevaDireccion.trim() === '') return;
+    setDirecciones([...direcciones, nuevaDireccion]);
+    setNuevaDireccion('');
+  };
+
+  const handleEditDireccion = (i) => {
+    setNuevaDireccion(direcciones[i]);
+    setEditIndex(i);
+  };
+
+  const handleSaveEdit = () => {
+    if (nuevaDireccion.trim() === '') return;
+    const copia = [...direcciones];
+    copia[editIndex] = nuevaDireccion;
+    setDirecciones(copia);
+    setNuevaDireccion('');
+    setEditIndex(null);
+  };
+
+  const [passwordForm, setPasswordForm] = useState({ actual: '', nueva: '' });
+  const handlePasswordChange = (e) => {
+    const { name, value } = e.target;
+    setPasswordForm(prev => ({ ...prev, [name]: value }));
+  };
+
+  const handleSavePassword = () => {
+    if (passwordForm.actual === '' || passwordForm.nueva === '') {
+      alert('Completa ambos campos.');
+      return;
+    }
+    if (passwordForm.actual !== user.password) {
+      alert('La contraseña actual es incorrecta.');
+      return;
+    }
+    // Luego sí, actualizas la contraseña en el usuario
+    setUser({...user, password: passwordForm.nueva});
+    alert('Contraseña modificada con éxito');
+    setPasswordForm({ actual: '', nueva: '' });
+  };
+
+
+
+  const handleDeleteDireccion = (i) => {
+    setDirecciones(direcciones.filter((_, idx) => idx !== i));
+  };
 
   const eliminarCupon = (codigoCupon) => {
     setCuponesInternos(cupones.filter(cup => cup.codigo !== codigoCupon));
@@ -113,6 +164,7 @@ export default function MiCuenta({ user, setUser, compras, cupones, setCuponesIn
           </div>
         )}
 
+
         {activeTab === 'datos' && (
           <div className="datos-personales">
             <h2>Datos Personales</h2>
@@ -135,9 +187,51 @@ export default function MiCuenta({ user, setUser, compras, cupones, setCuponesIn
           </div>
         )}
 
-        {activeTab === 'direcciones' && <div>Contenido Direcciones</div>}
+        {activeTab === 'direcciones' && (
+          <div className="direcciones-section">
+            <h2>Direcciones</h2>
+            <ul>
+              {direcciones.map((dir, i) => (
+                <li key={i}>
+                  {dir}
+                  <button onClick={() => handleEditDireccion(i)}>Editar</button>
+                  <button onClick={() => handleDeleteDireccion(i)}>Eliminar</button>
+                </li>
+              ))}
+            </ul>
+            <input
+              value={nuevaDireccion}
+              onChange={e => setNuevaDireccion(e.target.value)}
+              placeholder="Agregar/Editar dirección"
+            />
+            {editIndex === null ? (
+              <button onClick={handleAddDireccion}>Añadir</button>
+            ) : (
+              <button onClick={handleSaveEdit}>Guardar cambios</button>
+            )}
+          </div>
+        )}
 
-        {activeTab === 'contrasena' && <div>Contenido Contraseña</div>}
+        {activeTab === 'contrasena' && (
+          <div className="contrasena-section">
+            <h2>Modificar contraseña</h2>
+            <label>Contraseña actual</label>
+            <input
+              type="password"
+              name="actual"
+              value={passwordForm.actual}
+              onChange={handlePasswordChange}
+            />
+            <label>Nueva contraseña</label>
+            <input
+              type="password"
+              name="nueva"
+              value={passwordForm.nueva}
+              onChange={handlePasswordChange}
+            />
+            <button onClick={handleSavePassword}>Guardar nueva contraseña</button>
+          </div>
+        )}
 
         {activeTab === 'tiendaPuntos' && (
           <div className="tienda-puntos">

@@ -35,9 +35,10 @@ export default function App() {
 
 
   const cuponesDisponibles = [
-    { codigo: "DESC10", descripcion: "10% de descuento en compras mayores a $50.000", descuento: 10 },
-    { codigo: "ENVIOGRATIS", descripcion: "Envío gratis en compras superiores a $30.000", descuento: 0 },
+    { codigo: "DESC10", descripcion: "10% de descuento...", descuento: 10, usosRestantes: 1 },
+    { codigo: "ENVIOGRATIS", descripcion: "Envío gratis...", descuento: 0, usosRestantes: 1 }
   ];
+
   useEffect(() => {
   if (!couponCode) {
     setDiscountPercent(0);
@@ -94,13 +95,43 @@ useEffect(() => {
 
     // Si el usuario aplicó un cupón válido
     if (couponCode) {
-      // Elimina el cupón aplicado del listado global de cupones
       setCuponesInternos(prevCupones =>
-        prevCupones.filter(c => c.codigo.toUpperCase() !== couponCode.toUpperCase())
+        prevCupones
+          .map(c =>
+            c.codigo.toUpperCase() === couponCode.toUpperCase()
+              ? { ...c, usosRestantes: (c.usosRestantes || 1) - 1 }
+              : c
+          )
+          // Borra solo si los usos llegan a cero
+          .filter(c => !(c.codigo.toUpperCase() === couponCode.toUpperCase() && (c.usosRestantes || 1) <= 0))
       );
 
-      // Opcional: actualizar también localStorage o user para persistir esto
+      // Si gestionas los cupones también en el perfil del usuario:
+      if (user) {
+        const newUser = {
+          ...user,
+          cupones: (user.cupones || [])
+            .map(c =>
+              c.codigo.toUpperCase() === couponCode.toUpperCase()
+                ? { ...c, usosRestantes: (c.usosRestantes || 1) - 1 }
+                : c
+            )
+            .filter(c => !(c.codigo.toUpperCase() === couponCode.toUpperCase() && (c.usosRestantes || 1) <= 0))
+        };
+        setUser(newUser);
+
+        // Guarda el usuario actualizado en localStorage si lo deseas
+        const usuarios = getUsuariosStorage();
+        const idx = usuarios.findIndex(u => u.username === user.username);
+        if (idx > -1) {
+          usuarios[idx] = newUser;
+          localStorage.setItem('usuarios', JSON.stringify(usuarios));
+        }
+      }
     }
+
+
+
 
     // Resto del checkout...
     const comprasConDescuento = cart.map(item => {
@@ -288,7 +319,7 @@ const handleGuardarCompra = (compra) => {
             onBuyNow={() => alert('Función comprar ahora no implementada')}
           />
         ) : page === 'miCuenta' && user ? (
-          <MiCuenta user={user} setUser={setUser} compras={compras} cupones={cuponesDisponibles} setCuponesInternos={setCuponesInternos} />
+          <MiCuenta user={user} setUser={setUser} compras={compras} cupones={cuponesInternos} setCuponesInternos={setCuponesInternos} />
         ) : (
           <>
             {page === 'home' && (
