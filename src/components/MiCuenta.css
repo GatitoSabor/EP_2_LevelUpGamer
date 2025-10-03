@@ -378,7 +378,8 @@
 /* Botón eliminar */
 .direcciones-section button:last-child {
   background-color: #d9534f; /* rojo atractivo */
-  padding: 8px 28px;
+  margin-top: 2vmax;
+  padding: 10px 28px;
 }
 
 .direcciones-section button:last-child:hover {

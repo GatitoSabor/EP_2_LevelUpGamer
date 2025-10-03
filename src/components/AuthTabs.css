@@ -1,11 +1,11 @@
 .auth-tabs-container {
   max-width: 360px;
   margin: 50px auto;
-  background: #363434; /* gris oscuro */
+  background: #ffffff; /* gris oscuro */
   padding: 25px;
   border-radius: 16px;
   box-shadow: 0 0 40px rgba(128, 0, 128, 0.6); /* sombra purpura */
-  color: #ddd; /* gris claro */
+  color: #b6b6b6; /* gris claro */
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   overflow: hidden;
   position: relative;
@@ -93,7 +93,7 @@
   border-radius: 12px;
   border: none;
   font-size: 1.1rem;
-  background-color: #555555; /* gris medio */
+  background-color: #e1a6fd; /* gris medio */
   color: #eee;
   transition: background-color 0.3s;
   outline-offset: 2px;

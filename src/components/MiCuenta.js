@@ -194,8 +194,6 @@ export default function MiCuenta({ user, setUser, compras, cupones, setCuponesIn
               {direcciones.map((dir, i) => (
                 <li key={i}>
                   {dir}
-                  <button onClick={() => handleEditDireccion(i)}>Editar</button>
-                  <button onClick={() => handleDeleteDireccion(i)}>Eliminar</button>
                 </li>
               ))}
             </ul>
@@ -209,6 +207,14 @@ export default function MiCuenta({ user, setUser, compras, cupones, setCuponesIn
             ) : (
               <button onClick={handleSaveEdit}>Guardar cambios</button>
             )}
+            <ul>
+              {direcciones.map((dir, i) => (
+                <li key={i}>
+                  <button onClick={() => handleEditDireccion(i)}>Editar</button>
+                  <button onClick={() => handleDeleteDireccion(i)}>Eliminar</button>
+                </li>
+              ))}
+            </ul>
           </div>
         )}
 
