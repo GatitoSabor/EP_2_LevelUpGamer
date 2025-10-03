@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Carousel from 'react-spring-3d-carousel';
 import { config } from 'react-spring';
 import './Home.css';
@@ -8,7 +8,7 @@ import ProductDetailModal from './ProductDetailModal';
 import promoImage from '../assets/promos/promo.jpg';
 import promoVal from '../assets/promos/valo.jpg';
 
-export default function Home({ onAddToCart, onBuyNow, onShowDiscountProducts, onShowValorantProducts }) {
+export default function Home({ onAddToCart, onBuyNow, onShowDiscountProducts, onShowValorantProducts, onShowNews }) {
   const [goToSlide, setGoToSlide] = useState(0);
   const [selectedProduct, setSelectedProduct] = useState(null);
 
@@ -17,6 +17,14 @@ export default function Home({ onAddToCart, onBuyNow, onShowDiscountProducts, on
     { key: 1, content: <img src={require('../assets/promos/3.jpg')} alt="Promo2" className="main-carousel-image" /> },
     { key: 2, content: <img src={require('../assets/promos/4.jpg')} alt="Promo3" className="main-carousel-image" /> },
   ];
+
+  // Rotación automática: cada 3 segundos cambia la diapositiva
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setGoToSlide(prev => (prev + 1) % slides.length);
+    }, 3000);
+    return () => clearInterval(timer);
+  }, [slides.length]);
 
   const productIdsToShow = ["SG003","CG002","CG004","AU002","AU003"];
   const filteredProducts = products.filter(p => productIdsToShow.includes(p.id));
@@ -38,14 +46,12 @@ export default function Home({ onAddToCart, onBuyNow, onShowDiscountProducts, on
   if (selectedProduct) {
     return (
       <div>
-        <button onClick={() => setSelectedProduct(null)} style={{ margin: '20px' }}>
-          ← Volver
-        </button>
         <ProductDetailModal
           product={selectedProduct}
           onClose={() => setSelectedProduct(null)}
           onAddToCart={onAddToCart}
           onBuyNow={onBuyNow}
+          onSelectProduct={setSelectedProduct}
         />
       </div>
     );
@@ -53,23 +59,14 @@ export default function Home({ onAddToCart, onBuyNow, onShowDiscountProducts, on
 
   return (
     <div className="home-root">
-      <h2 className="section-title">Quiénes somos</h2>
-      <p className="section-description">
-        Level-Up Gamer es una tienda online que ofrece productos de alta calidad para gamers en todo Chile,
-        con una experiencia de compra única y un compromiso con la comunidad gamer.
-      </p>
-
-      <h2 className="section-title">Productos destacados</h2>
       <div className="main-carousel" style={{ width: '80%', height: '300px', margin: '0 auto' }}>
         <Carousel
           slides={slides}
           goToSlide={goToSlide}
           offsetRadius={2}
-          showNavigation={true}
+          showNavigation={false}  // ocultar flechas
           animationConfig={config.gentle}
           onGoToSlide={setGoToSlide}
-          autoplay={true}
-          interval={3000}
           springConfig={{ mass: 1, tension: 120, friction: 20 }}
         />
       </div>
@@ -154,6 +151,24 @@ export default function Home({ onAddToCart, onBuyNow, onShowDiscountProducts, on
             style={{ objectFit: 'contain' }}
           />
         </div>
+      </div>
+
+      {/* Botón para ir a Noticias */}
+      <div style={{ textAlign: 'center', marginTop: '40px' }}>
+        <button
+          onClick={onShowNews}
+          style={{
+            padding: '12px 24px',
+            fontSize: '16px',
+            cursor: 'pointer',
+            borderRadius: '5px',
+            backgroundColor: '#007bff',
+            color: '#fff',
+            border: 'none',
+          }}
+        >
+          Ir a Noticias de Videojuegos
+        </button>
       </div>
     </div>
   );

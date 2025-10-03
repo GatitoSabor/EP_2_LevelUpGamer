@@ -1,16 +1,22 @@
 .app {
-  padding: 20px;
-  background-color: #2f2f2f; /* gris oscuro */
+  padding: 20px; /* Solo padding lateral y abajo, sin arriba */
+  background-color: #2f2f2f;
   color: #000;
   font-family: 'Roboto', sans-serif;
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-  box-sizing: border-box; /* importante para evitar overflow */
+  box-sizing: border-box;
 }
+
 
 .app > :not(footer) {
   flex-grow: 1;
+}
+
+footer {
+  flex-shrink: 0; /* para que footer no se reduzca */
+  background-color: #5a5af3; /* ajusta según tu diseño */
 }
 
 header h1 {
@@ -26,8 +32,7 @@ header h1 {
   padding: 20px;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   background-color: #f9f9f9;
-  border: 1px solid #ddd;
-  border-radius: 10px;
+  
 
   box-sizing: border-box;
   width: 100%; /* Cambiado de 100vw */
@@ -168,23 +173,19 @@ header h1 {
 
 
 /* Carrito */
+
+
 .cart {
-  max-width: none;
-  width: 100%; /* Cambiado de 100vw */
-  margin: 0 auto; /* en lugar de márgenes negativos */
+  width: 100%;
   padding: 15px 20px;
   box-sizing: border-box;
   background-color: white;
-  border-radius: 12px;
   box-shadow: 0 3px 12px rgba(0,0,0,0.1);
-  display: flex;
-  flex-direction: column;
-  min-height: 400px;
   border: 1px solid #ddd;
-  overflow-x: hidden; /* evitar scroll horizontal */
-  margin-top: 0; /* removido -48px */
-  margin-bottom: 0; /* removido -48px */
+  overflow-x: hidden;
+  margin: 0;
 }
+
 
 /* Contenedor principal del contenido del carrito */
 .cart-content {

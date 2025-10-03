@@ -2,16 +2,20 @@ import React from 'react';
 import { FaShoppingCart } from 'react-icons/fa';
 import SearchDropdown from './SearchDropdown';
 import './Navbar.css';
+import './GlitchText.css';
+import GlitchText from './GlitchText';
 
 export default function Navbar({ user, onNavChange, cartCount, products, onSelectProduct, clearSignal, onLogout }) {
   return (
     <nav className="navbar">
       <div
         className="navbar-logo"
-        style={{ cursor: 'pointer' }}
         onClick={() => onNavChange('home')}
+        style={{ cursor: 'pointer' }}
       >
-        Level-Up Gamer
+        <GlitchText speed={1} enableShadows={true} enableOnHover={true}>
+          Level-Up Gamer
+        </GlitchText>
       </div>
 
       <SearchDropdown 

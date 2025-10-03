@@ -8,6 +8,8 @@ import Footer from './components/Footer';
 import ProductDetailModal from './components/ProductDetailModal';
 import MiCuenta from './components/MiCuenta';
 import products from './products';
+import Noticias from './components/Noticias';
+
 import './App.css';
 
 export default function App() {
@@ -40,34 +42,42 @@ export default function App() {
   ];
 
   useEffect(() => {
-  if (!couponCode) {
-    setDiscountPercent(0);
-    setCouponError('');
-    return;
-  }
-  
+    if (!couponCode) {
+      setDiscountPercent(0);
+      setCouponError('');
+      return;
+    }
 
-  const productosNoValidos = cart.some(
-    (item) => item.price > 1000000 || (item.discount && item.discount > 0)
-  );
-
-  if (productosNoValidos) {
-    setDiscountPercent(0);
-    setCouponError('No puedes aplicar cupones a productos sobre $1.000.000 o con descuento.');
-  } else {
-    const cup = cuponesDisponibles.find(
-      (c) => c.codigo.toUpperCase() === couponCode.toUpperCase().trim()
+    const productosNoValidos = cart.some(
+      item => item.price > 1000000 || (item.discount && item.discount > 0)
     );
 
-    if (!cup) {
+    if (productosNoValidos) {
+      setDiscountPercent(0);
+      setCouponError('No puedes aplicar cupones a productos sobre $1.000.000 o con descuento.');
+      return;
+    }
+
+    // Buscar cupón en los cupones disponibles generales
+    const cupGeneral = cuponesDisponibles.find(
+      c => c.codigo.toUpperCase() === couponCode.toUpperCase().trim()
+    );
+
+    // Buscar cupón en los cupones propios/canjeados del usuario
+    const cupInterno = cuponesInternos.find(
+      c => c.codigo.toUpperCase() === couponCode.toUpperCase().trim()
+    );
+
+    if (!cupGeneral && !cupInterno) {
       setDiscountPercent(0);
       setCouponError('Código de cupón inválido');
     } else {
-      setDiscountPercent(cup.descuento);
+      // Usar el cupón válido (priorizando interno)
+      const cuponActivo = cupInterno || cupGeneral;
+      setDiscountPercent(cuponActivo.descuento || 0);
       setCouponError('');
     }
-  }
-}, [cart, couponCode, cuponesDisponibles]);
+  }, [cart, couponCode, cuponesDisponibles, cuponesInternos]);
 
 // Ahora la función handleApplyCoupon solo limpia errores,
 // para activarse la validación y el descuento es dinámico con useEffect
@@ -93,7 +103,6 @@ useEffect(() => {
       return;
     }
 
-    // Si el usuario aplicó un cupón válido
     if (couponCode) {
       setCuponesInternos(prevCupones =>
         prevCupones
@@ -102,11 +111,9 @@ useEffect(() => {
               ? { ...c, usosRestantes: (c.usosRestantes || 1) - 1 }
               : c
           )
-          // Borra solo si los usos llegan a cero
           .filter(c => !(c.codigo.toUpperCase() === couponCode.toUpperCase() && (c.usosRestantes || 1) <= 0))
       );
 
-      // Si gestionas los cupones también en el perfil del usuario:
       if (user) {
         const newUser = {
           ...user,
@@ -116,11 +123,11 @@ useEffect(() => {
                 ? { ...c, usosRestantes: (c.usosRestantes || 1) - 1 }
                 : c
             )
-            .filter(c => !(c.codigo.toUpperCase() === couponCode.toUpperCase() && (c.usosRestantes || 1) <= 0))
+            .filter(c => !(c.codigo.toUpperCase() === couponCode.toUpperCase() && (c.usosRestantes || 1) <= 0)),
         };
         setUser(newUser);
 
-        // Guarda el usuario actualizado en localStorage si lo deseas
+        // Actualiza localStorage también
         const usuarios = getUsuariosStorage();
         const idx = usuarios.findIndex(u => u.username === user.username);
         if (idx > -1) {
@@ -129,6 +136,7 @@ useEffect(() => {
         }
       }
     }
+
 
 
 
@@ -202,6 +210,12 @@ useEffect(() => {
 const getUsuariosStorage = () => {
   const usuarios = localStorage.getItem('usuarios');
   return usuarios ? JSON.parse(usuarios) : [];
+};
+
+// Función para manejar selección de producto (de productos relacionados)
+const handleSelectProduct = (product) => {
+  setSelectedProduct(product);
+  setPage('ProductDetailModal');  // o la página/modal que uses para ver producto
 };
 
 const handleSignUp = (datosUsuario) => {
@@ -317,6 +331,7 @@ const handleGuardarCompra = (compra) => {
             onClose={() => setSelectedProduct(null)}
             onAddToCart={addToCart}
             onBuyNow={() => alert('Función comprar ahora no implementada')}
+            onSelectProduct={handleSelectProduct}
           />
         ) : page === 'miCuenta' && user ? (
           <MiCuenta user={user} setUser={setUser} compras={compras} cupones={cuponesInternos} setCuponesInternos={setCuponesInternos} />
@@ -328,6 +343,7 @@ const handleGuardarCompra = (compra) => {
                 onBuyNow={() => alert('Función comprar ahora no implementada')}
                 onShowDiscountProducts={handleShowDiscountProducts}
                 onShowValorantProducts={handleShowValorantProducts}
+                onShowNews={() => goToPage('noticias')}
               />
             )}
 
@@ -460,7 +476,8 @@ const handleGuardarCompra = (compra) => {
                 </div>
               </section>
             )}
-
+            {page === 'noticias' && <Noticias onNavigate={goToPage} />}
+            
           </>
         )}
 

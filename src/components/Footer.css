@@ -57,3 +57,13 @@
 .social-links a:hover {
   color: #9b68ff;
 }
+.modal-link {
+  color: #9b68ff;
+  text-decoration: none;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.modal-link:hover {
+  text-decoration: underline;
+}

@@ -3,6 +3,7 @@
   font-family: 'Roboto', sans-serif;
   color: #1a1a1a;
   background-color: #fff;
+  box-sizing: border-box;
 }
 
 .section-title {
