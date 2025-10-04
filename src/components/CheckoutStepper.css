@@ -1,0 +1,75 @@
+.step-personal-data h2, .step-address-data h2, .step-summary h2, .step-final-message h2 {
+  font-size: 1.5rem;
+  color: #33475b;
+  margin-bottom: 1rem;
+  font-weight: 600;
+}
+
+.input-personal, .input-address {
+  display: block;
+  width: 100%;
+  max-width: 400px;
+  font-size: 1rem;
+  padding: 0.5em 0.75em;
+  margin-bottom: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  transition: border-color 0.3s ease;
+}
+
+.input-personal:focus, .input-address:focus {
+  outline: none;
+  border-color: #1a73e8;
+  box-shadow: 0 0 6px #1a73e8aa;
+}
+
+.step-summary {
+  background-color: #f5f7fa;
+  padding: 1rem;
+  border-radius: 10px;
+  box-shadow: 0 1px 4px rgb(0 0 0 / 0.1);
+}
+
+.step-summary ul {
+  list-style: none;
+  padding: 0;
+  max-height: 250px;
+  overflow-y: auto;
+}
+
+.step-summary li {
+  display: flex;
+  align-items: center;
+  margin-bottom: 12px;
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 8px;
+}
+
+.step-summary img {
+  width: 50px;
+  height: 50px;
+  object-fit: contain;
+  margin-right: 15px;
+  border-radius: 6px;
+  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.1);
+}
+
+.step-summary strong {
+  flex: 1 1 auto;
+  font-weight: 600;
+  color: #222;
+}
+
+.step-summary p {
+  margin: 0 8px 0 0;
+  color: #555;
+  font-size: 0.9rem;
+}
+
+.step-final-message p {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #1a7f00;
+  text-align: center;
+}
+

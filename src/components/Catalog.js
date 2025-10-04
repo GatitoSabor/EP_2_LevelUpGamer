@@ -9,6 +9,7 @@ export default function Catalog({ products, onAddToCart, setSelectedProduct, ini
     precioMax: Infinity,
     juego: '',
     soloConDescuento: false,
+    envioGratis: false,
     ...initialFilters,
   });
 
@@ -36,7 +37,8 @@ export default function Catalog({ products, onAddToCart, setSelectedProduct, ini
     (filters.juego === '' || p.juego === filters.juego) &&
     p.price >= filters.precioMin &&
     p.price <= filters.precioMax &&
-    (!filters.soloConDescuento || (p.discount && p.discount > 0))
+    (!filters.soloConDescuento || (p.discount && p.discount > 0)) &&
+    (!filters.envioGratis || (p.envioGratis === true))
   );
 });
 
@@ -82,6 +84,17 @@ export default function Catalog({ products, onAddToCart, setSelectedProduct, ini
               onChange={handleFilterChange}
             />
             Solo con descuento
+          </label>
+        </div>
+        <div className="filter-group">
+          <label>
+            <input
+              type="checkbox"
+              name="envioGratis"
+              checked={filters.envioGratis}
+              onChange={handleFilterChange}
+            />
+            Envío Gratis
           </label>
         </div>
       </aside>

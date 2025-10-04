@@ -9,6 +9,7 @@ import ProductDetailModal from './components/ProductDetailModal';
 import MiCuenta from './components/MiCuenta';
 import products from './products';
 import Noticias from './components/Noticias';
+import CheckoutStepper from './components/CheckoutStepper';
 
 import './App.css';
 
@@ -34,6 +35,11 @@ export default function App() {
   const [discountPercent, setDiscountPercent] = useState(0); // descuento activo
   const [couponError, setCouponError] = useState(''); // mensaje de error cupón
   const [cuponesInternos, setCuponesInternos] = useState(user ? user.cupones || [] : []);
+
+  const [clienteData, setClienteData] = useState({ nombre: '', email: '' });
+  const [direccionData, setDireccionData] = useState({ direccion: '', ciudad: '' });
+  const [pagoData, setPagoData] = useState({ numeroTarjeta: '', expiracion: '' });
+  const [showCheckout, setShowCheckout] = useState(false);
 
 
   const cuponesDisponibles = [
@@ -83,6 +89,19 @@ export default function App() {
 // para activarse la validación y el descuento es dinámico con useEffect
 const handleApplyCoupon = () => {
   setCouponError('');
+};
+
+const handleStartCheckout = () => {
+  if (cart.length === 0) {
+    alert('El carrito está vacío');
+    return;
+  }
+  if (!user) {
+    alert('Debes iniciar sesión para realizar una compra.');
+    setPage('login');
+    return;
+  }
+  setShowCheckout(true);
 };
 
 useEffect(() => {
@@ -367,6 +386,22 @@ const handleGuardarCompra = (compra) => {
             )}
 
             {page === 'carrito' && (
+              showCheckout ? (
+                <CheckoutStepper
+                  cart={cart}
+                  cartItems={cart}
+                  clienteData={clienteData}
+                  setClienteData={setClienteData}
+                  direccionData={direccionData}
+                  setDireccionData={setDireccionData}
+                  pagoData={pagoData}
+                  setPagoData={setPagoData}
+                  onFinishCheckout={() => {
+                    handleCheckout();
+                    setShowCheckout(false);
+                  }}
+                />
+              ) : (
               <section className="cart">
                 <h2>
                   Carro ({cart.length} {cart.length === 1 ? 'item' : 'items'})
@@ -471,10 +506,11 @@ const handleGuardarCompra = (compra) => {
                       <p>TOTAL</p>
                       <p>${precioConDescuento.toLocaleString('es-CL')}</p>
                     </div>
-                    <button className="checkout-btn" onClick={handleCheckout}>Iniciar pago</button>
+                    <button className="checkout-btn" onClick={handleStartCheckout}>Iniciar pago</button>
                   </aside>
                 </div>
               </section>
+              )
             )}
             {page === 'noticias' && <Noticias onNavigate={goToPage} />}
             
