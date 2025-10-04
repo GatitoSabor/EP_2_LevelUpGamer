@@ -9,9 +9,9 @@ export default function MiCuenta({ user, setUser, compras, cupones, setCuponesIn
   const [editIndex, setEditIndex] = useState(null);
 
   const descuentos = [
-    { id: 1, texto: "Descuento del 10% para cualquier producto", puntos: 500, descuentoPorc: 10 },
+    { id: 1, texto: "Descuento del 10% en productos seleccionados", puntos: 500, descuentoPorc: 10 },
     { id: 2, texto: "20% de descuento en productos seleccionados", puntos: 1000, descuentoPorc: 20 },
-    { id: 3, texto: "Canjea 500 puntos por un cupón de $5.000", puntos: 500, valorFijo: 5000 },
+    { id: 3, texto: "Descuento del 10% para cualquier producto", puntos: 2000, descuentoPorc: 10 },
     { id: 4, texto: "Envío gratuito", puntos: 300 }
   ];
 
@@ -172,7 +172,7 @@ export default function MiCuenta({ user, setUser, compras, cupones, setCuponesIn
             <input name="username" value={editableUser.username || ''} onChange={handleChange} />
 
             <label>Nombre completo</label>
-            <input name="nombre" value={editableUser.nombre || ''} onChange={handleChange} />
+            <input name="fullName" value={editableUser.fullName || ''} onChange={handleChange} />
 
             <label>RUT</label>
             <input name="rut" value={editableUser.rut || ''} onChange={handleChange} />
@@ -202,11 +202,13 @@ export default function MiCuenta({ user, setUser, compras, cupones, setCuponesIn
               onChange={e => setNuevaDireccion(e.target.value)}
               placeholder="Agregar/Editar dirección"
             />
+            <ul></ul>
             {editIndex === null ? (
               <button onClick={handleAddDireccion}>Añadir</button>
             ) : (
               <button onClick={handleSaveEdit}>Guardar cambios</button>
             )}
+            <ul></ul>
             <ul>
               {direcciones.map((dir, i) => (
                 <li key={i}>
@@ -229,6 +231,13 @@ export default function MiCuenta({ user, setUser, compras, cupones, setCuponesIn
               onChange={handlePasswordChange}
             />
             <label>Nueva contraseña</label>
+            <input
+              type="password"
+              name="nueva"
+              value={passwordForm.nueva}
+              onChange={handlePasswordChange}
+            />
+            <label>Repetir nueva contraseña</label>
             <input
               type="password"
               name="nueva"

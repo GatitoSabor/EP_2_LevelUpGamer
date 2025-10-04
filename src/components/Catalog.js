@@ -61,7 +61,7 @@ export default function Catalog({ products, onAddToCart, setSelectedProduct, ini
           </select>
         </div>
         <div className="filter-group">
-          <label>Juego:</label>
+          <label>Colaboración:</label>
           <select name="juego" value={filters.juego} onChange={handleFilterChange}>
             <option value="">Todos</option>
             {juegos.map(j => <option key={j} value={j}>{j}</option>)}

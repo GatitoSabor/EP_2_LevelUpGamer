@@ -8,12 +8,22 @@ import ProductDetailModal from './ProductDetailModal';
 import promoImage from '../assets/promos/promo.jpg';
 import promoVal from '../assets/promos/valo.jpg';
 
-export default function Home({ onAddToCart, onBuyNow, onShowDiscountProducts, onShowValorantProducts, onShowNews }) {
+export default function Home({ onAddToCart, onBuyNow, onShowDiscountProducts, onShowValorantProducts, onShowNews, onShowEvents }) {
   const [goToSlide, setGoToSlide] = useState(0);
   const [selectedProduct, setSelectedProduct] = useState(null);
+  const productIdsToShow = ["SG003","CG002","CG004","AU002","AU003"];
+  const filteredProducts = products.filter(p => productIdsToShow.includes(p.id));
+
+  const valorantProducts = products.filter(p => p.juego === 'Valorant').slice(0, 5);
+
+  const handleValorantPromoClick = () => {
+    if (onShowValorantProducts) {
+      onShowValorantProducts();
+    }
+  };
 
   const slides = [
-    { key: 0, content: <img src={require('../assets/promos/2.jpg')} alt="Promo" className="main-carousel-image" /> },
+    { key: 0, content: <img src={require('../assets/promos/2.jpg')} alt="Promo" className="main-carousel-image" onClick={handleValorantPromoClick}/> },
     { key: 1, content: <img src={require('../assets/promos/3.jpg')} alt="Promo2" className="main-carousel-image" /> },
     { key: 2, content: <img src={require('../assets/promos/4.jpg')} alt="Promo3" className="main-carousel-image" /> },
   ];
@@ -26,22 +36,13 @@ export default function Home({ onAddToCart, onBuyNow, onShowDiscountProducts, on
     return () => clearInterval(timer);
   }, [slides.length]);
 
-  const productIdsToShow = ["SG003","CG002","CG004","AU002","AU003"];
-  const filteredProducts = products.filter(p => productIdsToShow.includes(p.id));
-
-  const valorantProducts = products.filter(p => p.juego === 'Valorant').slice(0, 5);
-
   const handlePromoClick = () => {
     if (onShowDiscountProducts) {
       onShowDiscountProducts();
     }
   };
 
-  const handleValorantPromoClick = () => {
-    if (onShowValorantProducts) {
-      onShowValorantProducts();
-    }
-  };
+  
 
   if (selectedProduct) {
     return (
@@ -169,6 +170,18 @@ export default function Home({ onAddToCart, onBuyNow, onShowDiscountProducts, on
         >
           Ir a Noticias de Videojuegos
         </button>
+      </div>
+      <div style={{ textAlign: 'center', marginTop: '40px' }}>
+        <button onClick={onShowEvents}
+          style={{
+              padding: '12px 24px',
+              fontSize: '16px',
+              cursor: 'pointer',
+              borderRadius: '5px',
+              backgroundColor: '#007bff',
+              color: '#fff',
+              border: 'none',
+            }}>Ver Eventos</button>
       </div>
     </div>
   );

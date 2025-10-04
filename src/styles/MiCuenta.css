@@ -368,6 +368,8 @@
 
 .direcciones-section button:first-child {
   background-color: #6c63ff; /* color púrpura suave */
+  margin-top: 0;
+  padding: 10px 28px;
 }
 
 .direcciones-section button:first-child:hover {
@@ -377,8 +379,8 @@
 
 /* Botón eliminar */
 .direcciones-section button:last-child {
-  background-color: #d9534f; /* rojo atractivo */
-  margin-top: 2vmax;
+  background-color: #6c63ff; /* rojo atractivo */
+  margin-top: 0;
   padding: 10px 28px;
 }
 
@@ -391,7 +393,7 @@
 .direcciones-section li {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  gap: 8px;
 }
 
 .direcciones-section li > span {

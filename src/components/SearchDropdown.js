@@ -3,13 +3,14 @@ import '../styles/SearchDropdown.css';
 
 export default function SearchDropdown({ products = [], onSelectProduct, clearSignal }) {
   const [query, setQuery] = useState('');
-  const [results, setResults] = useState([]);
+  const [filteredCategories, setFilteredCategories] = useState([]);
+  const [filteredProducts, setFilteredProducts] = useState([]);
 
-  // Para limpiar el input desde fuera (cuando cambias página, por ejemplo)
   useEffect(() => {
     if (clearSignal) {
       setQuery('');
-      setResults([]);
+      setFilteredCategories([]);
+      setFilteredProducts([]);
     }
   }, [clearSignal]);
 
@@ -17,20 +18,34 @@ export default function SearchDropdown({ products = [], onSelectProduct, clearSi
     const value = e.target.value;
     setQuery(value);
 
-    if (value.length > 1 && Array.isArray(products)) {
-      const filtered = products.filter(p =>
+    if (value.length > 1) {
+      // Filtrar productos por coincidencia de nombre o descripción
+      const productsMatched = products.filter(p =>
         p.name.toLowerCase().includes(value.toLowerCase()) ||
         p.description.toLowerCase().includes(value.toLowerCase())
       );
-      setResults(filtered.slice(0, 10));
+
+      // Filtrar categorías únicas que coincidan con la búsqueda
+      const categoriesMatched = [
+        ...new Set(
+          products
+            .map(p => p.category)
+            .filter(cat => cat && cat.toLowerCase().includes(value.toLowerCase()))
+        )
+      ];
+
+      setFilteredProducts(productsMatched.slice(0, 10));
+      setFilteredCategories(categoriesMatched.slice(0, 5));
     } else {
-      setResults([]);
+      setFilteredCategories([]);
+      setFilteredProducts([]);
     }
   };
 
   const clearInput = () => {
     setQuery('');
-    setResults([]);
+    setFilteredCategories([]);
+    setFilteredProducts([]);
   };
 
   return (
@@ -42,37 +57,65 @@ export default function SearchDropdown({ products = [], onSelectProduct, clearSi
         onChange={handleInputChange}
         className="search-dropdown-input"
       />
-      {/* Botón X para limpiar texto, visible solo si query tiene texto */}
+
       {query && (
         <button className="search-clear-btn" onClick={clearInput} aria-label="Limpiar búsqueda">
           &#10005;
         </button>
       )}
-      {results.length > 0 && (
-        <ul className="search-dropdown-results">
-          {results.map(product => (
-            <li
-              key={product.id}
-              onMouseDown={() => {
-                onSelectProduct(product);
-                clearInput();
-              }}
-              className="search-dropdown-item"
-            >
-              <img 
-                src={product.image} 
-                alt={product.name} 
-                className="search-dropdown-item-image"
-              />
-              <div className="search-dropdown-item-info">
-                <div className="search-dropdown-item-name">{product.name}</div>
-                <div className="search-dropdown-item-description">{product.description}</div>
-              </div>
-              <div className="search-dropdown-item-price">${product.price.toLocaleString('es-CL')}</div>
-            </li>
-          ))}
-        </ul>
+
+      {(filteredCategories.length > 0 || filteredProducts.length > 0) && (
+        <div className="search-dropdown-results">
+          {/* SUGERENCIAS */}
+          {filteredCategories.length > 0 && (
+            <div className="search-section">
+              <div className="section-title">Sugerencias</div>
+              {filteredCategories.map((cat, index) => (
+                <div
+                  key={index}
+                  className="search-suggestion-item"
+                  onMouseDown={() => {
+                    setQuery(cat);
+                    setFilteredProducts(products.filter(p => p.category === cat));
+                  }}
+                >
+                  {cat}
+                </div>
+              ))}
+            </div>
+          )}
+
+          {/* PRODUCTOS */}
+          {filteredProducts.length > 0 && (
+            <div className="search-section">
+              <div className="section-title">Productos</div>
+              {filteredProducts.map(product => (
+                <div
+                  key={product.id}
+                  className="search-dropdown-item"
+                  onMouseDown={() => {
+                    onSelectProduct(product);
+                    clearInput();
+                  }}
+                >
+                  <img
+                    src={product.image}
+                    alt={product.name}
+                    className="search-dropdown-item-image"
+                  />
+                  <div className="search-dropdown-item-info">
+                    <div className="search-dropdown-item-name">{product.name}</div>
+                    <div className="search-dropdown-item-description">{product.description}</div>
+                  </div>
+                  <div className="search-dropdown-item-price">
+                    ${product.price.toLocaleString('es-CL')}
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
       )}
     </div>
   );
-} 
+}

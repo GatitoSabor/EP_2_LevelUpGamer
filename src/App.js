@@ -10,6 +10,7 @@ import MiCuenta from './components/MiCuenta';
 import products from './data/products';
 import Noticias from './components/Noticias';
 import CheckoutStepper from './components/CheckoutStepper';
+import Eventos from './components/Eventos';
 
 import './App.css';
 
@@ -250,7 +251,7 @@ const handleSignUp = (datosUsuario) => {
   const nuevoUsuario = {
     username: datosUsuario.username,
     password: datosUsuario.password,
-    nombreCompleto: datosUsuario.fullName,  // corresponde el nombre
+    fullName: datosUsuario.fullName,  // corresponde el nombre
     rut: datosUsuario.rut,
     fechaNacimiento: datosUsuario.birthDate,  // fecha recibida
     email: datosUsuario.email,
@@ -363,6 +364,7 @@ const handleGuardarCompra = (compra) => {
                 onShowDiscountProducts={handleShowDiscountProducts}
                 onShowValorantProducts={handleShowValorantProducts}
                 onShowNews={() => goToPage('noticias')}
+                onShowEvents={() => goToPage('eventos')}
               />
             )}
 
@@ -513,6 +515,7 @@ const handleGuardarCompra = (compra) => {
               )
             )}
             {page === 'noticias' && <Noticias onNavigate={goToPage} />}
+            {page === 'eventos' && <Eventos onNavigate={goToPage} />}
             
           </>
         )}

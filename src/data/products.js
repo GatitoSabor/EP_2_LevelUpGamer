@@ -34,6 +34,11 @@ import mouse3 from '../assets/mouse/mouse3.jpg';
 
 /*Teclado*/
 import tecladoImage from '../assets/teclado/teclado.jpg';
+import teclado1 from '../assets/teclado/teclado1.jpg';
+import teclado2 from '../assets/teclado/teclado2.jpg';
+import teclado3 from '../assets/teclado/teclado3.jpg';
+import teclado4 from '../assets/teclado/teclado4.jpg';
+import teclado5 from '../assets/teclado/teclado5.jpg';
 
 /*Monitor*/
 import monitorImage from '../assets/monitores/monitorImage.jpg';
@@ -85,6 +90,12 @@ import fig2 from '../assets/figuras/fig2.jpg'
 import fig3 from '../assets/figuras/fig3.jpg'
 import fig4 from '../assets/figuras/fig4.jpg'
 import fig5 from '../assets/figuras/fig5.jpg'
+import fig6 from '../assets/figuras/fig6.jpg'
+import fig7 from '../assets/figuras/fig7.jpg'
+import fig8 from '../assets/figuras/fig8.jpg'
+import fig9 from '../assets/figuras/fig9.jpg'
+import fig10 from '../assets/figuras/fig10.jpg'
+import fig11 from '../assets/figuras/fig11.jpg'
 
 const products = [
   /*Silla*/
@@ -305,7 +316,63 @@ const products = [
     price: 99990,
     image: tecladoImage,
     marca: "Logitech",
-    categoria: "Periféricos"
+    categoria: "Teclados"
+  },
+  {
+    /*https://www.spdigital.cl/hyperx-keyboard-abs-hx-red-merco/*/
+    id: 'TE002',
+    name: 'Teclado Gamer Hyper X Alloy Origins, Mecánico, Español, Switch Red, RGB, Full Size, Color Negro',
+    description: 'Teclado mecánico con retroiluminación customizable.',
+    envioGratis: true,
+    price: 161960,
+    image: teclado1,
+    marca: "HyperX",
+    categoria: "Teclados"
+  },
+  {
+    /*https://www.spdigital.cl/teclado-mec%C3%A1nico-gamer-redragon-kumara-k552-switch-outemu-retroiluminaci%C3%B3n-red-led/*/
+    id: 'TE003',
+    name: 'Teclado Gamer Redragon Kumara K552 TKL, Mecánico, Switch Outemu Red, Rainbow, Color Negro',
+    description: 'Teclado mecánico con retroiluminación customizable.',
+    price: 50990,
+    discount: 0.49,
+    image: teclado2,
+    marca: "Redragon",
+    categoria: "Teclados"
+  },
+  {
+    /*https://www.spdigital.cl/hyperx-alloy-core-rgb-gaming-keyboard-la/*/
+    id: 'TE004',
+    name: 'Teclado Gamer HyperX Alloy Core, Membrana, Español, RGB, Full Size, Color Negro',
+    description: 'Teclado mecánico con retroiluminación customizable.',
+    envioGratis: true,
+    price: 78360,
+    image: teclado3,
+    marca: "HyperX",
+    categoria: "Teclados"
+  },
+  {
+    /*https://www.spdigital.cl/k552w-kr-sp-teclado-kumara-rainbow-white-switch-rojo-sp/*/
+    id: 'TE005',
+    name: 'Teclado Gamer Redragon Kumara K552 TKL, Mecánico, Español, Switch Red, Rainbow, Color Blanco',
+    description: 'Teclado mecánico con retroiluminación customizable.',
+    price: 49999,
+    discount: 0.42,
+    image: teclado4,
+    marca: "Redragon",
+    categoria: "Teclados"
+  },
+  {
+    /*https://www.spdigital.cl/teclado-gamer-logitech-g-pro-rgb-mec%C3%A1nico-switch-gx-blue-al%C3%A1mbrico-negro/*/
+    id: 'TE006',
+    name: 'Teclado Gamer Logitech G Pro, Mecánico, Ingles, Switch GX Blue, RGB, Full Size, Color Negro',
+    description: 'Teclado mecánico con retroiluminación customizable.',
+    envioGratis: true,
+    price: 142680,
+    discount: 0.19,
+    image: teclado5,
+    marca: "Logitech",
+    categoria: "Teclados"
   },
   /*Monitor*/
   {
@@ -736,6 +803,72 @@ const products = [
     marca: "Pop",
     categoria: "Funko Pop",
     juego: "Star Wars"
+  },
+  {
+    /*https://www.weplay.cl/figura-pop-games-borderlands-butt-stallion-exclusivo-weplay-nycc-2019.html*/
+    id: 'FG006',
+    name: 'POP Games: Borderlands - Butt Stallion EXCLUSIVO WEPLAY NYCC-2019',
+    description: 'Funko',
+    price: 9990,
+    image: fig6,
+    marca: "Pop",
+    categoria: "Funko Pop",
+    juego: "Borderlands"
+  },
+  {
+    /*https://www.weplay.cl/pop-games-league-of-legends-lucian.html*/
+    id: 'FG007',
+    name: 'POP Games: League of Legends - Lucian',
+    description: 'Funko',
+    price: 15990,
+    image: fig7,
+    marca: "Pop",
+    categoria: "Funko Pop",
+    juego: "League Of Legends"
+  },
+  {
+    /*https://www.weplay.cl/pop-games-league-of-legends-senna.html*/
+    id: 'FG008',
+    name: 'POP Games: League of Legends - Senna',
+    description: 'Funko',
+    price: 15990,
+    image: fig8,
+    marca: "Pop",
+    categoria: "Funko Pop",
+    juego: "League Of Legends"
+  },
+  {
+    /*https://www.weplay.cl/pop-games-league-of-legends-viego.html*/
+    id: 'FG009',
+    name: 'POP Games: League of Legends - Viego',
+    description: 'Funko',
+    price: 18990,
+    image: fig9,
+    marca: "Pop",
+    categoria: "Funko Pop",
+    juego: "League Of Legends"
+  },
+  {
+    /*https://www.weplay.cl/pop-games-league-of-legends-ahri.html*/
+    id: 'FG010',
+    name: 'POP Games: League of Legends - Ahri',
+    description: 'Funko',
+    price: 18990,
+    image: fig10,
+    marca: "Pop",
+    categoria: "Funko Pop",
+    juego: "League Of Legends"
+  },
+  {
+    /*https://www.weplay.cl/pop-games-five-nights-at-freddy-s-ruin-eclipse.html*/
+    id: 'FG011',
+    name: 'POP Games: Five Nights At Freddy´s RUIN- Eclipse',
+    description: 'Funko',
+    price: 16990,
+    image: fig11,
+    marca: "Pop",
+    categoria: "Funko Pop",
+    juego: "Five Nights At Freddys"
   }
 ];
 
