@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './ProductCard.css';
+import '../styles/ProductCard.css';
 
 export default function ProductCard({ product, onAddToCart }) {
   const [animateFly, setAnimateFly] = useState(false);

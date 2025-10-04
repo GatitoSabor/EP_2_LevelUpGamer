@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import Carousel from 'react-spring-3d-carousel';
 import { config } from 'react-spring';
-import './Home.css';
+import '../styles/Home.css';
 
-import products from '../products';
+import products from '../data/products';
 import ProductDetailModal from './ProductDetailModal';
 import promoImage from '../assets/promos/promo.jpg';
 import promoVal from '../assets/promos/valo.jpg';

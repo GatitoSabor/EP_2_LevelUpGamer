@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import './SearchDropdown.css';
+import '../styles/SearchDropdown.css';
 
 export default function SearchDropdown({ products = [], onSelectProduct, clearSignal }) {
   const [query, setQuery] = useState('');

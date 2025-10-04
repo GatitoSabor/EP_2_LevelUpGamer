@@ -7,7 +7,7 @@ import AuthTabs from './components/AuthTabs';
 import Footer from './components/Footer';
 import ProductDetailModal from './components/ProductDetailModal';
 import MiCuenta from './components/MiCuenta';
-import products from './products';
+import products from './data/products';
 import Noticias from './components/Noticias';
 import CheckoutStepper from './components/CheckoutStepper';
 

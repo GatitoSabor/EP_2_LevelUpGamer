@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './AuthTabs.css';
+import '../styles/AuthTabs.css';
 
 export default function AuthTabs({ onLogin, onSignUp }) {
   const [activeTab, setActiveTab] = useState('login');

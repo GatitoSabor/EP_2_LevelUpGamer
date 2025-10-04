@@ -1,6 +1,6 @@
 import React from 'react';
-import './ProductDetailModal.css';
-import products from '../products';
+import '../styles/ProductDetailModal.css';
+import products from '../data/products';
 
 export default function ProductDetailModal({ product, onClose, onAddToCart, onBuyNow, onSelectProduct = () => {} }) {
   const stock = Math.floor(Math.random() * 20) + 1;

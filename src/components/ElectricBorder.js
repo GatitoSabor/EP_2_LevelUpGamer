@@ -1,6 +1,6 @@
 import { useEffect, useId, useLayoutEffect, useRef } from 'react';
 
-import './ElectricBorder.css';
+import '../styles/ElectricBorder.css';
 
 const ElectricBorder = ({ children, color = '#5227FF', speed = 1, chaos = 1, thickness = 2, className, style }) => {
   const rawId = useId().replace(/[:]/g, '');

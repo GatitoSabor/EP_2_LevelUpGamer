@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import Stepper, { Step } from './Stepper';
-import './CheckoutStepper.css'
+import '../styles/CheckoutStepper.css'
 
 export default function CheckoutStepper({ cart }) {
   const [personalData, setPersonalData] = useState({ nombre: '', email: '', telefono: '' });

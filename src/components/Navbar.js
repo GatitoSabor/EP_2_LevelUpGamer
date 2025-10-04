@@ -1,8 +1,8 @@
 import React from 'react';
 import { FaShoppingCart } from 'react-icons/fa';
 import SearchDropdown from './SearchDropdown';
-import './Navbar.css';
-import './GlitchText.css';
+import '../styles/Navbar.css';
+import '../styles/GlitchText.css';
 import GlitchText from './GlitchText';
 
 export default function Navbar({ user, onNavChange, cartCount, products, onSelectProduct, clearSignal, onLogout }) {

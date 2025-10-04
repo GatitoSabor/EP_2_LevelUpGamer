@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import './MiCuenta.css';
+import '../styles/MiCuenta.css';
 
 export default function MiCuenta({ user, setUser, compras, cupones, setCuponesInternos }) {
   const [activeTab, setActiveTab] = useState('compras');

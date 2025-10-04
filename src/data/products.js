@@ -1,82 +1,95 @@
 /*Sillas*/
-import sillaImg from './assets/sillas/silla.jpg';
-import sillaAudiImage from './assets/sillas/sillaud.jpg';
-import silla1 from './assets/sillas/silla1.jpg';
+import sillaImg from '../assets/sillas/silla.jpg';
+import sillaAudiImage from '../assets/sillas/sillaud.jpg';
+import silla1 from '../assets/sillas/silla1.jpg';
 
 /*Controles*/
-import controladorXboxImg from './assets/mandos/controlador-xbox.jpg';
-import mando1 from './assets/mandos/ps5.jpg';
-import mando2 from './assets/mandos/mando2.jpg';
-import mando3 from './assets/mandos/mando3.jpg';
+import controladorXboxImg from '../assets/mandos/controlador-xbox.jpg';
+import mando1 from '../assets/mandos/ps5.jpg';
+import mando2 from '../assets/mandos/mando2.jpg';
+import mando3 from '../assets/mandos/mando3.jpg';
 
 /*Consolas*/
-import ps5Img from './assets/consolas/ps5.jpg';
-import switchImage from './assets/consolas/switch.jpg';
-import xbox from './assets/consolas/xbox.jpg'
+import ps5Img from '../assets/consolas/ps5.jpg';
+import switchImage from '../assets/consolas/switch.jpg';
+import xbox from '../assets/consolas/xbox.jpg'
 
 /*Audifonos*/
-import audiImage from './assets/audifonos/audifonos.jpg';
-import audifonos1 from './assets/audifonos/audifonos1.jpg';
-import audifonos2 from './assets/audifonos/audifonos2.jpg';
-import audifonos3 from './assets/audifonos/audifonos3.jpg';
+import audiImage from '../assets/audifonos/audifonos.jpg';
+import audifonos1 from '../assets/audifonos/audifonos1.jpg';
+import audifonos2 from '../assets/audifonos/audifonos2.jpg';
+import audifonos3 from '../assets/audifonos/audifonos3.jpg';
 
 /*Audifonos Bluetooth*/
-import bluetoothHeadsetImage from './assets/audiblu/audib.jpg';
-import audiblu2 from './assets/audiblu/audiblu2.jpg';
+import bluetoothHeadsetImage from '../assets/audiblu/audib.jpg';
+import audiblu2 from '../assets/audiblu/audiblu2.jpg';
+import audiblu3 from '../assets/audiblu/audiblu3.jpg';
+import audiblu4 from '../assets/audiblu/audiblu4.jpg';
 
 /*Mouse*/
-import mouseImage from './assets/mouse/mouse.jpg';
-import mouse1 from './assets/mouse/mouse1.jpg';
-import mouse2 from './assets/mouse/mouse2.jpg';
-import mouse3 from './assets/mouse/mouse3.jpg';
+import mouseImage from '../assets/mouse/mouse.jpg';
+import mouse1 from '../assets/mouse/mouse1.jpg';
+import mouse2 from '../assets/mouse/mouse2.jpg';
+import mouse3 from '../assets/mouse/mouse3.jpg';
 
 /*Teclado*/
-import tecladoImage from './assets/teclado/teclado.jpg';
+import tecladoImage from '../assets/teclado/teclado.jpg';
 
 /*Monitor*/
-import monitorImage from './assets/monitores/monitorImage.jpg';
-import monitor1 from './assets/monitores/monitor1.jpg'
-import monitor2 from './assets/monitores/monitor2.jpg'
-import monitor3 from './assets/monitores/monitor3.jpg'
-import monitor4 from './assets/monitores/monitor4.jpg'
+import monitorImage from '../assets/monitores/monitorImage.jpg';
+import monitor1 from '../assets/monitores/monitor1.jpg'
+import monitor2 from '../assets/monitores/monitor2.jpg'
+import monitor3 from '../assets/monitores/monitor3.jpg'
+import monitor4 from '../assets/monitores/monitor4.jpg'
 
 /*PC*/
-import pcGamerImage from './assets/pcs/pc.jpg';
-import pc1 from './assets/pcs/pc1.jpg';
-import pc2 from './assets/pcs/pc2.jpg';
-import pc3 from './assets/pcs/pc3.jpg';
+import pcGamerImage from '../assets/pcs/pc.jpg';
+import pc1 from '../assets/pcs/pc1.jpg';
+import pc2 from '../assets/pcs/pc2.jpg';
+import pc3 from '../assets/pcs/pc3.jpg';
 
 /*Componentes*/
-import cajaPcImage from './assets/componentes/gabinete.jpg';
-import refri1 from './assets/componentes/refri1.jpg';
+import cajaPcImage from '../assets/componentes/gabinete.jpg';
+import refri1 from '../assets/componentes/refri1.jpg';
 
 /*Keycaps*/
-import keycap1 from './assets/keycaps/clove keycaps.jpg';
-import keycap2 from './assets/keycaps/iso keycaps.jpg';
-import keycap3 from './assets/keycaps/jet keycaps.jpg';
-import keycap4 from './assets/keycaps/killjoy keycaps.jpg';
-import keycap5 from './assets/keycaps/raze keycaps.jpg';
-import keycap6 from './assets/keycaps/reyna keycaps.jpg';
-import keycap7 from './assets/keycaps/sage keycaps.jpg';
-import keycap8 from './assets/keycaps/yoru keycaps.jpg'
+import keycap1 from '../assets/keycaps/clove keycaps.jpg';
+import keycap2 from '../assets/keycaps/iso keycaps.jpg';
+import keycap3 from '../assets/keycaps/jet keycaps.jpg';
+import keycap4 from '../assets/keycaps/killjoy keycaps.jpg';
+import keycap5 from '../assets/keycaps/raze keycaps.jpg';
+import keycap6 from '../assets/keycaps/reyna keycaps.jpg';
+import keycap7 from '../assets/keycaps/sage keycaps.jpg';
+import keycap8 from '../assets/keycaps/yoru keycaps.jpg'
 
 /*Mousepad*/
-import mousepad1 from './assets/mousepad/omen mousepad.jpg'
-import mousepad2 from './assets/mousepad/phoenix mousepad.jpg'
-import mousepad3 from './assets/mousepad/mousepad1.jpg'
+import mousepad1 from '../assets/mousepad/omen mousepad.jpg'
+import mousepad2 from '../assets/mousepad/phoenix mousepad.jpg'
+import mousepad3 from '../assets/mousepad/mousepad1.jpg'
+import mousepad4 from '../assets/mousepad/mousepad4.jpg'
+import mousepad5 from '../assets/mousepad/mousepad5.jpg'
+import mousepad6 from '../assets/mousepad/mousepad6.jpg'
 
 /*Limpieza Pc*/
-import limpieza1 from './assets/Limpieza Pc/Limpieza.jpg'
+import limpieza1 from '../assets/Limpieza Pc/Limpieza.jpg'
 
 /*Microfonos*/
-import micro1 from './assets/Microfonos/micro1.jpg'
-import micro2 from './assets/Microfonos/micro2.jpg'
-import micro3 from './assets/Microfonos/micro3.jpg'
-import micro4 from './assets/Microfonos/micro4.jpg'
+import micro1 from '../assets/Microfonos/micro1.jpg'
+import micro2 from '../assets/Microfonos/micro2.jpg'
+import micro3 from '../assets/Microfonos/micro3.jpg'
+import micro4 from '../assets/Microfonos/micro4.jpg'
+
+/*Figuras*/
+import fig1 from '../assets/figuras/fig1.jpg'
+import fig2 from '../assets/figuras/fig2.jpg'
+import fig3 from '../assets/figuras/fig3.jpg'
+import fig4 from '../assets/figuras/fig4.jpg'
+import fig5 from '../assets/figuras/fig5.jpg'
 
 const products = [
   /*Silla*/
   {
+    /*https://secretlab.eu/es/products/titan-evo-2022-series?srsltid=AfmBOooANqEU7oVDy3gC3ytQikfkA72An2k7bp5l2clIFDy6mBpbztWk*/ 
     id: "SG001",
     name: "Silla Gamer Secretlab Titan",
     description: "Comodidad y ergonomía para largas sesiones de juego.",
@@ -98,25 +111,11 @@ const products = [
     categoria: "Sillas Gamer"
   },
   {
+    /*https://www.spdigital.cl/silla-gamer-cougar-hotrod/?srsltid=AfmBOooBvR_A9zbG-b4VJQw8Mupzzf54D7maYd3ojciUFhef7ejqJojf*/
     id: 'SG003',
     name: 'Silla Gamer Cougar Hotrod, Diseño Ergonómico, Reposabrazos 3D, Hasta 135kg',
     description: 'Silla con soporte lumbar y materiales premium.',
-    descriptionmodal: [
-      "HOTROD",
-      "Viviendo a toda velocidad",
-      "Aumenta tu experiencia de juego con la silla Hotrod de COUGAR...",
-      "De un vistazo:",
-      "Diseño deportivo",
-      "Diseño del respaldo multizona",
-      "Acolchado de espuma de múltiples niveles del respaldo",
-      "Estructura única de PA reforzado con fibra de vidrio",
-      "Almohada con ajuste de altura",
-      "Diseño que abraza el cuerpo, ofreciendo más apoyo para su cuerpo",
-      "Polipiel Hyper-Dura",
-      "Reposabrazos 3D",
-      "Base de metal resistente y duradera",
-      "Peso máximo: 136 kg"
-    ],
+    descriptionmodal: "",
     envioGratis: true,
     price: 399990,
     discount: 0.36,
@@ -126,6 +125,7 @@ const products = [
   },
   /*Controles*/
   {
+    /*https://www.spdigital.cl/control-inal%C3%A1mbrico-microsoft-xbox-series-cable-usb-c-negro/?srsltid=AfmBOor8XJLgxCwaeec--yk3eYe_J-FtNvZOK5_8wdJf4me03X3EC9-v*/
     id: "CG001",
     name: "Control Xbox Series X",
     description: "Control inalámbrico preciso y cómodo para Xbox y PC.",
@@ -136,6 +136,7 @@ const products = [
     categoria: "Controles"
   },
   {
+    /*https://www.spdigital.cl/ps5-dualsense-latam/?srsltid=AfmBOoqhoJqDHATkYlP2pweht1_KabGAwYUxQGpHrcYuv0mzv6BW86h1*/
     id: "CG002",
     name: "Control Playstation 5",
     description: "Control inalámbrico preciso y cómodo para Playstation 5 y PC.",
@@ -147,6 +148,7 @@ const products = [
     categoria: "Controles"
   },
   {
+    /*https://www.spdigital.cl/control-inal%C3%A1mbrico-ps4-monster-games-wireless-d21edr-negro/*/
     id: "CG003",
     name: "Control Playstation 4",
     description: "Control inalámbrico preciso y cómodo para Playstation 4 y PC.",
@@ -157,6 +159,7 @@ const products = [
     categoria: "Controles"
   },
   {
+    /*https://www.falabella.com/falabella-cl/product/5621240/Joycon-L-R-Neon-Red-Neon-Blue-Nintendo/5621240*/
     id: "CG004",
     name: "Joycon L R Neon Red/Neon Blue Nintendo",
     description: "JoyCon",
@@ -169,6 +172,7 @@ const products = [
   },
   /*Consolas*/
   {
+    /*https://www.falabella.com/falabella-cl/product/126614735/Consola-Sony-PS5-PlayStation-5-Slim-(Edicion-Disco)/126614736*/
     id: "CO001",
     name: "PlayStation 5",
     description: "Consola de última generación para gaming inmersivo.",
@@ -179,6 +183,7 @@ const products = [
     categoria: "Consolas"
   },
   {
+    /*https://www.falabella.com/falabella-cl/product/123426427/Consola-Nintendo-Switch-Modelo-OLED-Neon/123426431*/
     id: 'CO002',
     name: 'Consola Nintendo Switch',
     description: 'Consola híbrida para juego portátil y televisión.',
@@ -189,6 +194,7 @@ const products = [
     categoria: "Consolas"
   },
   {
+    /*https://www.paris.cl/consola-xbox-series-x-1tb-ssd-edicion-digital-blanco-certificado-reacondicionado-MKWXXAHXXQ.html*/
     id: 'CO003',
     name: 'Xbox Series X',
     description: 'Consola de última generación para gaming inmersivo.',
@@ -210,6 +216,7 @@ const products = [
     categoria: "Audio"
   },
   {
+    /*https://www.spdigital.cl/headset-cloud-stinger-core-wl/?srsltid=AfmBOoqW24llDd8JcFIDhVxrpQ4ScfrLQem4oof6CC7klwiEUcHNo1DO*/
     id: 'AU002',
     name: 'Audifonos Gamer Inalámbrico HyperX Cloud Stinger Core, USB, Over-Ear, Blanco',
     description: 'Auriculares con sonido envolvente y micrófono.',
@@ -221,6 +228,7 @@ const products = [
     categoria: "Audio"
   },
   {
+    /*https://www.spdigital.cl/aud%C3%ADfonos-con-micr%C3%B3fono-logitech-pro-x-para-juegos-blue-voce/?srsltid=AfmBOopQdC_C2uYGtEQqW0u0-Q5NuG4_fIjXnadh7GVUwdeGYV8bPJ0F*/
     id: 'AU003',
     name: 'Audífonos Gamer Logitech PRO X para juegos, con Micrófono, Blue Vo!ce',
     description: 'Auriculares con sonido envolvente y micrófono.',
@@ -231,6 +239,7 @@ const products = [
     categoria: "Audio"
   },
   {
+    /*https://www.spdigital.cl/aud%C3%ADfonos-gamer-logitech-g335-conector-35mm-plug-and-play-multiplataforma-color-blanco/?srsltid=AfmBOorEYiohVxPZP7VAs4xA3oKydzFyXUdIUm5erRi6k-ZCVcfHYfBl*/
     id: 'AU004',
     name: 'Audífonos Gamer Logitech G335, Conector 3,5mm, Plug and Play, Multiplataforma, Color Blanco ',
     description: 'Auriculares con sonido envolvente y micrófono.',
@@ -252,6 +261,7 @@ const products = [
     categoria: "Mouse Gamer"
   },
   {
+    /*https://www.spdigital.cl/mouse-gamer-logitech-g203-rgb-lightsync-6-botones-programables-8000-dpi-black/?srsltid=AfmBOoqzkLBqOlPmbrmqxZmezPVP32bfJftvUavArGhIOlN0sXwRZC0N*/
     id: 'MO002',
     name: 'Mouse Gamer Logitech G203 RGB LIGHTSYNC, 6 botones programables, 8.000 DPI, Black',
     description: 'Mouse con iluminación RGB y alta precisión.',
@@ -263,6 +273,7 @@ const products = [
     categoria: "Mouse Gamer"
   },
   {
+    /*https://www.spdigital.cl/mouse-gamer-primus-gaming-gladius-12400t-limited-edition-diseno-dark-side/?srsltid=AfmBOooN-yNOKX0jUfqsv86hk-Ks0BHeeOcC6c_7wovYXya6AXZqEVOf*/
     id: 'MO003',
     name: 'Mouse Gamer Primus Gaming Gladius 12400T Limited Edition, Diseño Dark Side',
     description: 'Mouse con iluminación RGB y alta precisión.',
@@ -271,9 +282,11 @@ const products = [
     discount: 0.40,
     image: mouse2,
     marca: "Primus Gaming",
-    categoria: "Mouse Gamer"
+    categoria: "Mouse Gamer",
+    juego: "Star Wars"
   },
   {
+    /*https://www.spdigital.cl/mouse-gamer-cooler-master-mm711-6-botones-16000-dpi-white-matte/?srsltid=AfmBOorrt8yoypVWBPEPyTbVwq5byhSPFLOugnaOTgFhAPtWVs8FKF4o*/
     id: 'MO004',
     name: 'Mouse Gamer Cooler Master MM711, 16000 DPI, PixArt PMW-3389, Diestro, 6 Botones, Color Blanco Mate',
     description: 'Mouse con iluminación RGB y alta precisión.',
@@ -305,6 +318,7 @@ const products = [
     categoria: "Monitores"
   },
   {
+    /*https://www.spdigital.cl/monitor-gamer-msi-mag-275f-27-fhd-180hz-rapid-ips-05ms-adaptive-sync-hdmidisplayport/?srsltid=AfmBOopqov1ng0mkYgOhs_WJz050sEZf3_THwKZowivr1RUICmHyQvFr*/
     id: 'MT002',
     name: 'Monitor Gamer MSI MAG 275F, 27" FHD, 180Hz, Rapid IPS, 0.5ms, Adaptive Sync, HDMI/DisplayPort',
     description: 'Monitor',
@@ -314,6 +328,7 @@ const products = [
     categoria: "Monitores"
   },
   {
+    /*https://www.spdigital.cl/monitor-gamer-asus-tuf-gaming-vg27aq5a-27-qhd-210hz-fast-ips-03-ms-color-negro/?srsltid=AfmBOopNoDz_FPv0Em4WtqRGIV9hMl4pwpjVCi99813GKb6fyqwpUkcS*/
     id: 'MT003',
     name: 'Monitor gamer ASUS TUF Gaming VG27AQ5A, 27" QHD, 210Hz, Fast IPS, 0.3 ms, FreeSync Premium',
     description: 'Monitor',
@@ -324,6 +339,7 @@ const products = [
     categoria: "Monitores"
   },
   {
+    /*https://www.spdigital.cl/monitor-gamer-curvo-asus-rog-strix-xg27wcms-27-qhd-280hz-va-1ms-g-sync-hdr10/?srsltid=AfmBOoqptesMefmt6LLxx5sZA3ckclUgYSYg1b3fLxZPVayK1bn6A3O8*/
     id: 'MT004',
     name: 'Monitor Gamer Curvo Asus ROG Strix XG27WCMS 27" QHD VA, 280hz, 1ms, HDR10, AMD FreeSync',
     description: 'Monitor',
@@ -333,6 +349,7 @@ const products = [
     categoria: "Monitores"
   },
   {
+    /*https://www.spdigital.cl/27-g55c-odyssey-g5-qhd-165hz-monitor-gamer-curvo/?srsltid=AfmBOop5TCYDQiAVEGKPScydDcY36BVPU-LZ5ssLEuoFgByNmarGxLXB*/
     id: 'MT005',
     name: 'Monitor Gamer Curvo Samsung Odyssey G5 G55C 27" QHD VA, 165Hz, HDR10, AMD FreeSync',
     description: 'Monitor',
@@ -355,6 +372,7 @@ const products = [
     categoria: "Computadoras"
   },
   {
+    /*https://www.spdigital.cl/pc-gamer-sp-labs-nomad-ryzen-7-7700x-rx-9070xt-ram-32gb-2x16gb-ddr5-ssd-1tb-nvme-freedos/?srsltid=AfmBOooWGf1RJXdI4jV5uwaF-aVDJYuRKapWr5BQH6iXM0c997eqotxn*/
     id: 'PC002',
     name: 'PC Gamer SP Labs Nomad, Ryzen 7 7700X, RX 9070XT, RAM 32GB (2x16GB) DDR5, SSD 1TB NVMe, FreeDOS',
     description: 'PC',
@@ -365,6 +383,7 @@ const products = [
     categoria: "Computadoras"
   },
   {
+    /*https://www.spdigital.cl/pc-gamer-r3-5300g-16gb-rgb-2x8-rgb-512gb-nvme-wifi-freedos/?srsltid=AfmBOopa8SarCWcCLA1wuqd2x0d5hT55qaJkbKJz20L3TL3tYYtgy4gc*/
     id: 'PC003',
     name: 'PC Gamer ARGB 1, Ryzen 3 5300G, 16GB RGB, 512GB NVMe, WiFi, ARGB, FreeDOS (Sin SO)',
     description: 'PC',
@@ -376,6 +395,7 @@ const products = [
     categoria: "Computadoras"
   },
   {
+    /*https://www.spdigital.cl/pc-gamer-r5-550016gb-u100512g-nvme-g4000rtx-3060-12gb-wc-240wifi/?srsltid=AfmBOorKxDiBu5KEVMCAgF3ZQZv-C-MfVq9YmUc-0rizqTy_okIw6EEC*/
     id: 'PC004',
     name: 'PC Gamer ARGH 4, Ryzen 5 5500, RTX 3060, 16GB RGB, 512GB NVMe, Watercooling, Wi-Fi, Freedos',
     description: 'PC',
@@ -397,6 +417,7 @@ const products = [
     categoria: "Componentes"
   },
   {
+    /*https://www.spdigital.cl/mag-coreliquid-a13-360/?srsltid=AfmBOoqXdWlPYbJzE6Ugyq98LOLQYwBW9-6xevEvDpSPj3ezhqUZq7EW*/
     id: 'CP002',
     name: 'Refrigeración Líquida MSI MAG CORELIQUID A13 360, 360mm, ARGB, Intel LGA 1700/1851, AMD AM4/AM5',
     description: 'Refrigeración Líquida.',
@@ -417,6 +438,7 @@ const products = [
     categoria: "Audio"
   },
   {
+    /*https://www.spdigital.cl/mini-pod-touch-fiddler-colors-morado/?srsltid=AfmBOorhzf5nU6IDZaFt8bjHq_kO8UMI0XXvAUHmYMTpeJDxlUxLSsOJ*/
     id: 'AB002',
     name: 'Audífonos Inalámbricos Bluetooth Fiddler Mini Pod Touch, Color Morado',
     description: 'Auriculares inalámbricos con cancelación de ruido.',
@@ -425,6 +447,30 @@ const products = [
     image: audiblu2,
     marca: "Fiddler",
     categoria: "Audio"
+  },
+  {
+    /*https://www.spdigital.cl/audifonos-gamer-inalambricos-primus-gaming-arcus-230-in-ear-para-celular-diseno-grogu/*/
+    id: 'AB003',
+    name: 'Audífonos Gamer Inalámbrico Primus Gaming ARCUS 230, In-Ear, para Celular, Diseño Grogu',
+    description: 'Auriculares inalámbricos con cancelación de ruido.',
+    price: 29990,
+    discount: 0.27,
+    image: audiblu3,
+    marca: "Primus Gaming",
+    categoria: "Audio",
+    juego: "Star Wars"
+  },
+  {
+    /*https://www.spdigital.cl/primus-gaming-true-wireless-earphones-para-cellular-phone-para-home-audio-para-portable-elec/*/
+    id: 'AB004',
+    name: 'Audífonos Gamer Inalámbrico Primus Arcus 240 Stormtrooper TWS Bluetooth 5.3, 9mm, IPX4, Blanco',
+    description: 'Auriculares inalámbricos con cancelación de ruido.',
+    price: 22240,
+    discount: 0.18,
+    image: audiblu4,
+    marca: "Primus Gaming",
+    categoria: "Audio",
+    juego: "Star Wars"
   },
   /*Keycaps*/
   {
@@ -529,6 +575,7 @@ const products = [
     juego: "Valorant"
   },
   {
+    /*https://www.spdigital.cl/mousepad-gamer-steelseries-qck-edge-xl-63824/?srsltid=AfmBOoocWe9OnpirnaZlXLPl89yPjHX6GhlDJVZ4sUfq3xUGgENTFUkB*/
     id: 'MP003',
     name: 'Mouse Pad Gamer SteelSeries QCK EDGE XL, 90x30cm',
     description: 'Mousepad',
@@ -539,8 +586,45 @@ const products = [
     marca: "SteelSeries",
     categoria: "Mousepad"
   },
+  {
+    /*https://www.spdigital.cl/primus-gaming-mouse-pad-grogu-mouse-pad-m/*/
+    id: 'MP004',
+    name: 'Mouse Pad Gamer Primus Gaming Arena M Star Wars Limited Edition, 32x27 cm, Diseño Grogu - Baby Yoda',
+    description: 'Mousepad',
+    price: 19990,
+    discount: 0.43,
+    image: mousepad4,
+    marca: "Primus Gaming",
+    categoria: "Mousepad",
+    juego: "Star Wars"
+  },
+  {
+    /*https://www.spdigital.cl/primus-gaming-mouse-pad-dark-side-mousepad-m/*/
+    id: 'MP005',
+    name: 'Mouse Pad Gamer Primus Gaming Arena M Star Wars Limited Edition, 32x27 cm, Diseño Dark Side',
+    description: 'Mousepad',
+    price: 19990,
+    discount: 0.45,
+    image: mousepad5,
+    marca: "Primus Gaming",
+    categoria: "Mousepad",
+    juego: "Star Wars"
+  },
+  {
+    /*https://www.spdigital.cl/mousepad-gamer-primus-gaming-arena-xxl-star-wars-limited-edition-90x42-cm-diseno-grogu-baby-yoda/*/
+    id: 'MP006',
+    name: 'Mouse Pad Gamer Primus Gaming Arena XXL Star Wars Limited Edition, 90x42 cm, Diseño Grogu Baby Yoda',
+    description: 'Mousepad',
+    price: 29990,
+    discount: 0.37,
+    image: mousepad6,
+    marca: "Primus Gaming",
+    categoria: "Mousepad",
+    juego: "Star Wars"
+  },
   /*Limpieza PC*/
   {
+    /*https://www.spdigital.cl/set-de-limpieza-pantalla-philco-3-en-1/?srsltid=AfmBOorEDuT8cmuUOGJOsFyovXtEGOm6ijLz_YlQAE4TBE4GmgSnR39X*/
     id: 'LP001',
     name: 'Set de Limpieza Pantalla Philco 3 en 1',
     description: 'Set limpieza',
@@ -552,6 +636,7 @@ const products = [
   },
   /*Microfonos*/
   {
+    /*https://www.spdigital.cl/microfono-para-streaming-redragon-fenris-gm301-rgb-montura-anti-vibracion-conexion-por-usb/?srsltid=AfmBOoqnFBiIftW6jbVqqNxMfANTLtfZL7f6D4Q9nG9GSZTtJO_dgcwW*/
     id: 'MF001',
     name: 'Micrófono para Streaming Redragon Fenris GM301, RGB, Montura Anti Vibración, Conexión por USB',
     description: 'Microfono Redragon',
@@ -563,6 +648,7 @@ const products = [
     categoria: "Microfonos"
   },
   {
+    /*https://www.spdigital.cl/micr%C3%B3fono-profesional-gamer-rgb-hyperx-quadcast-s-montura-anti-vibraciones-tres-condensadores/?srsltid=AfmBOooS0FJfaOBPEMjldqRJEGA10CL0q7T-ZwaIrfV42vbJ5wCvjKsC*/
     id: 'MF002',
     name: 'Micrófono para Streaming HyperX QuadCast S RGB, Montura Antivibraciones, Tres Condensadores',
     description: 'Microfono HyperX',
@@ -573,6 +659,7 @@ const products = [
     categoria: "Microfonos"
   },
   {
+    /*https://www.spdigital.cl/micr%C3%B3fono-de-condensador-fifine-k669b-streaming-pc-mac-ps4/?srsltid=AfmBOoqdiGll6-6MzPnUdhwTgSM9zmC12v8oA-i93yaXBkcxyVX7zbJS*/
     id: 'MF003',
     name: 'Micrófono para Streaming Fifine K669B, Streaming, PC, Mac, PS4, Condensador',
     description: 'Microfono Fifine',
@@ -583,6 +670,7 @@ const products = [
     categoria: "Microfonos"
   },
   {
+    /*https://www.spdigital.cl/988-000568-microfonoyeti-gx-negro/?srsltid=AfmBOoq5fc42dL2PLXqbzFYX6LASqOcRO7rUjFyiji97-5x4-znQlsTd*/
     id: 'MF004',
     name: 'Micrófono Gamer Logitech G Yeti GX, RGB dinámico para gaming con LIGHTSYNC, Blue VO!CE',
     description: 'Microfono Logitech',
@@ -592,6 +680,62 @@ const products = [
     image: micro4,
     marca: "Logitech",
     categoria: "Microfonos"
+  },
+  /*Figuras*/
+  {
+    /*https://www.weplay.cl/pop-games-cyberpunk-2077-takemura.html*/
+    id: 'FG001',
+    name: 'POP Games: Cyberpunk 2077- Takemura',
+    description: 'Funko',
+    price: 8990,
+    image: fig1,
+    marca: "Pop",
+    categoria: "Funko Pop",
+    juego: "Cyberpunk"
+  },
+  {
+    /*https://www.weplay.cl/figura-5-star-fallout-s2-assaultron-gw.html*/
+    id: 'FG002',
+    name: 'FIGURA 5 STAR: FALLOUT S2 - ASSAULTRON (GW)',
+    description: 'Funko',
+    price: 4990,
+    image: fig2,
+    marca: "Pop",
+    categoria: "Funko Pop",
+    juego: "Fallout"
+  },
+  {
+    /*https://www.weplay.cl/figura-5-star-fallout-s2-vault-boy-pyromaniac.html*/
+    id: 'FG003',
+    name: 'FIGURA 5 STAR: FALLOUT S2 - VAULT BOY (PYROMANIAC)',
+    description: 'Funko',
+    price: 4990,
+    image: fig3,
+    marca: "Pop",
+    categoria: "Funko Pop",
+    juego: "Fallout"
+  },
+  {
+    /*https://www.weplay.cl/pop-games-borderlands-3-female-psycho.html*/
+    id: 'FG004',
+    name: 'POP Games: Borderlands 3 - Female Psycho',
+    description: 'Funko',
+    price: 8990,
+    image: fig4,
+    marca: "Pop",
+    categoria: "Funko Pop",
+    juego: "Borderlands"
+  },
+  {
+    /*https://www.weplay.cl/pop-sale-figura-pop-star-wars-solo-w1-qi-ra.html*/
+    id: 'FG005',
+    name: 'POP-FIGURA POP STAR WARS: SOLO W1 - QIRA',
+    description: 'Funko',
+    price: 8990,
+    image: fig5,
+    marca: "Pop",
+    categoria: "Funko Pop",
+    juego: "Star Wars"
   }
 ];
 
