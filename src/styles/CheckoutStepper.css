@@ -3,9 +3,29 @@
   color: #33475b;
   margin-bottom: 1rem;
   font-weight: 600;
+
+  text-align: center;
+  max-width: 600px; /* aumentar el ancho máximo */
+  margin: 0 auto; /* centrar el formulario */
+  padding: 1.5rem; /* menos espacio con los bordes */
+  box-sizing: border-box;
 }
 
-.input-personal, .input-address {
+.input-personal {
+  display: block;
+  width: 100%;
+  max-width: 400px;
+  font-size: 1rem;
+  padding: 0.5em 0.75em;
+  margin-bottom: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  transition: border-color 0.3s ease;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.input-address {
   display: block;
   width: 100%;
   max-width: 400px;
@@ -73,3 +93,49 @@
   text-align: center;
 }
 
+.step-address-data button {
+  padding: 0.5em 1.2em;
+  background-color: #1a73e8;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background-color 0.3s ease;
+  margin-left: 10px;
+  min-width: 120px;
+}
+
+.step-address-data button:hover:not(:disabled) {
+  background-color: #155db0;
+}
+
+.step-address-data button:disabled {
+  background-color: #cccccc;
+  color: #666666;
+  cursor: not-allowed;
+}
+.address-btn {
+  padding: 0.5em 1.2em;
+  background-color: #1a73e8;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background-color 0.3s ease;
+  margin-left: 10px;
+  min-width: 120px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.address-btn:hover:not(:disabled) {
+  background-color: #155db0;
+}
+
+.address-btn:disabled {
+  background-color: #cccccc;
+  color: #666666;
+  cursor: not-allowed;
+}

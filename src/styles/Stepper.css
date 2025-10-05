@@ -24,7 +24,9 @@
   margin-left: auto;
   margin-right: auto;
   width: 100%;
-  max-width: 28rem;
+  max-width: 60rem; /* más ancho */
+  min-height: 50rem; /* altura mínima para que se vea más grande */
+  
   border-radius: 2rem;
   background-color: #fff;
   box-shadow:

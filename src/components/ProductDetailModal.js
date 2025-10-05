@@ -55,7 +55,7 @@ export default function ProductDetailModal({ product, onClose, onAddToCart, onBu
 
         <section className="additional-info">
           <h3>Descripción</h3>
-          <p>{product.descriptionmodal}</p>
+          <div dangerouslySetInnerHTML={{ __html: product.descriptionmodal }} />
 
           <h3>Productos relacionados</h3>
           <div className="related-products-container" style={{ display: 'flex', gap: '10px' }}>

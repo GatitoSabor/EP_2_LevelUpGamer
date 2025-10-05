@@ -1,12 +1,16 @@
 import React, { useState, useEffect } from 'react';
+import SeguimientoCompras from './SeguimientoCompras';
 import '../styles/MiCuenta.css';
 
-export default function MiCuenta({ user, setUser, compras, cupones, setCuponesInternos }) {
+export default function MiCuenta({compraSeleccionada, setCompraSeleccionada, user, setUser, direcciones, setDirecciones, compras, cupones, setCuponesInternos }) {
   const [activeTab, setActiveTab] = useState('compras');
   const [puntos, setPuntos] = useState(user?.puntos || 5000);
-  const [direcciones, setDirecciones] = useState(user?.direcciones || []);
   const [nuevaDireccion, setNuevaDireccion] = useState('');
   const [editIndex, setEditIndex] = useState(null);
+  const [calle, setCalle] = useState('');
+  const [numero, setNumero] = useState('');
+  const [tipo, setTipo] = useState('Casa');
+
 
   const descuentos = [
     { id: 1, texto: "Descuento del 10% en productos seleccionados", puntos: 500, descuentoPorc: 10 },
@@ -15,25 +19,11 @@ export default function MiCuenta({ user, setUser, compras, cupones, setCuponesIn
     { id: 4, texto: "Envío gratuito", puntos: 300 }
   ];
 
-  // Añade estas funciones dentro del componente
-  const handleAddDireccion = () => {
-    if (nuevaDireccion.trim() === '') return;
-    setDirecciones([...direcciones, nuevaDireccion]);
-    setNuevaDireccion('');
-  };
+
 
   const handleEditDireccion = (i) => {
     setNuevaDireccion(direcciones[i]);
     setEditIndex(i);
-  };
-
-  const handleSaveEdit = () => {
-    if (nuevaDireccion.trim() === '') return;
-    const copia = [...direcciones];
-    copia[editIndex] = nuevaDireccion;
-    setDirecciones(copia);
-    setNuevaDireccion('');
-    setEditIndex(null);
   };
 
   const [passwordForm, setPasswordForm] = useState({ actual: '', nueva: '' });
@@ -108,6 +98,45 @@ export default function MiCuenta({ user, setUser, compras, cupones, setCuponesIn
     alert('Datos personales actualizados con éxito');
   };
 
+  const generarDireccionCompleta = () => {
+    return `${calle.trim()} ${numero.trim()} ${tipo}`;
+  };
+
+  const handleAddDireccion = () => {
+    if (!calle.trim() || !numero.trim()) {
+      alert('Por favor completa calle y número');
+      return;
+    }
+    const direccionCompleta = `${calle.trim()} ${numero.trim()} ${tipo}`;
+    const nuevaLista = [...direcciones, direccionCompleta];
+    setDirecciones(nuevaLista);
+    setUser(prevUser => ({
+      ...prevUser,
+      direcciones: nuevaLista
+    }));
+    setCalle('');
+    setNumero('');
+    setTipo('Casa');
+  };
+
+
+
+  const handleSaveEdit = () => {
+    const direccionCompleta = generarDireccionCompleta();
+    if (!calle || !numero) {
+      alert('Por favor completa calle y número');
+      return;
+    }
+    const copia = [...direcciones];
+    copia[editIndex] = direccionCompleta;
+    setDirecciones(copia);
+    setCalle('');
+    setNumero('');
+    setTipo('Casa');
+    setEditIndex(null);
+  };
+
+
   return (
     <div className="mi-cuenta-container">
       <nav className="sidebar">
@@ -130,13 +159,29 @@ export default function MiCuenta({ user, setUser, compras, cupones, setCuponesIn
             ) : (
               <div className="compras-grid">
                 {compras.map((producto, index) => (
-                  <div key={index} className="compra-item">
+                  <div
+                    key={index}
+                    className="compra-item"
+                    onClick={() => {
+                      setCompraSeleccionada(producto);
+                      setActiveTab('seguimiento');
+                    }}
+                    style={{ cursor: 'pointer' }}
+                  >
                     <img src={producto.image} alt={producto.name} />
                     <div className="compra-info">
                       <p>{producto.name}</p>
-                      <p>Precio: ${producto.precioConDescuento ? producto.precioConDescuento.toLocaleString('es-CL') : producto.price.toLocaleString('es-CL')}</p>
+                      <p>
+                        Precio: $
+                        {producto.precioConDescuento
+                          ? producto.precioConDescuento.toLocaleString('es-CL')
+                          : producto.price.toLocaleString('es-CL')}
+                      </p>
                       {producto.descuentoAplicado > 0 && (
-                        <p>Descuento cupón: {producto.descuentoAplicado}% (Cód: {producto.codigoCupon})</p>
+                        <p>
+                          Descuento cupón: {producto.descuentoAplicado}% (Cód:{' '}
+                          {producto.codigoCupon})
+                        </p>
                       )}
                     </div>
                   </div>
@@ -145,6 +190,14 @@ export default function MiCuenta({ user, setUser, compras, cupones, setCuponesIn
             )}
           </div>
         )}
+
+        {activeTab === 'seguimiento' && compraSeleccionada && (
+          <SeguimientoCompras
+            compra={compraSeleccionada}
+            onVolver={() => setActiveTab('compras')}
+          />
+        )}
+
 
         {activeTab === 'cupones' && (
           <div>
@@ -192,33 +245,103 @@ export default function MiCuenta({ user, setUser, compras, cupones, setCuponesIn
             <h2>Direcciones</h2>
             <ul>
               {direcciones.map((dir, i) => (
-                <li key={i}>
+                <li
+                  key={i}
+                  onClick={() => {
+                    setEditIndex(i);
+                    // Separar la dirección para llenar campos al editar
+                    const partes = dir.split(' ');
+                    const tipo = partes.pop(); // último elemento
+                    const numero = partes.pop(); // penúltimo
+                    const calle = partes.join(' '); // resto es calle
+                    setCalle(calle);
+                    setNumero(numero);
+                    setTipo(tipo);
+                  }}
+                  style={{
+                    cursor: 'pointer',
+                    backgroundColor: editIndex === i ? '#add8e6' : 'transparent',
+                    padding: '5px',
+                    marginBottom: '4px',
+                    borderRadius: '4px'
+                  }}
+                >
                   {dir}
                 </li>
               ))}
             </ul>
+
             <input
-              value={nuevaDireccion}
-              onChange={e => setNuevaDireccion(e.target.value)}
-              placeholder="Agregar/Editar dirección"
+              type="text"
+              placeholder="Calle o Avenida"
+              value={calle}
+              onChange={e => setCalle(e.target.value)}
+              style={{ marginRight: '10px' }}
             />
-            <ul></ul>
-            {editIndex === null ? (
-              <button onClick={handleAddDireccion}>Añadir</button>
-            ) : (
-              <button onClick={handleSaveEdit}>Guardar cambios</button>
-            )}
-            <ul></ul>
-            <ul>
-              {direcciones.map((dir, i) => (
-                <li key={i}>
-                  <button onClick={() => handleEditDireccion(i)}>Editar</button>
-                  <button onClick={() => handleDeleteDireccion(i)}>Eliminar</button>
-                </li>
-              ))}
-            </ul>
+            <input
+              type="text"
+              placeholder="Número"
+              value={numero}
+              onChange={e => setNumero(e.target.value)}
+              style={{ marginRight: '10px' }}
+            />
+            <select value={tipo} onChange={e => setTipo(e.target.value)}>
+              <option value="Casa">Casa</option>
+              <option value="Apartamento">Apartamento</option>
+            </select>
+
+            <div style={{ marginTop: '10px' }}>
+              <button
+                onClick={() => {
+                  if (!calle.trim() || !numero.trim()) return alert('Completa calle y número');
+                  const nuevaDir = `${calle.trim()} ${numero.trim()} ${tipo}`;
+                  setDirecciones([...direcciones, nuevaDir]);
+                  setCalle('');
+                  setNumero('');
+                  setTipo('Casa');
+                }}
+                disabled={editIndex !== null}
+              >
+                Añadir
+              </button>
+
+              <button
+                onClick={() => {
+                  if (editIndex === null) return;
+                  if (!calle.trim() || !numero.trim()) return alert('Completa calle y número');
+                  const nuevaDir = `${calle.trim()} ${numero.trim()} ${tipo}`;
+                  const copia = [...direcciones];
+                  copia[editIndex] = nuevaDir;
+                  setDirecciones(copia);
+                  setCalle('');
+                  setNumero('');
+                  setTipo('Casa');
+                  setEditIndex(null);
+                }}
+                disabled={editIndex === null}
+                style={{ marginLeft: '10px' }}
+              >
+                Modificar
+              </button>
+
+              <button
+                onClick={() => {
+                  if (editIndex === null) return;
+                  setDirecciones(direcciones.filter((_, idx) => idx !== editIndex));
+                  setCalle('');
+                  setNumero('');
+                  setTipo('Casa');
+                  setEditIndex(null);
+                }}
+                disabled={editIndex === null}
+                style={{ marginLeft: '10px' }}
+              >
+                Eliminar
+              </button>
+            </div>
           </div>
         )}
+
 
         {activeTab === 'contrasena' && (
           <div className="contrasena-section">

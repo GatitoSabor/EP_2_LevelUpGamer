@@ -7,6 +7,7 @@
   overflow: hidden;
   font-family: 'Roboto', sans-serif;
   color: #2c2c2c;
+  margin-top: 20px;
 }
 
 .mi-cuenta-container .sidebar {
@@ -29,7 +30,7 @@
   cursor: pointer;
   border-radius: 8px;
   transition: background-color 0.3s ease, color 0.3s ease;
-  box-shadow: inset 0 0 0 rgba(255,255,255,0);
+  box-shadow: inset 0 0 0 rgba(255, 255, 255, 0);
 }
 
 .mi-cuenta-container .sidebar button:hover {
@@ -44,7 +45,6 @@
   box-shadow: inset 3px 0 12px rgba(255, 255, 255, 0.6);
   font-weight: 800;
 }
-
 
 .mi-cuenta-container .content {
   flex-grow: 1;
@@ -153,7 +153,6 @@
   justify-content: flex-start; /* Alinear al inicio a la izquierda */
   gap: 25px;
   height: 150px;
-
 }
 
 .compra-item img {
@@ -192,7 +191,7 @@
   border-radius: 8px;
   padding: 12px 18px;
   margin-bottom: 10px;
-  box-shadow: 0 1px 6px rgba(0,0,0,0.1);
+  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.1);
   font-weight: 600;
 }
 
@@ -277,6 +276,7 @@
   margin-bottom: 20px;
 }
 
+/* Botón comprar en tienda puntos */
 .btn-comprar {
   background-color: #5a3fed;
   color: white;
@@ -324,82 +324,107 @@
   list-style: none;
   padding: 0;
   margin-bottom: 22px;
-  max-width: 600px; /* limita ancho */
+  max-width: 600px;
   margin-left: auto;
   margin-right: auto;
 }
 
-.direcciones-section li:hover {
-  background-color: #e1defe; /* color de hover ligero */
+.direcciones-section li {
+  cursor: pointer;
+  padding: 6px 10px;
+  border-radius: 8px;
+  margin-bottom: 8px;
+  transition: background-color 0.3s ease;
 }
 
+.direcciones-section li:hover {
+  background-color: #e1defe;
+}
+
+.direcciones-section li.selected,
+.direcciones-section li:focus {
+  background-color: #c5b5ff;
+  outline: none;
+}
+
+/* Inputs y selects en direcciones */
+.direcciones-section input,
+.direcciones-section select {
+  width: calc(33.33% - 14px);
+  padding: 10px 12px;
+  border: 1.5px solid #917eff;
+  border-radius: 8px;
+  margin-right: 10px;
+  font-size: 1rem;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  box-sizing: border-box;
+}
+
+.direcciones-section input:focus,
+.direcciones-section select:focus {
+  outline: none;
+  border-color: #5a3fed;
+  box-shadow: 0 2px 8px #5a3fed66;
+}
+
+@media (max-width: 600px) {
+  .direcciones-section input,
+  .direcciones-section select {
+    width: 100%;
+    margin-bottom: 10px;
+    margin-right: 0;
+  }
+}
+
+/* Botones sección direcciones */
 .direcciones-section button {
   font-weight: 600;
-  padding: 8px 18px;
-  margin-left: 8px;
+  padding: 10px 28px;
   border-radius: 8px;
   border: none;
   cursor: pointer;
   transition: background-color 0.3s ease, box-shadow 0.3s ease;
   color: #fff;
   box-shadow: 0 2px 6px rgba(90, 63, 237, 0.3);
-}
-
-.direcciones-section button:hover {
-  background: #4129b6;
-  color: #fff;
-}
-
-.direcciones-section input {
-  width: calc(100% - 100px);
-  padding: 12px;
-  border: 1.5px solid #917eff;
-  border-radius: 8px;
   margin-right: 10px;
-  font-size: 1rem;
-  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  margin-top: 10px;
 }
 
-.direcciones-section input:focus {
-  outline: none;
-  border-color: #5a3fed;
-  box-shadow: 0 2px 8px #5a3fed66;
-}
-
-.direcciones-section button:first-child {
-  background-color: #6c63ff; /* color púrpura suave */
-  margin-top: 0;
-  padding: 10px 28px;
-}
-
-.direcciones-section button:first-child:hover {
+.direcciones-section button:hover:not(:disabled) {
   background-color: #5848c2;
   box-shadow: 0 4px 10px rgba(88, 72, 194, 0.7);
 }
 
-/* Botón eliminar */
-.direcciones-section button:last-child {
-  background-color: #6c63ff; /* rojo atractivo */
-  margin-top: 0;
-  padding: 10px 28px;
+.direcciones-section button:disabled {
+  background-color: #aca9e8;
+  cursor: not-allowed;
 }
 
-.direcciones-section button:last-child:hover {
-  background-color: #bb3e3a;
-  box-shadow: 0 4px 10px rgba(187, 62, 58, 0.7);
+/* Estilos para diferenciar botónes Añadir, Modificar y Eliminar */
+
+.direcciones-section button.add {
+  background-color: #6c63ff; /* púrpura suave */
 }
 
-/* Para que los botones tengan tamaño parecido y se alineen mejor */
-.direcciones-section li {
-  display: flex;
-  align-items: center;
-  gap: 8px;
+.direcciones-section button.modify {
+  background-color: #4b37d1; /* tono más oscuro */
 }
 
-.direcciones-section li > span {
-  flex: 1;
-  font-weight: 500;
-  font-size: 1rem;
+.direcciones-section button.delete {
+  background-color: #bb3e3a; /* rojo */
+  margin-right: 0;
+}
+
+.direcciones-section button.add:hover:not(:disabled) {
+  background-color: #5848c2;
+}
+
+.direcciones-section button.modify:hover:not(:disabled) {
+  background-color: #3c2ca4;
+}
+
+.direcciones-section button.delete:hover:not(:disabled) {
+  background-color: #8e2a27;
 }
 
 /* ------ Contraseña ------- */
@@ -480,9 +505,31 @@
     border-radius: 0 0 12px 12px;
     padding: 18px 2vw;
   }
-  .direcciones-section, .contrasena-section {
+  .direcciones-section,
+  .contrasena-section {
     max-width: 100%;
     padding: 18px 2vw 16px 2vw;
     border-radius: 8px;
   }
+}
+
+.barra-progreso {
+  display: flex;
+  gap: 15px;
+  margin: 20px 0;
+}
+
+.etapa {
+  flex: 1;
+  padding: 10px;
+  background: #eee;
+  border-radius: 5px;
+  text-align: center;
+  font-weight: 600;
+  color: #666;
+}
+
+.etapa.activa {
+  background-color: #5a3fed;
+  color: white;
 }

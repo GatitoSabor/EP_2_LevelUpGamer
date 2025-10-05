@@ -4,6 +4,8 @@
   color: #1a1a1a;
   background-color: #fff;
   box-sizing: border-box;
+  margin: 20px 0;        /* margen arriba y abajo */
+  border-radius: 15px;   /* bordes curvos */
 }
 
 .section-title {

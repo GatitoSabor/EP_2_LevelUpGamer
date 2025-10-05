@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import ProductDetailModal from './ProductDetailModal';
 
-export default function Catalog({ products, onAddToCart, setSelectedProduct, initialFilters = {} }) {
+export default function Catalog({ products, showFreeShippingOnly, setShowFreeShippingOnly, onAddToCart, setSelectedProduct, initialFilters = {} }) {
   const [filters, setFilters] = useState({
     marca: '',
     categoria: '',
@@ -12,6 +12,13 @@ export default function Catalog({ products, onAddToCart, setSelectedProduct, ini
     envioGratis: false,
     ...initialFilters,
   });
+
+  useEffect(() => {
+    // Sincronizar el filtro local con el valor recibido del padre
+    if (typeof initialFilters.envioGratis === 'boolean') {
+      setFilters(prev => ({ ...prev, envioGratis: initialFilters.envioGratis }));
+    }
+  }, [initialFilters.envioGratis]);
 
   const marcas = [...new Set(products.map(p => p.marca))];
   const categorias = [...new Set(products.map(p => p.categoria))];
@@ -28,6 +35,10 @@ export default function Catalog({ products, onAddToCart, setSelectedProduct, ini
             ? Number(value) || 0
             : value,
     }));
+    // Si el filtro es envío gratis, también sincroniza el estado en padre para mantener coherencia
+    if (name === 'envioGratis') {
+      setShowFreeShippingOnly(checked);
+    }
   };
 
   const filteredProducts = products.filter(p => {

@@ -8,7 +8,7 @@ import ProductDetailModal from './ProductDetailModal';
 import promoImage from '../assets/promos/promo.jpg';
 import promoVal from '../assets/promos/valo.jpg';
 
-export default function Home({ onAddToCart, onBuyNow, onShowDiscountProducts, onShowValorantProducts, onShowNews, onShowEvents }) {
+export default function Home({ onAddToCart, onBuyNow, onShowDiscountProducts, onShowValorantProducts, onShowNews, onShowEvents, onShowFreeShipping, onGoToRegister }) {
   const [goToSlide, setGoToSlide] = useState(0);
   const [selectedProduct, setSelectedProduct] = useState(null);
   const productIdsToShow = ["SG003","CG002","CG004","AU002","AU003"];
@@ -22,10 +22,22 @@ export default function Home({ onAddToCart, onBuyNow, onShowDiscountProducts, on
     }
   };
 
+  const handleFreeShippingClick = () => {
+    if (onShowFreeShipping) {
+      onShowFreeShipping();
+    }
+  };
+
+  const handleGoToRegisterClick = () => {
+    if (onGoToRegister) {
+      onGoToRegister();
+    }
+  };
+
   const slides = [
     { key: 0, content: <img src={require('../assets/promos/2.jpg')} alt="Promo" className="main-carousel-image" onClick={handleValorantPromoClick}/> },
-    { key: 1, content: <img src={require('../assets/promos/3.jpg')} alt="Promo2" className="main-carousel-image" /> },
-    { key: 2, content: <img src={require('../assets/promos/4.jpg')} alt="Promo3" className="main-carousel-image" /> },
+    { key: 1, content: <img src={require('../assets/promos/3.jpg')} alt="Promo2" className="main-carousel-image" onClick={handleFreeShippingClick}/> },
+    { key: 2, content: <img src={require('../assets/promos/4.jpg')} alt="Promo3" className="main-carousel-image" onClick={handleGoToRegisterClick}/> },
   ];
 
   // Rotación automática: cada 3 segundos cambia la diapositiva

@@ -20,11 +20,17 @@ export default function App() {
     return saved ? JSON.parse(saved) : [];
   });
 
-  const [page, setPage] = useState('home');
+  
   const [user, setUser] = useState(null);
+  const [direcciones, setDirecciones] = useState(user?.direcciones || []);
+  const [activeTab, setActiveTab] = useState('compras');
+  const [compraSeleccionada, setCompraSeleccionada] = useState(null);
+
+  const [page, setPage] = useState('home');
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [showDiscountOnly, setShowDiscountOnly] = useState(false);
   const [showValorantOnly, setShowValorantOnly] = useState(false);
+  const [showFreeShippingOnly, setShowFreeShippingOnly] = useState(false);
   const [clearSearch, setClearSearch] = useState(false);
   const [compras, setCompras] = useState(() => {
   const saved = localStorage.getItem('compras');
@@ -108,9 +114,14 @@ const handleStartCheckout = () => {
 useEffect(() => {
     if (user) {
       setCuponesInternos(user.cupones || []);
+      setDirecciones(user.direcciones || []);
     }
   }, [user]);
 
+const actualizarDirecciones = (nuevasDirecciones) => {
+  setDirecciones(nuevasDirecciones);
+  setUser(prev => ({ ...prev, direcciones: nuevasDirecciones }));
+};
 
   const handleCheckout = () => {
     if (cart.length === 0) {
@@ -156,9 +167,6 @@ useEffect(() => {
         }
       }
     }
-
-
-
 
 
     // Resto del checkout...
@@ -304,6 +312,7 @@ const handleGuardarCompra = (compra) => {
     if (newPage === 'catalogo') {
       setShowDiscountOnly(false);
       setShowValorantOnly(false);
+      setShowFreeShippingOnly(false);
     }
     setPage(newPage);
     setSelectedProduct(null);
@@ -316,6 +325,14 @@ const handleGuardarCompra = (compra) => {
     }
   }, [clearSearch]);
 
+  // Sincronizar direcciones del user cuando cambia user
+  useEffect(() => {
+    if (user?.direcciones) {
+      setDirecciones(user.direcciones);
+    }
+  }, [user]);
+
+  
   const handleShowDiscountProducts = () => {
     setShowDiscountOnly(true);
     setPage('catalogo');
@@ -325,6 +342,17 @@ const handleGuardarCompra = (compra) => {
     setShowValorantOnly(true);
     setShowDiscountOnly(false); // aseguramos que el filtro descuento no esté activo
     setPage('catalogo');
+  };
+
+  const handleShowFreeShipping = () => {
+    setShowFreeShippingOnly(true);
+    setShowDiscountOnly(false);
+    setShowValorantOnly(false);
+    setPage('catalogo');
+  };
+
+  const handleGoToRegister = () => {
+    setPage('signup');
   };
 
   return (
@@ -354,7 +382,18 @@ const handleGuardarCompra = (compra) => {
             onSelectProduct={handleSelectProduct}
           />
         ) : page === 'miCuenta' && user ? (
-          <MiCuenta user={user} setUser={setUser} compras={compras} cupones={cuponesInternos} setCuponesInternos={setCuponesInternos} />
+          <MiCuenta 
+          activeTab={activeTab}
+          setActiveTab={setActiveTab}
+          compraSeleccionada={compraSeleccionada}
+          setCompraSeleccionada={setCompraSeleccionada}
+          user={user} 
+          setUser={setUser} 
+          direcciones={direcciones} 
+          setDirecciones={actualizarDirecciones}
+          compras={compras} 
+          cupones={cuponesInternos} 
+          setCuponesInternos={setCuponesInternos} />
         ) : (
           <>
             {page === 'home' && (
@@ -365,6 +404,8 @@ const handleGuardarCompra = (compra) => {
                 onShowValorantProducts={handleShowValorantProducts}
                 onShowNews={() => goToPage('noticias')}
                 onShowEvents={() => goToPage('eventos')}
+                onShowFreeShipping={handleShowFreeShipping} // función que definiste en el padre
+                onGoToRegister={handleGoToRegister}
               />
             )}
 
@@ -380,9 +421,12 @@ const handleGuardarCompra = (compra) => {
                 products={products}
                 onAddToCart={addToCart}
                 setSelectedProduct={setSelectedProduct}
+                showFreeShippingOnly={showFreeShippingOnly}
+                setShowFreeShippingOnly={setShowFreeShippingOnly}
                 initialFilters={{
                   soloConDescuento: showDiscountOnly,
                   juego: showValorantOnly ? 'Valorant' : '',
+                  envioGratis: showFreeShippingOnly,
                 }}
               />
             )}
@@ -390,12 +434,17 @@ const handleGuardarCompra = (compra) => {
             {page === 'carrito' && (
               showCheckout ? (
                 <CheckoutStepper
+                  user={user}
+                  setUser={setUser} 
                   cart={cart}
                   cartItems={cart}
+                  direcciones={direcciones} 
+                  setDirecciones={setDirecciones} 
+                  discountPercent={discountPercent}
                   clienteData={clienteData}
                   setClienteData={setClienteData}
                   direccionData={direccionData}
-                  setDireccionData={setDireccionData}
+                  setDireccionData={actualizarDirecciones}
                   pagoData={pagoData}
                   setPagoData={setPagoData}
                   onFinishCheckout={() => {
@@ -523,7 +572,9 @@ const handleGuardarCompra = (compra) => {
         
       </main>
 
-      <Footer />
+      <Footer 
+      setActiveTab={setActiveTab}
+      setCompraSeleccionada={setCompraSeleccionada}/>
     </div>
   );
 }
