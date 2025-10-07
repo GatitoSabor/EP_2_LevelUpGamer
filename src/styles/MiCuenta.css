@@ -19,31 +19,29 @@
 }
 
 .mi-cuenta-container .sidebar button {
-  background: none;
+  color: white;                      /* Texto blanco */
+  background-color: transparent;    /* Fondo transparente */
   border: none;
-  color: #d8d8ff;
-  font-size: 17px;
-  font-weight: 700;
-  padding: 18px 15px;
-  margin-bottom: 12px;
+  padding: 12px 20px;               /* Más grande */
+  width: 100%;
   text-align: left;
   cursor: pointer;
-  border-radius: 8px;
-  transition: background-color 0.3s ease, color 0.3s ease;
-  box-shadow: inset 0 0 0 rgba(255, 255, 255, 0);
+  font-size: 16px;                  /* Tamaño de texto aumentado */
+  border-radius: 12px;              /* Bordes curvos */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15); /* Sombra suave */
+  transition: background-color 0.3s, color 0.3s;
+  margin-bottom: 12px;
 }
 
 .mi-cuenta-container .sidebar button:hover {
-  background-color: rgba(255, 255, 255, 0.15);
-  color: #ffffff;
-  box-shadow: inset 3px 0 6px rgba(255, 255, 255, 0.35);
+  background-color: #e0d7f7;   /* Morado claro al hover */
+  color: #4b0082;  
 }
 
 .mi-cuenta-container .sidebar button.active {
-  background-color: #917eff;
-  color: #ffffff;
-  box-shadow: inset 3px 0 12px rgba(255, 255, 255, 0.6);
-  font-weight: 800;
+  color: white;
+  background-color: #b19cd9;  /* Morado claro */
+  box-shadow: 0 4px 8px rgba(177, 156, 217, 0.5); /* Sombra más visible */
 }
 
 .mi-cuenta-container .content {
@@ -301,7 +299,15 @@
 }
 
 /* === Mejorar visual de secciones de direcciones y contraseña === */
-.direcciones-section,
+.direcciones-section {
+  background: white;
+  border-radius: 12px;
+  padding: 32px 28px 24px 28px;
+  box-shadow: 0 2px 10px rgba(90, 63, 237, 0.05);
+  max-width: 1000px;
+  margin: 0 auto 35px;
+}
+
 .contrasena-section {
   background: white;
   border-radius: 12px;
@@ -379,25 +385,29 @@
 /* Botones sección direcciones */
 .direcciones-section button {
   font-weight: 600;
-  padding: 10px 28px;
-  border-radius: 8px;
+  padding: 12px 28px; /* un poco más grande */
+  border-radius: 12px; /* bordes curvos */
   border: none;
   cursor: pointer;
-  transition: background-color 0.3s ease, box-shadow 0.3s ease;
-  color: #fff;
-  box-shadow: 0 2px 6px rgba(90, 63, 237, 0.3);
+  transition: background-color 0.3s ease, box-shadow 0.3s ease, color 0.3s ease;
+  color: #a595db; /* morado claro texto inactivo */
+  background-color: white; /* fondo blanco inactivo */
+  box-shadow: 0 2px 6px rgba(165, 149, 219, 0.4); /* sombra ligera */
   margin-right: 10px;
   margin-top: 10px;
 }
 
 .direcciones-section button:hover:not(:disabled) {
-  background-color: #5848c2;
-  box-shadow: 0 4px 10px rgba(88, 72, 194, 0.7);
+  background-color: #6a4fbf; /* morado oscuro fondo al hover */
+  color: white; /* texto blanco al hover */
+  box-shadow: 0 4px 10px rgba(106, 79, 191, 0.7); /* sombra más visible */
 }
 
 .direcciones-section button:disabled {
-  background-color: #aca9e8;
+  background-color: #e1dffc; /* más claro o grisáceo cuando deshabilitado */
+  color: #b4b0d0;
   cursor: not-allowed;
+  box-shadow: none;
 }
 
 /* Estilos para diferenciar botónes Añadir, Modificar y Eliminar */
@@ -532,4 +542,84 @@
 .etapa.activa {
   background-color: #5a3fed;
   color: white;
+}
+
+.btn-primary {
+  background-color: #348fe2;
+  color: white;
+  padding: 8px 15px;
+  border: none;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.25s ease;
+}
+
+.btn-primary:hover {
+  background-color: #296fc1;
+}
+
+.historial-puntos {
+  margin-top: 20px;
+  background: linear-gradient(145deg, #e0f7fa, #b2ebf2);
+  padding: 20px 25px;
+  border-radius: 12px;
+  max-height: 260px;
+  overflow-y: auto;
+  box-shadow: 0 5px 15px rgba(20, 137, 148, 0.3);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.historial-puntos h3 {
+  margin-bottom: 15px;
+  font-weight: 700;
+  color: #007c91;
+  text-shadow: 1px 1px 2px #004d58;
+  border-bottom: 2px solid #007c91;
+  padding-bottom: 8px;
+}
+
+.historial-puntos ul {
+  list-style: none;
+  padding-left: 0;
+  margin: 0;
+}
+
+.evento-puntos {
+  background-color: #ffffffcc;
+  border-radius: 8px;
+  padding: 12px 15px;
+  margin-bottom: 10px;
+  box-shadow: 2px 2px 5px #b2ebf2;
+  color: #004d58;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 0.95rem;
+  transition: background-color 0.3s ease;
+}
+
+.evento-puntos:hover {
+  background-color: #007c91cc;
+  color: #e0f7fa;
+  cursor: default;
+}
+
+.icono {
+  margin-right: 10px;
+  font-size: 1.3rem;
+  user-select: none;
+}
+
+.fecha-evento {
+  font-size: 0.8rem;
+  color: #007c91cc;
+  user-select: none;
+}
+
+.sin-eventos {
+  font-style: italic;
+  color: #4a4a4a99;
+  text-align: center;
+  margin-top: 12px;
 }

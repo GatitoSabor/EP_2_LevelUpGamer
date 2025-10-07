@@ -10,6 +10,7 @@ export default function MiCuenta({compraSeleccionada, setCompraSeleccionada, use
   const [calle, setCalle] = useState('');
   const [numero, setNumero] = useState('');
   const [tipo, setTipo] = useState('Casa');
+  const [historialPuntos, setHistorialPuntos] = useState([]);
 
 
   const descuentos = [
@@ -19,12 +20,6 @@ export default function MiCuenta({compraSeleccionada, setCompraSeleccionada, use
     { id: 4, texto: "Envío gratuito", puntos: 300 }
   ];
 
-
-
-  const handleEditDireccion = (i) => {
-    setNuevaDireccion(direcciones[i]);
-    setEditIndex(i);
-  };
 
   const [passwordForm, setPasswordForm] = useState({ actual: '', nueva: '' });
   const handlePasswordChange = (e) => {
@@ -41,42 +36,49 @@ export default function MiCuenta({compraSeleccionada, setCompraSeleccionada, use
       alert('La contraseña actual es incorrecta.');
       return;
     }
-    // Luego sí, actualizas la contraseña en el usuario
+
     setUser({...user, password: passwordForm.nueva});
     alert('Contraseña modificada con éxito');
     setPasswordForm({ actual: '', nueva: '' });
   };
-
-
-
-  const handleDeleteDireccion = (i) => {
-    setDirecciones(direcciones.filter((_, idx) => idx !== i));
-  };
-
-  const eliminarCupon = (codigoCupon) => {
-    setCuponesInternos(cupones.filter(cup => cup.codigo !== codigoCupon));
-  };
-
 
   const handleComprar = (desc) => {
     if (puntos < desc.puntos) {
       alert("No tienes suficientes puntos para esta opción.");
       return;
     }
+
     const confirmar = window.confirm(`¿Confirmas canjear ${desc.puntos} puntos para:\n${desc.texto}?`);
     if (confirmar) {
       const nuevoCupon = {
         codigo: `LVLUP${Date.now()}`,
         descripcion: desc.texto,
         descuento: desc.descuentoPorc || 0,
-        valorFijo: desc.valorFijo || null,
+        id: desc.id, // Importante: asignar id de descuento para lógica común
         disponible: true,
       };
-      setCuponesInternos([...cupones, nuevoCupon]); // actualiza el estado global
+      setCuponesInternos([...cupones, nuevoCupon]);
       setPuntos(puntos - desc.puntos);
       alert("Descuento canjeado y añadido a tus cupones.");
     }
   };
+
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      // Simular usuario que gana puntos
+      const nuevoEvento = {
+        id: Date.now(),
+        usuario: 'UsuarioXYZ',
+        puntos: Math.floor(Math.random() * 100) + 1, // puntos random entre 1 y 100
+      };
+
+      setHistorialPuntos(prev => [...prev, nuevoEvento]);
+      setPuntos(prevPuntos => prevPuntos + nuevoEvento.puntos);
+    }, 5000); // cada 15 segundos (ajusta tiempo)
+
+    return () => clearInterval(interval);
+  }, []);
 
 
   // Estado para datos editables (clona user para evitar modificar estado directo)
@@ -97,45 +99,6 @@ export default function MiCuenta({compraSeleccionada, setCompraSeleccionada, use
     setUser(editableUser);
     alert('Datos personales actualizados con éxito');
   };
-
-  const generarDireccionCompleta = () => {
-    return `${calle.trim()} ${numero.trim()} ${tipo}`;
-  };
-
-  const handleAddDireccion = () => {
-    if (!calle.trim() || !numero.trim()) {
-      alert('Por favor completa calle y número');
-      return;
-    }
-    const direccionCompleta = `${calle.trim()} ${numero.trim()} ${tipo}`;
-    const nuevaLista = [...direcciones, direccionCompleta];
-    setDirecciones(nuevaLista);
-    setUser(prevUser => ({
-      ...prevUser,
-      direcciones: nuevaLista
-    }));
-    setCalle('');
-    setNumero('');
-    setTipo('Casa');
-  };
-
-
-
-  const handleSaveEdit = () => {
-    const direccionCompleta = generarDireccionCompleta();
-    if (!calle || !numero) {
-      alert('Por favor completa calle y número');
-      return;
-    }
-    const copia = [...direcciones];
-    copia[editIndex] = direccionCompleta;
-    setDirecciones(copia);
-    setCalle('');
-    setNumero('');
-    setTipo('Casa');
-    setEditIndex(null);
-  };
-
 
   return (
     <div className="mi-cuenta-container">
@@ -195,6 +158,7 @@ export default function MiCuenta({compraSeleccionada, setCompraSeleccionada, use
           <SeguimientoCompras
             compra={compraSeleccionada}
             onVolver={() => setActiveTab('compras')}
+            volverClassName="btn-primary"
           />
         )}
 
@@ -263,7 +227,9 @@ export default function MiCuenta({compraSeleccionada, setCompraSeleccionada, use
                     backgroundColor: editIndex === i ? '#add8e6' : 'transparent',
                     padding: '5px',
                     marginBottom: '4px',
-                    borderRadius: '4px'
+                    borderRadius: '4px',
+                    textAlign: 'left',       // para alinear el texto a la izquierda
+                    width: '100%'  
                   }}
                 >
                   {dir}
@@ -383,6 +349,24 @@ export default function MiCuenta({compraSeleccionada, setCompraSeleccionada, use
                 </div>
               ))}
             </div>
+          
+            <div className="historial-puntos">
+              <h3>Historial de puntos ganados</h3>
+              {historialPuntos.length === 0 ? (
+                <p className="sin-eventos">No hay eventos por ahora.</p>
+              ) : (
+                <ul>
+                  {historialPuntos.map(evt => (
+                    <li key={evt.id} className="evento-puntos">
+                      <span className="icono">🎉</span>
+                      El usuario <strong>{evt.usuario}</strong> usó tu código referencial, ganaste <strong>{evt.puntos}</strong> puntos.
+                      <span className="fecha-evento">{new Date(evt.id).toLocaleTimeString()}</span>
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </div>
+
           </div>
         )}
       </section>

@@ -68,10 +68,14 @@ function SignUpForm({ onSignUp }) {
   const [rut, setRut] = useState('');
   const [birthDate, setBirthDate] = useState('');
   const [email, setEmail] = useState('');
+  const [codigoReferido, setCodigoReferido] = useState('');
 
   const handleSubmit = e => {
     e.preventDefault();
-    onSignUp({ username, password, fullName, rut, birthDate, email });
+    if (codigoReferido.trim() === 'AMIGO123') {
+      alert('250 pts otorgados al referido');
+    }
+    onSignUp({ username, password, fullName, rut, birthDate, email, codigoReferido });
   };
 
   return (
@@ -118,6 +122,13 @@ function SignUpForm({ onSignUp }) {
         onChange={e => setEmail(e.target.value)}
         required
       />
+      <input
+        type="text"
+        placeholder="Código referido (opcional)"
+        value={codigoReferido}
+        onChange={e => setCodigoReferido(e.target.value)}
+      />
+
       <button type="submit" className="submit-btn">Registrar</button>
     </form>
   );

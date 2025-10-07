@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Stepper, { Step } from './Stepper';
 import '../styles/CheckoutStepper.css'
 
-export default function CheckoutStepper({ cart, user, setUser, direcciones, setDirecciones, discountPercent }) {
+export default function CheckoutStepper({ cart, user, setUser, direcciones, setDirecciones, discountPercent, onFinishCheckout }) {
   const [personalData, setPersonalData] = useState({ nombre: '', email: '', telefono: '' });
   const [calle, setCalle] = useState('');
   const [numero, setNumero] = useState('');
@@ -100,7 +100,7 @@ export default function CheckoutStepper({ cart, user, setUser, direcciones, setD
   return (
     <Stepper
       initialStep={1}
-      onFinalStepCompleted={() => setFinalizado(true)}
+      onFinalStepCompleted={() => {setFinalizado(true);if(onFinishCheckout) onFinishCheckout(cart);}}
       backButtonText="Anterior"
       backButtonProps={{ className: "custom-back-button" }}
       nextButtonText="Siguiente"

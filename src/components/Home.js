@@ -6,32 +6,45 @@ import '../styles/Home.css';
 import products from '../data/products';
 import ProductDetailModal from './ProductDetailModal';
 import promoImage from '../assets/promos/promo.jpg';
+import promoImage2 from '../assets/promos/promodes.jpg';
 import promoVal from '../assets/promos/valo.jpg';
 
-export default function Home({ onAddToCart, onBuyNow, onShowDiscountProducts, onShowValorantProducts, onShowNews, onShowEvents, onShowFreeShipping, onGoToRegister }) {
+// NUEVO: puedes agregar estas imágenes en /assets/categorias/
+import imgVideo from '../assets/promos/promoComponentes.jpg';
+import imgMonitor from '../assets/promos/promoMonitor.jpg';
+import imgSSD from '../assets/promos/promoComponentes2.jpg';
+import imgPC from '../assets/promos/promoPC.jpg';
+
+export default function Home({ 
+  onAddToCart, onBuyNow, onShowDiscountProducts, 
+  onShowValorantProducts, onShowNews, onShowEvents, 
+  onShowFreeShipping, onGoToRegister, onShowCategory // <-- agrega este prop
+}) {
   const [goToSlide, setGoToSlide] = useState(0);
   const [selectedProduct, setSelectedProduct] = useState(null);
   const productIdsToShow = ["SG003","CG002","CG004","AU002","AU003"];
   const filteredProducts = products.filter(p => productIdsToShow.includes(p.id));
-
   const valorantProducts = products.filter(p => p.juego === 'Valorant').slice(0, 5);
+  const freeShippingProducts = products.filter(p => p.envioGratis).slice(0, 5);
 
   const handleValorantPromoClick = () => {
-    if (onShowValorantProducts) {
-      onShowValorantProducts();
-    }
+    if (onShowValorantProducts) onShowValorantProducts();
   };
-
   const handleFreeShippingClick = () => {
-    if (onShowFreeShipping) {
-      onShowFreeShipping();
-    }
+    if (onShowFreeShipping) onShowFreeShipping();
+  };
+  const handleGoToRegisterClick = () => {
+    if (onGoToRegister) onGoToRegister();
+  };
+  const handlePromoClick = () => {
+    if (onShowDiscountProducts) onShowDiscountProducts();
   };
 
-  const handleGoToRegisterClick = () => {
-    if (onGoToRegister) {
-      onGoToRegister();
-    }
+  
+  // NUEVO: handlers categoría
+  const handleCategoryClick = (category) => {
+    if (onShowCategory) onShowCategory(category);
+    // O bien, puedes usar navigate("/catalogo?category=" + category) si usas React Router
   };
 
   const slides = [
@@ -40,21 +53,12 @@ export default function Home({ onAddToCart, onBuyNow, onShowDiscountProducts, on
     { key: 2, content: <img src={require('../assets/promos/4.jpg')} alt="Promo3" className="main-carousel-image" onClick={handleGoToRegisterClick}/> },
   ];
 
-  // Rotación automática: cada 3 segundos cambia la diapositiva
   useEffect(() => {
     const timer = setInterval(() => {
       setGoToSlide(prev => (prev + 1) % slides.length);
     }, 3000);
     return () => clearInterval(timer);
   }, [slides.length]);
-
-  const handlePromoClick = () => {
-    if (onShowDiscountProducts) {
-      onShowDiscountProducts();
-    }
-  };
-
-  
 
   if (selectedProduct) {
     return (
@@ -70,6 +74,14 @@ export default function Home({ onAddToCart, onBuyNow, onShowDiscountProducts, on
     );
   }
 
+  // NUEVO: array de categorías
+  const featuredCategories = [
+    { name: "Tarjetas de Video", image: imgVideo, filtro: "Componentes" },
+    { name: "Monitores Gamer", image: imgMonitor, filtro: "Monitores" },
+    { name: "SSD", image: imgSSD, filtro: "Componentes" },
+    { name: "PC Escritorio", image: imgPC, filtro: "Computadoras" }
+  ];
+
   return (
     <div className="home-root">
       <div className="main-carousel" style={{ width: '80%', height: '300px', margin: '0 auto' }}>
@@ -77,7 +89,7 @@ export default function Home({ onAddToCart, onBuyNow, onShowDiscountProducts, on
           slides={slides}
           goToSlide={goToSlide}
           offsetRadius={2}
-          showNavigation={false}  // ocultar flechas
+          showNavigation={false}
           animationConfig={config.gentle}
           onGoToSlide={setGoToSlide}
           springConfig={{ mass: 1, tension: 120, friction: 20 }}
@@ -143,7 +155,6 @@ export default function Home({ onAddToCart, onBuyNow, onShowDiscountProducts, on
               <img src={product.image} alt={product.name} className="discounted-product-image" />
               <h3 className="discounted-product-name">{product.name}</h3>
               <p className="discounted-product-price">
-                <span className="original-price">${product.price.toLocaleString('es-CL')}</span>
                 <span className="discounted-price">
                   ${((product.price * (1 - (product.discount || 0)))).toLocaleString('es-CL')}
                 </span>
@@ -166,35 +177,67 @@ export default function Home({ onAddToCart, onBuyNow, onShowDiscountProducts, on
         </div>
       </div>
 
-      {/* Botón para ir a Noticias */}
-      <div style={{ textAlign: 'center', marginTop: '40px' }}>
-        <button
-          onClick={onShowNews}
-          style={{
-            padding: '12px 24px',
-            fontSize: '16px',
-            cursor: 'pointer',
-            borderRadius: '5px',
-            backgroundColor: '#007bff',
-            color: '#fff',
-            border: 'none',
-          }}
+      {/* BLOQUE NUEVO: Imágenes-categorías destacadas */}
+      <div className="featured-categories-container">
+        {featuredCategories.map(cat => (
+          <div 
+            key={cat.name} 
+            className="category-card"
+            onClick={() => handleCategoryClick(cat.filtro)}
+          >
+            <img
+              src={cat.image}
+              alt={cat.name}
+            />
+          </div>
+        ))}
+      </div>
+      
+      {/* Bloque envío gratis con productos y promo al final */}
+      <div style={{ display: 'flex', gap: '20px', marginTop: '60px', alignItems: 'center', justifyContent: 'center' }}>
+        
+        {/* Productos con envío gratis */}
+        <div className="products-container">
+          {freeShippingProducts.map(product => (
+            <div
+              key={product.id}
+              className="discounted-product-card"
+              style={{ cursor: 'pointer', margin: '0 3px' }}
+              onClick={() => setSelectedProduct(product)}
+            >
+              {product.label && (
+                <div className={`product-label ${product.label.toLowerCase().replace(/\s/g, '-')}`}>
+                  {product.label}
+                </div>
+              )}
+              <img src={product.image} alt={product.name} className="discounted-product-image" />
+              <h3 className="discounted-product-name">{product.name}</h3>
+              <p className="discounted-product-price">
+                <span className="discounted-price">
+                  ${((product.price * (1 - (product.discount || 0)))).toLocaleString('es-CL')}
+                </span>
+              </p>
+              <p className="payment-method">Transferencias</p>
+            </div>
+          ))}
+        </div>
+
+        {/* Imagen promo envío gratis */}
+        <div
+          style={{ flex: '0 0 300px', position: 'relative', cursor: 'pointer' }}
+          onClick={() => onShowFreeShipping && onShowFreeShipping()}
         >
-          Ir a Noticias de Videojuegos
-        </button>
+          <img
+            src={promoImage2} // Cambia la ruta si es distinta
+            alt="Promoción Envío Gratis"
+            className="promo-image"
+            style={{ objectFit: 'contain' }}
+          />
+        </div>
       </div>
-      <div style={{ textAlign: 'center', marginTop: '40px' }}>
-        <button onClick={onShowEvents}
-          style={{
-              padding: '12px 24px',
-              fontSize: '16px',
-              cursor: 'pointer',
-              borderRadius: '5px',
-              backgroundColor: '#007bff',
-              color: '#fff',
-              border: 'none',
-            }}>Ver Eventos</button>
-      </div>
+
+
+
     </div>
   );
 }

@@ -114,6 +114,18 @@ export default function SearchDropdown({ products = [], onSelectProduct, clearSi
               ))}
             </div>
           )}
+          {/* Botón Ver todos los productos */}
+          <div className="search-view-all" style={{ textAlign: 'right', padding: '5px 10px', cursor: 'pointer', color: '#007bff' }}
+            onMouseDown={() => {
+              // Aquí puedes manejar la acción de ver todos, por ejemplo limpiar búsqueda y mostrar catálogo completo
+              setQuery('');
+              setFilteredCategories([]);
+              setFilteredProducts([]);
+              onSelectProduct(null); // O enviar a algún handler para mostrar todos productos
+            }}
+          >
+            Ver todos los productos
+          </div>
         </div>
       )}
     </div>

@@ -1,4 +1,3 @@
-// components/Eventos.jsx
 import React from 'react';
 import '../styles/Eventos.css';
 

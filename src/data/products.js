@@ -133,7 +133,8 @@ const products = [
     price: 349990,
     image: sillaImg,
     marca: "Secretlab",
-    categoria: "Sillas Gamer"
+    categoria: "Sillas Gamer",
+    estado: "preparacion"
   },
   {
     id: 'SG002',
@@ -148,7 +149,8 @@ const products = [
     price: 259990,
     image: sillaAudiImage,
     marca: "Audi",
-    categoria: "Sillas Gamer"
+    categoria: "Sillas Gamer",
+    estado: "preparacion"
   },
   {
     /*https://www.spdigital.cl/silla-gamer-cougar-hotrod/?srsltid=AfmBOooBvR_A9zbG-b4VJQw8Mupzzf54D7maYd3ojciUFhef7ejqJojf*/
@@ -174,7 +176,8 @@ const products = [
     discount: 0.36,
     image: silla1,
     marca: "Cougar",
-    categoria: "Sillas Gamer"
+    categoria: "Sillas Gamer",
+    estado: "preparacion"
   },
   /*Controles*/
   {
@@ -191,7 +194,8 @@ const products = [
     price: 59990,
     image: controladorXboxImg,
     marca: "Microsoft",
-    categoria: "Controles"
+    categoria: "Controles",
+    estado: "preparacion"
   },
   {
     /*https://www.spdigital.cl/ps5-dualsense-latam/?srsltid=AfmBOoqhoJqDHATkYlP2pweht1_KabGAwYUxQGpHrcYuv0mzv6BW86h1*/
@@ -209,7 +213,8 @@ const products = [
     discount: 0.18,
     image: mando1,
     marca: "Sony",
-    categoria: "Controles"
+    categoria: "Controles",
+    estado: "preparacion"
   },
   {
     /*https://www.spdigital.cl/control-inal%C3%A1mbrico-ps4-monster-games-wireless-d21edr-negro/*/
@@ -234,7 +239,8 @@ const products = [
     price: 59990,
     image: mando2,
     marca: "Sony",
-    categoria: "Controles"
+    categoria: "Controles",
+    estado: "preparacion"
   },
   {
     /*https://www.falabella.com/falabella-cl/product/5621240/Joycon-L-R-Neon-Red-Neon-Blue-Nintendo/5621240*/
@@ -251,7 +257,8 @@ const products = [
     discount: 0.14,
     image: mando3,
     marca: "Nintendo",
-    categoria: "Controles"
+    categoria: "Controles",
+    estado: "preparacion"
   },
   /*Consolas*/
   {
@@ -268,7 +275,8 @@ const products = [
     price: 549990,
     image: ps5Img,
     marca: "Sony",
-    categoria: "Consolas"
+    categoria: "Consolas",
+    estado: "preparacion"
   },
   {
     /*https://www.falabella.com/falabella-cl/product/123426427/Consola-Nintendo-Switch-Modelo-OLED-Neon/123426431*/
@@ -284,7 +292,8 @@ const products = [
     price: 299990,
     image: switchImage,
     marca: "Nintendo",
-    categoria: "Consolas"
+    categoria: "Consolas",
+    estado: "preparacion"
   },
   {
     /*https://www.paris.cl/consola-xbox-series-x-1tb-ssd-edicion-digital-blanco-certificado-reacondicionado-MKWXXAHXXQ.html*/
@@ -309,7 +318,8 @@ const products = [
     price: 539990,
     image: xbox,
     marca: "Xbox",
-    categoria: "Consolas"
+    categoria: "Consolas",
+    estado: "preparacion"
   },
   /*Audifonos*/
   {
@@ -334,7 +344,8 @@ const products = [
     price: 79990,
     image: audiImage,
     marca: "Audi",
-    categoria: "Audio"
+    categoria: "Audio",
+    estado: "preparacion"
   },
   {
     /*https://www.spdigital.cl/headset-cloud-stinger-core-wl/?srsltid=AfmBOoqW24llDd8JcFIDhVxrpQ4ScfrLQem4oof6CC7klwiEUcHNo1DO*/
@@ -362,7 +373,8 @@ const products = [
     discount: 0.16,
     image: audifonos1,
     marca: "HyperX",
-    categoria: "Audio"
+    categoria: "Audio",
+    estado: "preparacion"
   },
   {
     /*https://www.spdigital.cl/aud%C3%ADfonos-con-micr%C3%B3fono-logitech-pro-x-para-juegos-blue-voce/?srsltid=AfmBOopQdC_C2uYGtEQqW0u0-Q5NuG4_fIjXnadh7GVUwdeGYV8bPJ0F*/
@@ -391,7 +403,8 @@ const products = [
     discount: 0.21,
     image: audifonos2,
     marca: "Logitech",
-    categoria: "Audio"
+    categoria: "Audio",
+    estado: "preparacion"
   },
   {
     /*https://www.spdigital.cl/aud%C3%ADfonos-gamer-logitech-g335-conector-35mm-plug-and-play-multiplataforma-color-blanco/?srsltid=AfmBOorEYiohVxPZP7VAs4xA3oKydzFyXUdIUm5erRi6k-ZCVcfHYfBl*/
@@ -416,7 +429,8 @@ const products = [
     discount: 0.19,
     image: audifonos3,
     marca: "Logitech",
-    categoria: "Audio"
+    categoria: "Audio",
+    estado: "preparacion"
   },
   /*Mouse*/
   {
@@ -441,7 +455,8 @@ const products = [
     price: 39990,
     image: mouseImage,
     marca: "Corsair",
-    categoria: "Mouse Gamer"
+    categoria: "Mouse Gamer",
+    estado: "preparacion"
   },
   {
     /*https://www.spdigital.cl/mouse-gamer-logitech-g203-rgb-lightsync-6-botones-programables-8000-dpi-black/?srsltid=AfmBOoqzkLBqOlPmbrmqxZmezPVP32bfJftvUavArGhIOlN0sXwRZC0N*/
@@ -469,7 +484,8 @@ const products = [
     discount: 0.20,
     image: mouse1,
     marca: "Logitech",
-    categoria: "Mouse Gamer"
+    categoria: "Mouse Gamer",
+    estado: "preparacion"
   },
   {
     /*https://www.spdigital.cl/mouse-gamer-primus-gaming-gladius-12400t-limited-edition-diseno-dark-side/?srsltid=AfmBOooN-yNOKX0jUfqsv86hk-Ks0BHeeOcC6c_7wovYXya6AXZqEVOf*/
@@ -498,7 +514,8 @@ const products = [
     image: mouse2,
     marca: "Primus Gaming",
     categoria: "Mouse Gamer",
-    juego: "Star Wars"
+    juego: "Star Wars",
+    estado: "preparacion"
   },
   {
     /*https://www.spdigital.cl/mouse-gamer-cooler-master-mm711-6-botones-16000-dpi-white-matte/?srsltid=AfmBOorrt8yoypVWBPEPyTbVwq5byhSPFLOugnaOTgFhAPtWVs8FKF4o*/
@@ -524,7 +541,8 @@ const products = [
     discount: 0.19,
     image: mouse3,
     marca: "Corsair",
-    categoria: "Mouse Gamer"
+    categoria: "Mouse Gamer",
+    estado: "preparacion"
   },
   /*Teclado*/
   {
@@ -548,7 +566,8 @@ const products = [
     price: 99990,
     image: tecladoImage,
     marca: "Logitech",
-    categoria: "Teclados"
+    categoria: "Teclados",
+    estado: "preparacion"
   },
   {
     /*https://www.spdigital.cl/hyperx-keyboard-abs-hx-red-merco/*/
@@ -574,7 +593,8 @@ const products = [
     price: 161960,
     image: teclado1,
     marca: "HyperX",
-    categoria: "Teclados"
+    categoria: "Teclados",
+    estado: "preparacion"
   },
   {
     /*https://www.spdigital.cl/teclado-mec%C3%A1nico-gamer-redragon-kumara-k552-switch-outemu-retroiluminaci%C3%B3n-red-led/*/
@@ -599,7 +619,8 @@ const products = [
     discount: 0.49,
     image: teclado2,
     marca: "Redragon",
-    categoria: "Teclados"
+    categoria: "Teclados",
+    estado: "preparacion"
   },
   {
     /*https://www.spdigital.cl/hyperx-alloy-core-rgb-gaming-keyboard-la/*/
@@ -625,7 +646,8 @@ const products = [
     price: 78360,
     image: teclado3,
     marca: "HyperX",
-    categoria: "Teclados"
+    categoria: "Teclados",
+    estado: "preparacion"
   },
   {
     /*https://www.spdigital.cl/k552w-kr-sp-teclado-kumara-rainbow-white-switch-rojo-sp/*/
@@ -651,7 +673,8 @@ const products = [
     discount: 0.42,
     image: teclado4,
     marca: "Redragon",
-    categoria: "Teclados"
+    categoria: "Teclados",
+    estado: "preparacion"
   },
   {
     /*https://www.spdigital.cl/teclado-gamer-logitech-g-pro-rgb-mec%C3%A1nico-switch-gx-blue-al%C3%A1mbrico-negro/*/
@@ -678,7 +701,8 @@ const products = [
     discount: 0.19,
     image: teclado5,
     marca: "Logitech",
-    categoria: "Teclados"
+    categoria: "Teclados",
+    estado: "preparacion"
   },
   /*Monitor*/
   {
@@ -703,7 +727,8 @@ const products = [
     price: 159990,
     image: monitorImage,
     marca: "ASUS",
-    categoria: "Monitores"
+    categoria: "Monitores",
+    estado: "preparacion"
   },
   {
     /*https://www.spdigital.cl/monitor-gamer-msi-mag-275f-27-fhd-180hz-rapid-ips-05ms-adaptive-sync-hdmidisplayport/?srsltid=AfmBOopqov1ng0mkYgOhs_WJz050sEZf3_THwKZowivr1RUICmHyQvFr*/
@@ -732,7 +757,8 @@ const products = [
     price: 249990,
     image: monitor1,
     marca: "MSI",
-    categoria: "Monitores"
+    categoria: "Monitores",
+    estado: "preparacion"
   },
   {
     /*https://www.spdigital.cl/monitor-gamer-asus-tuf-gaming-vg27aq5a-27-qhd-210hz-fast-ips-03-ms-color-negro/?srsltid=AfmBOopNoDz_FPv0Em4WtqRGIV9hMl4pwpjVCi99813GKb6fyqwpUkcS*/
@@ -760,7 +786,8 @@ const products = [
     price: 399990,
     image: monitor2,
     marca: "ASUS",
-    categoria: "Monitores"
+    categoria: "Monitores",
+    estado: "preparacion"
   },
   {
     /*https://www.spdigital.cl/monitor-gamer-curvo-asus-rog-strix-xg27wcms-27-qhd-280hz-va-1ms-g-sync-hdr10/?srsltid=AfmBOoqptesMefmt6LLxx5sZA3ckclUgYSYg1b3fLxZPVayK1bn6A3O8*/
@@ -788,7 +815,8 @@ const products = [
     price: 599990,
     image: monitor3,
     marca: "ASUS",
-    categoria: "Monitores"
+    categoria: "Monitores",
+    estado: "preparacion"
   },
   {
     /*https://www.spdigital.cl/27-g55c-odyssey-g5-qhd-165hz-monitor-gamer-curvo/?srsltid=AfmBOop5TCYDQiAVEGKPScydDcY36BVPU-LZ5ssLEuoFgByNmarGxLXB*/
@@ -817,7 +845,8 @@ const products = [
     discount: 0.37,
     image: monitor4,
     marca: "Samsung",
-    categoria: "Monitores"
+    categoria: "Monitores",
+    estado: "preparacion"
   },
   /*PC*/
   {
@@ -842,7 +871,8 @@ const products = [
     price: 1249990,
     image: pcGamerImage,
     marca: "HP",
-    categoria: "Computadoras"
+    categoria: "Computadoras",
+    estado: "preparacion"
   },
   {
     /*https://www.spdigital.cl/pc-gamer-sp-labs-nomad-ryzen-7-7700x-rx-9070xt-ram-32gb-2x16gb-ddr5-ssd-1tb-nvme-freedos/?srsltid=AfmBOooWGf1RJXdI4jV5uwaF-aVDJYuRKapWr5BQH6iXM0c997eqotxn*/
@@ -867,7 +897,8 @@ const products = [
     price: 2499990,
     image: pc1,
     marca: "SP Labs",
-    categoria: "Computadoras"
+    categoria: "Computadoras",
+    estado: "preparacion"
   },
   {
     /*https://www.spdigital.cl/pc-gamer-r3-5300g-16gb-rgb-2x8-rgb-512gb-nvme-wifi-freedos/?srsltid=AfmBOopa8SarCWcCLA1wuqd2x0d5hT55qaJkbKJz20L3TL3tYYtgy4gc*/
@@ -893,7 +924,8 @@ const products = [
     discount: 0.14,
     image: pc2,
     marca: "Armados",
-    categoria: "Computadoras"
+    categoria: "Computadoras",
+    estado: "preparacion"
   },
   {
     /*https://www.spdigital.cl/pc-gamer-r5-550016gb-u100512g-nvme-g4000rtx-3060-12gb-wc-240wifi/?srsltid=AfmBOorKxDiBu5KEVMCAgF3ZQZv-C-MfVq9YmUc-0rizqTy_okIw6EEC*/
@@ -920,7 +952,8 @@ const products = [
     discount: 0.14,
     image: pc3,
     marca: "Armados",
-    categoria: "Computadoras"
+    categoria: "Computadoras",
+    estado: "preparacion"
   },
   /*Componentes*/
   {
@@ -947,7 +980,8 @@ const products = [
     price: 69990,
     image: cajaPcImage,
     marca: "Cooler Master",
-    categoria: "Componentes"
+    categoria: "Componentes",
+    estado: "preparacion"
   },
   {
     /*https://www.spdigital.cl/mag-coreliquid-a13-360/?srsltid=AfmBOoqXdWlPYbJzE6Ugyq98LOLQYwBW9-6xevEvDpSPj3ezhqUZq7EW*/
@@ -976,7 +1010,8 @@ const products = [
     price: 104490,
     image: refri1,
     marca: "MSI",
-    categoria: "Componentes"
+    categoria: "Componentes",
+    estado: "preparacion"
   },
   /*Audifonos Bluetooth*/
   {
@@ -1000,7 +1035,8 @@ const products = [
     price: 54990,
     image: bluetoothHeadsetImage,
     marca: "Sony",
-    categoria: "Audio"
+    categoria: "Audio",
+    estado: "preparacion"
   },
   {
     /*https://www.spdigital.cl/mini-pod-touch-fiddler-colors-morado/?srsltid=AfmBOorhzf5nU6IDZaFt8bjHq_kO8UMI0XXvAUHmYMTpeJDxlUxLSsOJ*/
@@ -1026,7 +1062,8 @@ const products = [
     discount: 0.46,
     image: audiblu2,
     marca: "Fiddler",
-    categoria: "Audio"
+    categoria: "Audio",
+    estado: "preparacion"
   },
   {
     /*https://www.spdigital.cl/audifonos-gamer-inalambricos-primus-gaming-arcus-230-in-ear-para-celular-diseno-grogu/*/
@@ -1053,7 +1090,8 @@ const products = [
     image: audiblu3,
     marca: "Primus Gaming",
     categoria: "Audio",
-    juego: "Star Wars"
+    juego: "Star Wars",
+    estado: "preparacion"
   },
   {
     /*https://www.spdigital.cl/primus-gaming-true-wireless-earphones-para-cellular-phone-para-home-audio-para-portable-elec/*/
@@ -1081,7 +1119,8 @@ const products = [
     image: audiblu4,
     marca: "Primus Gaming",
     categoria: "Audio",
-    juego: "Star Wars"
+    juego: "Star Wars",
+    estado: "preparacion"
   },
   /*Keycaps*/
   {
@@ -1103,7 +1142,8 @@ const products = [
     image: keycap1,
     marca: "KeycapLand",
     categoria: "Keycaps",
-    juego: "Valorant"
+    juego: "Valorant",
+    estado: "preparacion"
   },
   {
     id: 'KC002',
@@ -1124,7 +1164,8 @@ const products = [
     image: keycap6,
     marca: "KeycapLand",
     categoria: "Keycaps",
-    juego: "Valorant"
+    juego: "Valorant",
+    estado: "preparacion"
   },
   {
     id: 'KC003',
@@ -1145,7 +1186,8 @@ const products = [
     image: keycap2,
     marca: "KeycapLand",
     categoria: "Keycaps",
-    juego: "Valorant"
+    juego: "Valorant",
+    estado: "preparacion"
   },
   {
     id: 'KC004',
@@ -1166,7 +1208,8 @@ const products = [
     image: keycap3,
     marca: "KeycapLand",
     categoria: "Keycaps",
-    juego: "Valorant"
+    juego: "Valorant",
+    estado: "preparacion"
   },
   {
     id: 'KC005',
@@ -1187,7 +1230,8 @@ const products = [
     image: keycap4,
     marca: "KeycapLand",
     categoria: "Keycaps",
-    juego: "Valorant"
+    juego: "Valorant",
+    estado: "preparacion"
   },
   {
     id: 'KC006',
@@ -1208,7 +1252,8 @@ const products = [
     image: keycap5,
     marca: "KeycapLand",
     categoria: "Keycaps",
-    juego: "Valorant"
+    juego: "Valorant",
+    estado: "preparacion"
   },
   {
     id: 'KC007',
@@ -1229,7 +1274,8 @@ const products = [
     image: keycap7,
     marca: "KeycapLand",
     categoria: "Keycaps",
-    juego: "Valorant"
+    juego: "Valorant",
+    estado: "preparacion"
   },
   {
     id: 'KC008',
@@ -1250,7 +1296,8 @@ const products = [
     image: keycap8,
     marca: "KeycapLand",
     categoria: "Keycaps",
-    juego: "Valorant"
+    juego: "Valorant",
+    estado: "preparacion"
   },
   /*Mousepad*/
   {
@@ -1272,7 +1319,8 @@ const products = [
     image: mousepad1,
     marca: "MousepadLab",
     categoria: "Mousepad",
-    juego: "Valorant"
+    juego: "Valorant",
+    estado: "preparacion"
   },
   {
     id: 'MP002',
@@ -1293,7 +1341,8 @@ const products = [
     image: mousepad2,
     marca: "MousepadLab",
     categoria: "Mousepad",
-    juego: "Valorant"
+    juego: "Valorant",
+    estado: "preparacion"
   },
   {
     /*https://www.spdigital.cl/mousepad-gamer-steelseries-qck-edge-xl-63824/?srsltid=AfmBOoocWe9OnpirnaZlXLPl89yPjHX6GhlDJVZ4sUfq3xUGgENTFUkB*/
@@ -1317,7 +1366,8 @@ const products = [
     discount: 0.50,
     image: mousepad3,
     marca: "SteelSeries",
-    categoria: "Mousepad"
+    categoria: "Mousepad",
+    estado: "preparacion"
   },
   {
     /*https://www.spdigital.cl/primus-gaming-mouse-pad-grogu-mouse-pad-m/*/
@@ -1342,7 +1392,8 @@ const products = [
     image: mousepad4,
     marca: "Primus Gaming",
     categoria: "Mousepad",
-    juego: "Star Wars"
+    juego: "Star Wars",
+    estado: "preparacion"
   },
   {
     /*https://www.spdigital.cl/primus-gaming-mouse-pad-dark-side-mousepad-m/*/
@@ -1367,7 +1418,8 @@ const products = [
     image: mousepad5,
     marca: "Primus Gaming",
     categoria: "Mousepad",
-    juego: "Star Wars"
+    juego: "Star Wars",
+    estado: "preparacion"
   },
   {
     /*https://www.spdigital.cl/mousepad-gamer-primus-gaming-arena-xxl-star-wars-limited-edition-90x42-cm-diseno-grogu-baby-yoda/*/
@@ -1391,7 +1443,8 @@ const products = [
     image: mousepad6,
     marca: "Primus Gaming",
     categoria: "Mousepad",
-    juego: "Star Wars"
+    juego: "Star Wars",
+    estado: "preparacion"
   },
   /*Limpieza PC*/
   {
@@ -1415,7 +1468,8 @@ const products = [
     discount: 0.35,
     image: limpieza1,
     marca: "Philco",
-    categoria: "Limpieza Pc"
+    categoria: "Limpieza Pc",
+    estado: "preparacion"
   },
   /*Microfonos*/
   {
@@ -1441,7 +1495,8 @@ const products = [
     discount: 0.23,
     image: micro1,
     marca: "Redragon",
-    categoria: "Microfonos"
+    categoria: "Microfonos",
+    estado: "preparacion"
   },
   {
     /*https://www.spdigital.cl/micr%C3%B3fono-profesional-gamer-rgb-hyperx-quadcast-s-montura-anti-vibraciones-tres-condensadores/?srsltid=AfmBOooS0FJfaOBPEMjldqRJEGA10CL0q7T-ZwaIrfV42vbJ5wCvjKsC*/
@@ -1464,7 +1519,8 @@ const products = [
     price: 199990,
     image: micro2,
     marca: "HyperX",
-    categoria: "Microfonos"
+    categoria: "Microfonos",
+    estado: "preparacion"
   },
   {
     /*https://www.spdigital.cl/micr%C3%B3fono-de-condensador-fifine-k669b-streaming-pc-mac-ps4/?srsltid=AfmBOoqdiGll6-6MzPnUdhwTgSM9zmC12v8oA-i93yaXBkcxyVX7zbJS*/
@@ -1490,7 +1546,8 @@ const products = [
     discount: 0.34,
     image: micro3,
     marca: "Fifine",
-    categoria: "Microfonos"
+    categoria: "Microfonos",
+    estado: "preparacion"
   },
   {
     /*https://www.spdigital.cl/988-000568-microfonoyeti-gx-negro/?srsltid=AfmBOoq5fc42dL2PLXqbzFYX6LASqOcRO7rUjFyiji97-5x4-znQlsTd*/
@@ -1516,7 +1573,8 @@ const products = [
     discount: 0.30,
     image: micro4,
     marca: "Logitech",
-    categoria: "Microfonos"
+    categoria: "Microfonos",
+    estado: "preparacion"
   },
   /*Figuras*/
   {
@@ -1533,7 +1591,8 @@ const products = [
     image: fig1,
     marca: "Pop",
     categoria: "Funko Pop",
-    juego: "Cyberpunk"
+    juego: "Cyberpunk",
+    estado: "preparacion"
   },
   {
     /*https://www.weplay.cl/figura-5-star-fallout-s2-assaultron-gw.html*/
@@ -1557,7 +1616,8 @@ const products = [
     image: fig2,
     marca: "Pop",
     categoria: "Funko Pop",
-    juego: "Fallout"
+    juego: "Fallout",
+    estado: "preparacion"
   },
   {
     /*https://www.weplay.cl/figura-5-star-fallout-s2-vault-boy-pyromaniac.html*/
@@ -1581,7 +1641,8 @@ const products = [
     image: fig3,
     marca: "Pop",
     categoria: "Funko Pop",
-    juego: "Fallout"
+    juego: "Fallout",
+    estado: "preparacion"
   },
   {
     /*https://www.weplay.cl/pop-games-borderlands-3-female-psycho.html*/
@@ -1602,7 +1663,8 @@ const products = [
     image: fig4,
     marca: "Pop",
     categoria: "Funko Pop",
-    juego: "Borderlands"
+    juego: "Borderlands",
+    estado: "preparacion"
   },
   {
     /*https://www.weplay.cl/pop-sale-figura-pop-star-wars-solo-w1-qi-ra.html*/
@@ -1624,7 +1686,8 @@ const products = [
     image: fig5,
     marca: "Pop",
     categoria: "Funko Pop",
-    juego: "Star Wars"
+    juego: "Star Wars",
+    estado: "preparacion"
   },
   {
     /*https://www.weplay.cl/figura-pop-games-borderlands-butt-stallion-exclusivo-weplay-nycc-2019.html*/
@@ -1647,7 +1710,8 @@ const products = [
     image: fig6,
     marca: "Pop",
     categoria: "Funko Pop",
-    juego: "Borderlands"
+    juego: "Borderlands",
+    estado: "preparacion"
   },
   {
     /*https://www.weplay.cl/pop-games-league-of-legends-lucian.html*/
@@ -1670,7 +1734,8 @@ const products = [
     image: fig7,
     marca: "Pop",
     categoria: "Funko Pop",
-    juego: "League Of Legends"
+    juego: "League Of Legends",
+    estado: "preparacion"
   },
   {
     /*https://www.weplay.cl/pop-games-league-of-legends-senna.html*/
@@ -1692,7 +1757,8 @@ const products = [
     image: fig8,
     marca: "Pop",
     categoria: "Funko Pop",
-    juego: "League Of Legends"
+    juego: "League Of Legends",
+    estado: "preparacion"
   },
   {
     /*https://www.weplay.cl/pop-games-league-of-legends-viego.html*/
@@ -1714,7 +1780,8 @@ const products = [
     image: fig9,
     marca: "Pop",
     categoria: "Funko Pop",
-    juego: "League Of Legends"
+    juego: "League Of Legends",
+    estado: "preparacion"
   },
   {
     /*https://www.weplay.cl/pop-games-league-of-legends-ahri.html*/
@@ -1735,7 +1802,8 @@ const products = [
     image: fig10,
     marca: "Pop",
     categoria: "Funko Pop",
-    juego: "League Of Legends"
+    juego: "League Of Legends",
+    estado: "preparacion"
   },
   {
     /*https://www.weplay.cl/pop-games-five-nights-at-freddy-s-ruin-eclipse.html*/
@@ -1757,7 +1825,8 @@ const products = [
     image: fig11,
     marca: "Pop",
     categoria: "Funko Pop",
-    juego: "Five Nights At Freddys"
+    juego: "Five Nights At Freddys",
+    estado: "preparacion"
   },
   {
     id: 'SG004',
@@ -1780,7 +1849,8 @@ const products = [
     discount: 0.34,
     image: silla2,
     marca: "Cougar",
-    categoria: "Sillas Gamer"
+    categoria: "Sillas Gamer",
+    estado: "preparacion"
   },
   {
     id: 'SG005',
@@ -1807,7 +1877,8 @@ const products = [
     discount: 0.19,
     image: silla3,
     marca: "Primus Gaming",
-    categoria: "Sillas Gamer"
+    categoria: "Sillas Gamer",
+    estado: "preparacion"
   },
   {
     id: 'SG006',
@@ -1831,7 +1902,8 @@ const products = [
     discount: 0.19,
     image: silla4,
     marca: "Primus Gaming",
-    categoria: "Sillas Gamer"
+    categoria: "Sillas Gamer",
+    estado: "preparacion"
   },
   {
     id: 'SG007',
@@ -1854,7 +1926,8 @@ const products = [
     discount: 0.19,
     image: silla5,
     marca: "Primus Gaming",
-    categoria: "Sillas Gamer"
+    categoria: "Sillas Gamer",
+    estado: "preparacion"
   },
   {
     id: 'SG008',
@@ -1877,7 +1950,8 @@ const products = [
     price: 399990,
     image: silla6,
     marca: "Cougar",
-    categoria: "Sillas Gamer"
+    categoria: "Sillas Gamer",
+    estado: "preparacion"
   },
   /*Llaveros*/
   {
@@ -1899,7 +1973,8 @@ const products = [
     image: llav1,
     marca: "LlavLab",
     categoria: "Llavero",
-    juego: "Borderlands"
+    juego: "Borderlands",
+    estado: "preparacion"
   },
   {
     id: 'LL002',
@@ -1914,7 +1989,8 @@ const products = [
     image: llav2,
     marca: "LlavLab",
     categoria: "Llavero",
-    juego: "Borderlands"
+    juego: "Borderlands",
+    estado: "preparacion"
   },
   {
     id: 'LL003',
@@ -1934,7 +2010,8 @@ const products = [
     image: llav3,
     marca: "LlavLab",
     categoria: "Llavero",
-    juego: "Borderlands"
+    juego: "Borderlands",
+    estado: "preparacion"
   },
   {
     id: 'LL004',
@@ -1954,7 +2031,8 @@ const products = [
     image: llav4,
     marca: "LlavLab",
     categoria: "Llavero",
-    juego: "League of legends"
+    juego: "League of legends",
+    estado: "preparacion"
   },
   {
     id: 'LL005',
@@ -1974,7 +2052,8 @@ const products = [
     image: llav5,
     marca: "LlavLab",
     categoria: "Llavero",
-    juego: "League of legends"
+    juego: "League of legends",
+    estado: "preparacion"
   },
   {
     id: 'LL006',
@@ -1995,7 +2074,8 @@ const products = [
     image: llav6,
     marca: "LlavLab",
     categoria: "Llavero",
-    juego: "League of legends"
+    juego: "League of legends",
+    estado: "preparacion"
   },
   {
     id: 'LL007',
@@ -2015,7 +2095,8 @@ const products = [
     image: llav7,
     marca: "LlavLab",
     categoria: "Llavero",
-    juego: "League of legends"
+    juego: "League of legends",
+    estado: "preparacion"
   },
   {
     id: 'LL008',
@@ -2036,7 +2117,8 @@ const products = [
     image: llav8,
     marca: "LlavLab",
     categoria: "Llavero",
-    juego: "League of legends"
+    juego: "League of legends",
+    estado: "preparacion"
   },
   {
     id: 'LP002',
@@ -2057,7 +2139,8 @@ const products = [
     discount: 0.8,
     image: limpieza2,
     marca: "Philco",
-    categoria: "Limpieza Pc"
+    categoria: "Limpieza Pc",
+    estado: "preparacion"
   },
   {
     id: 'LP003',
@@ -2077,7 +2160,8 @@ const products = [
     discount: 0.38,
     image: limpieza3,
     marca: "Daytona",
-    categoria: "Limpieza Pc"
+    categoria: "Limpieza Pc",
+    estado: "preparacion"
   },
   {
     id: 'LP004',

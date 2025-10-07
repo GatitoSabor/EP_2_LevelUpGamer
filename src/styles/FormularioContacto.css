@@ -1,0 +1,75 @@
+.form-contacto-section {
+  max-width: 450px;
+  margin: 40px auto;
+  background: #fff;            /* Fondo blanco */
+  padding: 28px 32px 20px 32px;
+  border-radius: 10px;
+  box-shadow: 0 2px 14px rgba(80,50,120,0.1);
+  color: #5a5af3;              /* Texto principal más morado */
+  font-family: 'Roboto', sans-serif;
+  border: 1.5px solid #9b68ff; /* Borde sutil morado */
+}
+
+.form-contacto-titulo {
+  color: #7b33ea;              /* Título violeta fuerte */
+  font-size: 2rem;
+  margin-bottom: 8px;
+  text-align: center;
+}
+
+.form-contacto-descripcion {
+  color: #000000;              /* Descripción morado intenso */
+  font-size: 1rem;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.form-contacto-formulario {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.form-contacto-formulario label {
+  color: #6e29c9;              /* Morado intermedio */
+  font-size: 1rem;
+  margin-bottom: 2px;
+}
+
+.form-contacto-formulario input,
+.form-contacto-formulario textarea {
+  margin-top: 4px;
+  width: 100%;
+  font-size: 1rem;
+  padding: 7px 10px;
+  border: 1.5px solid #9b68ff;
+  border-radius: 5px;
+  background: #cba0ff;
+  color: #ffffff;
+  transition: border 0.2s;
+}
+
+.form-contacto-formulario input:focus,
+.form-contacto-formulario textarea:focus {
+  outline: none;
+  border: 2px solid #7b33ea;
+  background: #f2edfc;
+}
+
+.form-contacto-boton {
+  margin-top: 12px;
+  background: #9b68ff;
+  color: #fff;
+  border: none;
+  padding: 10px 0;
+  border-radius: 6px;
+  font-size: 1.05rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.25s;
+}
+
+.form-contacto-boton:hover,
+.form-contacto-boton:focus {
+  background: #5a5af3;
+}

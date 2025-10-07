@@ -99,3 +99,81 @@
   align-items: center;
   padding: 6px 8px;
 }
+/* Contenedor del menú Comunidad */
+.community-menu {
+  position: relative; /* necesario para posicionar el dropdown */
+}
+
+/* Botón Comunidad */
+.community-button {
+  background: none;
+  border: none;
+  color: #9b68ff;
+  font-size: 0.95rem;
+  cursor: pointer;
+  font-family: 'Roboto', sans-serif;
+  padding: 8px 12px;
+  transition: color 0.3s ease, transform 0.3s ease;
+  outline: none;
+}
+
+.community-button:hover,
+.community-button:focus {
+  color: #5a5af3;
+  transform: translateY(-2px);
+}
+
+.community-button::after {
+  content: ' ▼'; /* Flecha para indicar menú desplegable */
+  font-size: 0.6rem;
+  color: #9b68ff;
+  margin-left: 4px;
+}
+
+/* Dropdown menú */
+.community-dropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background-color: #222;
+  padding: 8px 12px;
+  border-radius: 4px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.7);
+  z-index: 1000;
+  min-width: 200px;
+}
+
+/* Botones dentro del dropdown */
+.community-dropdown button.dropdown-item {
+  display: block;
+  width: 100%;
+  color: #eee;
+  background: none;
+  border: none;
+  text-align: left;
+  padding: 6px 8px;
+  font-family: 'Roboto', sans-serif;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  border-radius: 3px;
+  margin-bottom: 6px;
+}
+
+.community-dropdown button.dropdown-item:last-child {
+  margin-bottom: 0;
+}
+
+.community-dropdown button.dropdown-item:hover,
+.community-dropdown button.dropdown-item:focus {
+  background-color: #5a5af3;
+  color: white;
+}
+
+.community-dropdown button.dropdown-item small {
+  display: block;
+  font-size: 0.75rem;
+  color: #ccc;
+  margin-top: 2px;
+  font-style: italic;
+}

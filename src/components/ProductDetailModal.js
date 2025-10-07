@@ -2,7 +2,7 @@ import React from 'react';
 import '../styles/ProductDetailModal.css';
 import products from '../data/products';
 
-export default function ProductDetailModal({ product, onClose, onAddToCart, onBuyNow, onSelectProduct = () => {} }) {
+export default function ProductDetailModal({ product, onClose, onAddToCart, onGoToCart, onBuyNow, onSelectProduct = () => {} }) {
   const stock = Math.floor(Math.random() * 20) + 1;
 
   const discountedPrice = product.price * (1 - (product.discount ?? 0));
@@ -46,7 +46,13 @@ export default function ProductDetailModal({ product, onClose, onAddToCart, onBu
 
             <div className="button-group">
               <button className="add-to-cart-btn" onClick={() => onAddToCart(product)}>Agregar al carrito</button>
-              <button className="buy-now-btn" onClick={() => onBuyNow(product)}>Comprar ahora</button>
+              <button className="buy-now-btn" onClick={() => {
+                onAddToCart(product);
+                onClose();
+                if (typeof onGoToCart === 'function') {
+                  onGoToCart();
+                }
+              }}>Comprar ahora</button>
             </div>
 
             <p className="stock-info">Stock online: <span>{stock} unidades disponibles</span></p>

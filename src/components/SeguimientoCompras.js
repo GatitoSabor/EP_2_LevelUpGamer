@@ -14,7 +14,7 @@ export default function SeguimientoCompras({ compra, onVolver }) {
         <div className={`etapa ${estado === 'en camino' ? 'activa' : ''}`}>En camino</div>
         <div className={`etapa ${estado === 'entregado' ? 'activa' : ''}`}>Entregado</div>
       </div>
-      <button onClick={onVolver}>Volver a Compras</button>
+      <button className="btn-primary"onClick={onVolver}>Volver a Compras</button>
     </div>
   );
 }
