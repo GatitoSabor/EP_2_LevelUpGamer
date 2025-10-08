@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import Stepper, { Step } from './Stepper';
-import '../styles/CheckoutStepper.css'
+import Stepper, { Step } from '../layout/Stepper';
+import { generarDireccionCompleta, calcularPrecioConDescuentos, calcularEnvioBase, calcularSubtotal } from '../../services/CheckoutStepper';
+import '../../styles/CheckoutStepper.css';
 
 export default function CheckoutStepper({ cart, user, setUser, direcciones, setDirecciones, discountPercent, onFinishCheckout }) {
   const [personalData, setPersonalData] = useState({ nombre: '', email: '', telefono: '' });
@@ -15,13 +16,11 @@ export default function CheckoutStepper({ cart, user, setUser, direcciones, setD
       setPersonalData({
         nombre: user.nombre || '',
         email: user.email || '',
-        telefono: user.telefono || '',
+        telefono: user.telefono || ''
       });
       setDirecciones(user.direcciones || []);
     }
   }, [user]);
-
-  const generarDireccionCompleta = () => `${calle.trim()} ${numero.trim()} ${tipo}`;
 
   const sincronizarDireccionesUser = (nuevasDirecciones) => {
     setUser(prevUser => ({
@@ -35,7 +34,7 @@ export default function CheckoutStepper({ cart, user, setUser, direcciones, setD
       alert('Por favor completa calle y número');
       return;
     }
-    const nuevasDirecciones = [...direcciones, generarDireccionCompleta()];
+    const nuevasDirecciones = [...direcciones, generarDireccionCompleta(calle, numero, tipo)];
     setDirecciones(nuevasDirecciones);
     sincronizarDireccionesUser(nuevasDirecciones);
     setCalle('');
@@ -61,7 +60,7 @@ export default function CheckoutStepper({ cart, user, setUser, direcciones, setD
       return;
     }
     const copia = [...direcciones];
-    copia[editIndex] = generarDireccionCompleta();
+    copia[editIndex] = generarDireccionCompleta(calle, numero, tipo);
     setDirecciones(copia);
     sincronizarDireccionesUser(copia);
     setEditIndex(null);
@@ -77,22 +76,11 @@ export default function CheckoutStepper({ cart, user, setUser, direcciones, setD
   };
 
   const descuentoCupon = (discountPercent || 0) / 100;
-
-  const calcularPrecioConDescuentos = (precioBase = 0, descuentoProducto = 0, descuentoCupon = 0) => {
-    return precioBase * (1 - descuentoProducto) * (1 - descuentoCupon);
-  };
-
   const envioBase = 3000;
-  const tieneEnvioGratis = cart.some(item => item.envioGratis);
-  const costoEnvio = tieneEnvioGratis ? 0 : envioBase;
+  const costoEnvio = calcularEnvioBase(cart, envioBase);
 
-  const subtotalTransferencia = cart.reduce((acc, item) => 
-    acc + calcularPrecioConDescuentos(item.priceTransferencia ?? item.price, item.discount || 0, descuentoCupon) * item.quantity
-  , 0);
-
-  const subtotalOtrosMedios = cart.reduce((acc, item) => 
-    acc + calcularPrecioConDescuentos(item.priceOtrosMedios ?? item.price, item.discount || 0, descuentoCupon) * item.quantity
-  , 0);
+  const subtotalTransferencia = calcularSubtotal(cart, descuentoCupon, 'priceTransferencia');
+  const subtotalOtrosMedios = calcularSubtotal(cart, descuentoCupon, 'priceOtrosMedios');
 
   const totalTransferencia = subtotalTransferencia + costoEnvio;
   const totalOtrosMedios = subtotalOtrosMedios + costoEnvio;
@@ -100,7 +88,7 @@ export default function CheckoutStepper({ cart, user, setUser, direcciones, setD
   return (
     <Stepper
       initialStep={1}
-      onFinalStepCompleted={() => {setFinalizado(true);if(onFinishCheckout) onFinishCheckout(cart);}}
+      onFinalStepCompleted={() => { setFinalizado(true); if (onFinishCheckout) onFinishCheckout(cart); }}
       backButtonText="Anterior"
       backButtonProps={{ className: "custom-back-button" }}
       nextButtonText="Siguiente"

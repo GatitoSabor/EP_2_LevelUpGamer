@@ -1,19 +1,12 @@
 import React from 'react';
-import '../styles/ProductDetailModal.css';
-import products from '../data/products';
+import '../../styles/ProductDetailModal.css';
+import { calcularStock, obtenerPrecioDescontado, obtenerPrecioTransferencia, obtenerProductosRelacionados } from '../../services/ProductDetailModal';
 
 export default function ProductDetailModal({ product, onClose, onAddToCart, onGoToCart, onBuyNow, onSelectProduct = () => {} }) {
-  const stock = Math.floor(Math.random() * 20) + 1;
-
-  const discountedPrice = product.price * (1 - (product.discount ?? 0));
-  const transferPrice = discountedPrice * 0.94;
-
-  // Filtra productos relacionados por misma categoría, excluyendo el producto actual
-  const relatedProducts = products.filter(
-    p => p.category === product.category && p.id !== product.id
-  );
-
-  const productsToShow = relatedProducts.slice(0, 5);
+  const stock = calcularStock();
+  const discountedPrice = obtenerPrecioDescontado(product);
+  const transferPrice = obtenerPrecioTransferencia(product);
+  const relatedProducts = obtenerProductosRelacionados(product);
 
   return (
     <section className="product-detail-page">
@@ -64,24 +57,24 @@ export default function ProductDetailModal({ product, onClose, onAddToCart, onGo
           <div dangerouslySetInnerHTML={{ __html: product.descriptionmodal }} />
 
           <h3>Productos relacionados</h3>
-          <div className="related-products-container" style={{ display: 'flex', gap: '10px' }}>
-            {productsToShow.length === 0 ? (
+          <div className="related-products-container">
+            {relatedProducts.length === 0 ? (
               <p>No hay productos relacionados disponibles.</p>
             ) : (
-              productsToShow.map(p => (
+              relatedProducts.map(p => (
                 <div
-                    key={p.id}
-                    className="related-product-card"
-                    onClick={() => onSelectProduct(p)}  // Cambia el producto en Home
-                    style={{ cursor: 'pointer', /* estilos... */ }}
-                  >
+                  key={p.id}
+                  className="related-product-card"
+                  onClick={() => onSelectProduct(p)}
+                  style={{ cursor: 'pointer' }}
+                >
                   <img
                     src={p.image}
                     alt={p.name}
-                    style={{ width: '100%', height: '100px', objectFit: 'contain', marginBottom: '8px' }}
+                    className="related-product-image"
                   />
-                  <div style={{ fontWeight: '600', fontSize: '0.9rem', marginBottom: '6px' }}>{p.name}</div>
-                  <div style={{ color: '#5a5af3', fontWeight: '700' }}>
+                  <div className="related-product-name">{p.name}</div>
+                  <div className="related-product-price">
                     ${((p.price * (1 - (p.discount || 0)))).toLocaleString('es-CL')}
                   </div>
                 </div>

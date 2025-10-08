@@ -1,18 +1,20 @@
 import React, { useState, useEffect } from 'react';
 
-import Navbar from './components/Navbar';
-import Home from './components/Home';
-import Catalog from './components/Catalog';
-import AuthTabs from './components/AuthTabs';
-import Footer from './components/Footer';
-import ProductDetailModal from './components/ProductDetailModal';
-import MiCuenta from './components/MiCuenta';
+import Navbar from './components/layout/Navbar';
+import Home from './components/pages/Home';
+import Catalog from './components/pages/Catalog';
+import AuthTabs from './components/forms/AuthTabs';
+import Footer from './components/layout/Footer';
+import ProductDetailModal from './components/pages/ProductDetailModal';
+import MiCuenta from './components/pages/MiCuenta';
 import products from './data/products';
-import Noticias from './components/Noticias';
-import CheckoutStepper from './components/CheckoutStepper';
-import Eventos from './components/Eventos';
-import Terminos from './components/Terminos';
-import FormularioContacto from './components/FormularioContacto';
+import Noticias from './components/pages/Noticias';
+import CheckoutStepper from './components/pages/CheckoutStepper';
+import Eventos from './components/pages/Eventos';
+import Terminos from './components/pages/Terminos';
+import FormularioContacto from './components/pages/FormularioContacto';
+import 'bootstrap/dist/css/bootstrap.min.css';
+
 
 import './App.css';
 
@@ -568,10 +570,7 @@ const handleGuardarCompra = (compra) => {
             {page === 'home' && (
               <Home
                 onAddToCart={addToCart} 
-                onSelectProduct={(product) => {
-                  setSelectedProduct(product); // guarda el producto seleccionado en estado de App
-                  setPage('catalogo'); // o muestra modal o cambia página según tu flujo
-                }}
+                onSelectProduct={handleSelectProduct} 
                 onGoToCart={goToCart}
                 onBuyNow={() => alert('Función comprar ahora no implementada')}
                 onShowDiscountProducts={handleShowDiscountProducts}

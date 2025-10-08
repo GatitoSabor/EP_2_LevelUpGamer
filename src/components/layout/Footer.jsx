@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { FaInstagram, FaFacebookF, FaTwitter, FaWhatsapp } from 'react-icons/fa';
-import Modal from './Modal';
-import '../styles/Footer.css';
+import Modal from '../modals/Modal';
+import '../../styles/Footer.css';
 
 export default function Footer({ onNavigate }) {
   const [modalOpen, setModalOpen] = useState(false);

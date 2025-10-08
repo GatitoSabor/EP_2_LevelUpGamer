@@ -10,6 +10,7 @@
   margin-top: 20px;
 }
 
+/* Sidebar */
 .mi-cuenta-container .sidebar {
   width: 240px;
   background-color: #5a3fed;
@@ -18,32 +19,34 @@
   padding: 30px 15px;
 }
 
+/* Botones barra lateral */
 .mi-cuenta-container .sidebar button {
-  color: white;                      /* Texto blanco */
-  background-color: transparent;    /* Fondo transparente */
+  color: white;
+  background-color: transparent;
   border: none;
-  padding: 12px 20px;               /* Más grande */
+  padding: 12px 20px;
   width: 100%;
   text-align: left;
   cursor: pointer;
-  font-size: 16px;                  /* Tamaño de texto aumentado */
-  border-radius: 12px;              /* Bordes curvos */
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15); /* Sombra suave */
+  font-size: 16px;
+  border-radius: 12px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
   transition: background-color 0.3s, color 0.3s;
   margin-bottom: 12px;
 }
 
 .mi-cuenta-container .sidebar button:hover {
-  background-color: #e0d7f7;   /* Morado claro al hover */
-  color: #4b0082;  
+  background-color: #e0d7f7;
+  color: #4b0082;
 }
 
 .mi-cuenta-container .sidebar button.active {
   color: white;
-  background-color: #b19cd9;  /* Morado claro */
-  box-shadow: 0 4px 8px rgba(177, 156, 217, 0.5); /* Sombra más visible */
+  background-color: #b19cd9;
+  box-shadow: 0 4px 8px rgba(177, 156, 217, 0.5);
 }
 
+/* Contenido principal */
 .mi-cuenta-container .content {
   flex-grow: 1;
   padding: 40px 50px;
@@ -53,6 +56,7 @@
   border-radius: 0 12px 12px 0;
 }
 
+/* Titulos principales */
 .mi-cuenta-container .content h2 {
   margin-top: 0;
   font-size: 26px;
@@ -61,6 +65,7 @@
   letter-spacing: 0.04em;
 }
 
+/* Ordenes de compra */
 .orden-compra {
   margin-bottom: 25px;
   border-radius: 6px;
@@ -97,6 +102,7 @@
   font-weight: 400;
 }
 
+/* Productos en orden */
 .productos-orden {
   background-color: white;
   padding: 20px 25px;
@@ -133,6 +139,7 @@
   font-size: 15px;
 }
 
+/* Compras grid */
 .compras-grid {
   display: flex;
   flex-direction: column;
@@ -148,7 +155,7 @@
   padding: 20px;
   display: flex;
   align-items: center;
-  justify-content: flex-start; /* Alinear al inicio a la izquierda */
+  justify-content: flex-start;
   gap: 25px;
   height: 150px;
 }
@@ -179,6 +186,7 @@
   font-size: 1rem;
 }
 
+/* Lista de cupones */
 .lista-cupones {
   list-style-type: none;
   padding-left: 0;
@@ -193,6 +201,7 @@
   font-weight: 600;
 }
 
+/* Datos personales */
 .datos-personales label {
   display: block;
   font-weight: 600;
@@ -217,6 +226,7 @@
   box-shadow: 0 0 8px rgba(90, 63, 237, 0.4);
 }
 
+/* Botón guardar */
 .guardar-btn {
   background-color: #5a3fed;
   color: white;
@@ -233,6 +243,7 @@
   box-shadow: 0 4px 16px rgba(65, 41, 182, 0.5);
 }
 
+/* Lista descuentos */
 .lista-descuentos {
   list-style-type: disc;
   padding-left: 20px;
@@ -247,6 +258,7 @@
   font-weight: 600;
 }
 
+/* Grid de descuentos */
 .descuentos-grid {
   display: flex;
   gap: 20px;
@@ -274,7 +286,8 @@
   margin-bottom: 20px;
 }
 
-/* Botón comprar en tienda puntos */
+
+/* Botón comprar */
 .btn-comprar {
   background-color: #5a3fed;
   color: white;
@@ -291,6 +304,7 @@
   background-color: #4129b6;
 }
 
+/* Contador de puntos */
 .contador-puntos {
   font-size: 1.3rem;
   margin-bottom: 25px;
@@ -298,7 +312,7 @@
   font-weight: 700;
 }
 
-/* === Mejorar visual de secciones de direcciones y contraseña === */
+/* Direcciones y contraseña */
 .direcciones-section {
   background: white;
   border-radius: 12px;
@@ -385,43 +399,42 @@
 /* Botones sección direcciones */
 .direcciones-section button {
   font-weight: 600;
-  padding: 12px 28px; /* un poco más grande */
-  border-radius: 12px; /* bordes curvos */
+  padding: 12px 28px;
+  border-radius: 12px;
   border: none;
   cursor: pointer;
   transition: background-color 0.3s ease, box-shadow 0.3s ease, color 0.3s ease;
-  color: #a595db; /* morado claro texto inactivo */
-  background-color: white; /* fondo blanco inactivo */
-  box-shadow: 0 2px 6px rgba(165, 149, 219, 0.4); /* sombra ligera */
+  color: #a595db;
+  background-color: white;
+  box-shadow: 0 2px 6px rgba(165, 149, 219, 0.4);
   margin-right: 10px;
   margin-top: 10px;
 }
 
 .direcciones-section button:hover:not(:disabled) {
-  background-color: #6a4fbf; /* morado oscuro fondo al hover */
-  color: white; /* texto blanco al hover */
-  box-shadow: 0 4px 10px rgba(106, 79, 191, 0.7); /* sombra más visible */
+  background-color: #6a4fbf;
+  color: white;
+  box-shadow: 0 4px 10px rgba(106, 79, 191, 0.7);
 }
 
 .direcciones-section button:disabled {
-  background-color: #e1dffc; /* más claro o grisáceo cuando deshabilitado */
+  background-color: #e1dffc;
   color: #b4b0d0;
   cursor: not-allowed;
   box-shadow: none;
 }
 
-/* Estilos para diferenciar botónes Añadir, Modificar y Eliminar */
-
+/* Botones Añadir, Modificar y Eliminar */
 .direcciones-section button.add {
-  background-color: #6c63ff; /* púrpura suave */
+  background-color: #6c63ff;
 }
 
 .direcciones-section button.modify {
-  background-color: #4b37d1; /* tono más oscuro */
+  background-color: #4b37d1;
 }
 
 .direcciones-section button.delete {
-  background-color: #bb3e3a; /* rojo */
+  background-color: #bb3e3a;
   margin-right: 0;
 }
 
@@ -437,7 +450,7 @@
   background-color: #8e2a27;
 }
 
-/* ------ Contraseña ------- */
+/* Contraseña */
 .contrasena-section label {
   display: block;
   font-weight: 600;
@@ -445,6 +458,7 @@
   margin-top: 10px;
   color: #4b4b84;
 }
+
 .contrasena-section input {
   width: 100%;
   padding: 12px 15px;
@@ -455,10 +469,12 @@
   outline: none;
   transition: border 0.2s, box-shadow 0.2s;
 }
+
 .contrasena-section input:focus {
   border-color: #5838b3;
   box-shadow: 0 1px 5px #917eff44;
 }
+
 .contrasena-section button {
   background: #5a3fed;
   color: #fff;
@@ -470,11 +486,12 @@
   font-size: 1.05rem;
   transition: background 0.2s;
 }
+
 .contrasena-section button:hover {
   background: #4129b6;
 }
 
-/* ===== Responsive improvements ===== */
+/* Responsive improvements */
 @media (max-width: 900px) {
   .mi-cuenta-container {
     flex-direction: column;
@@ -523,42 +540,7 @@
   }
 }
 
-.barra-progreso {
-  display: flex;
-  gap: 15px;
-  margin: 20px 0;
-}
-
-.etapa {
-  flex: 1;
-  padding: 10px;
-  background: #eee;
-  border-radius: 5px;
-  text-align: center;
-  font-weight: 600;
-  color: #666;
-}
-
-.etapa.activa {
-  background-color: #5a3fed;
-  color: white;
-}
-
-.btn-primary {
-  background-color: #348fe2;
-  color: white;
-  padding: 8px 15px;
-  border: none;
-  border-radius: 6px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: background-color 0.25s ease;
-}
-
-.btn-primary:hover {
-  background-color: #296fc1;
-}
-
+/* Historial de puntos ganados */
 .historial-puntos {
   margin-top: 20px;
   background: linear-gradient(145deg, #e0f7fa, #b2ebf2);
@@ -622,4 +604,101 @@
   color: #4a4a4a99;
   text-align: center;
   margin-top: 12px;
+}
+
+/* Contenedor general de seguimiento */
+.seguimiento-container {
+  max-width: 620px;
+  margin: 0 auto;
+  background: white;
+  border-radius: 12px;
+  padding: 25px 30px;
+  box-shadow: 0 3px 15px rgba(0,0,0,0.1);
+  font-family: 'Roboto', sans-serif;
+  color: #333;
+}
+
+/* Título */
+.seguimiento-container h2 {
+  color: #5a3fed;
+  margin-bottom: 20px;
+  font-weight: 900;
+  font-size: 28px;
+  letter-spacing: 0.04em;
+}
+
+/* Detalles de producto y estado */
+.seguimiento-container p {
+  font-size: 1.1rem;
+  margin-bottom: 12px;
+  color: #444;
+  font-weight: 600;
+}
+
+/* Barra de progreso principal */
+.barra-progreso {
+  display: flex;
+  justify-content: space-between;
+  margin: 30px 0 35px;
+  gap: 15px;
+}
+
+/* Etapas del proceso */
+.etapa {
+  flex: 1;
+  padding: 12px 0;
+  background: #eaeaea;
+  border-radius: 10px;
+  text-align: center;
+  font-weight: 700;
+  color: #888;
+  transition: background-color 0.3s, color 0.3s;
+  user-select: none;
+  cursor: default;
+}
+
+/* Etapa activa resaltada */
+.etapa.activa {
+  background-color: #5a3fed;
+  color: white;
+  box-shadow: 0 4px 10px rgba(90, 63, 237, 0.6);
+}
+
+/* Botón volver */
+.btn-primary {
+  background-color: #5a3fed;
+  color: white;
+  border: none;
+  padding: 14px 30px;
+  border-radius: 12px;
+  font-weight: 700;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  display: inline-block;
+}
+
+.btn-primary:hover {
+  background-color: #4129b6;
+  box-shadow: 0 4px 16px rgba(65, 41, 182, 0.5);
+}
+
+/* Responsividad para barras de progreso y contenedor */
+@media (max-width: 600px) {
+  .seguimiento-container {
+    padding: 20px 15px;
+    max-width: 100%;
+  }
+  .barra-progreso {
+    flex-direction: column;
+    gap: 12px;
+  }
+  .etapa {
+    font-size: 1rem;
+    padding: 10px 0;
+  }
+  .btn-primary {
+    width: 100%;
+    padding: 14px 0;
+  }
 }

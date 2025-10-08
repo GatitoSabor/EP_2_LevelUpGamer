@@ -1,5 +1,5 @@
 import React from 'react';
-import '../styles/Eventos.css';
+import '../../styles/Eventos.css';
 
 const eventos = [
   { id: 1, titulo: 'Feria Gaming Santiago 2025', fecha: '2025-11-15', lugar: 'Centro de Convenciones', descripcion: 'Gran feria con torneos y stands de videojuegos.' },

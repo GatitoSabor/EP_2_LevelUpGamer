@@ -12,24 +12,28 @@
   z-index: 1000;
   padding: 8px 16px; /* menos padding */
   gap: 12px; /* menos espacio entre elementos */
-  
   box-sizing: border-box;
-  width: 100%; /* Cambiado de 100vw */
+  width: 100%;
   max-width: 100%;
-  left: 0; /* sin desplazamientos */
+  left: 0;
   right: 0;
-  margin: 0; /* sin márgenes negativos */
+  margin: 0;
+  flex-wrap: wrap; /* permite romper en móviles */
 }
 
+/* Logo */
 .navbar-logo {
   font-size: 1.3rem;
   cursor: pointer;
   flex-shrink: 0;
 }
 
+/* Contenedor búsqueda */
 .navbar-search-container {
   flex-grow: 1;
   max-width: 350px;
+  min-width: 150px;
+  margin-left: 10px;
 }
 
 .navbar-search-input {
@@ -43,6 +47,7 @@
   background-color: #444;
 }
 
+/* Links de navegación */
 .navbar-links {
   list-style: none;
   display: flex;
@@ -50,8 +55,11 @@
   margin: 0;
   padding: 0;
   flex-shrink: 0;
+  align-items: center;
+  flex-wrap: wrap;
 }
 
+/* Botones links */
 .navbar-links li button {
   background: none;
   border: none;
@@ -63,6 +71,7 @@
   padding: 8px 12px;
   transition: color 0.3s ease, transform 0.3s ease;
   outline: none;
+  white-space: nowrap;
 }
 
 .navbar-links li button:hover,
@@ -89,6 +98,7 @@
   left: 0;
 }
 
+/* Botón carrito */
 .cart-button {
   position: relative;
   background: none;
@@ -99,12 +109,26 @@
   align-items: center;
   padding: 6px 8px;
 }
-/* Contenedor del menú Comunidad */
-.community-menu {
-  position: relative; /* necesario para posicionar el dropdown */
+
+/* Badge de cantidad carrito */
+.cart-badge {
+  position: absolute;
+  top: -4px;
+  right: -6px;
+  background: red;
+  color: white;
+  font-weight: 700;
+  border-radius: 50%;
+  font-size: 0.75rem;
+  padding: 2px 6px;
 }
 
-/* Botón Comunidad */
+/* Contenedor menú comunidad */
+.community-menu {
+  position: relative;
+}
+
+/* Botón comunidad */
 .community-button {
   background: none;
   border: none;
@@ -115,6 +139,7 @@
   padding: 8px 12px;
   transition: color 0.3s ease, transform 0.3s ease;
   outline: none;
+  white-space: nowrap;
 }
 
 .community-button:hover,
@@ -124,13 +149,13 @@
 }
 
 .community-button::after {
-  content: ' ▼'; /* Flecha para indicar menú desplegable */
+  content: ' ▼';
   font-size: 0.6rem;
   color: #9b68ff;
   margin-left: 4px;
 }
 
-/* Dropdown menú */
+/* Dropdown comunidad */
 .community-dropdown {
   position: absolute;
   top: 100%;
@@ -143,7 +168,7 @@
   min-width: 200px;
 }
 
-/* Botones dentro del dropdown */
+/* Botones dropdown */
 .community-dropdown button.dropdown-item {
   display: block;
   width: 100%;
@@ -176,4 +201,51 @@
   color: #ccc;
   margin-top: 2px;
   font-style: italic;
+}
+
+/* Responsividad */
+@media (max-width: 768px) {
+  .navbar {
+    flex-wrap: wrap;
+    padding: 8px 10px;
+  }
+  .navbar-logo {
+    flex: 1 1 100%;
+    text-align: center;
+    margin-bottom: 10px;
+  }
+  .navbar-search-container {
+    max-width: 100%;
+    flex-grow: 1;
+    margin: 0 0 15px 0;
+  }
+  .navbar-links {
+    justify-content: center;
+    gap: 8px;
+    width: 100%;
+  }
+  .navbar-links li button {
+    font-size: 0.9rem;
+    padding: 8px 10px;
+  }
+  .cart-button {
+    padding: 6px 6px;
+  }
+  .community-dropdown {
+    min-width: 160px;
+    left: auto;
+    right: 0;
+  }
+}
+
+@media (max-width: 420px) {
+  .navbar-search-container {
+    order: 3;
+  }
+  .community-menu {
+    order: 2;
+  }
+  .navbar-links {
+    order: 4;
+  }
 }

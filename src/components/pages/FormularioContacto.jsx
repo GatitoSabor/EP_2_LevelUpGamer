@@ -1,5 +1,5 @@
 import React from 'react';
-import '../styles/FormularioContacto.css';
+import '../../styles/FormularioContacto.css';
 
 export default function FormularioContacto() {
   // Controlador para el submit

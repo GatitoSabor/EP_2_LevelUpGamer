@@ -1,5 +1,6 @@
 // src/components/SeguimientoCompras.js
 import React from 'react';
+import '../../styles/MiCuenta.css'
 
 export default function SeguimientoCompras({ compra, onVolver }) {
   const { estado } = compra; // Asume que cada compra tiene un campo estado

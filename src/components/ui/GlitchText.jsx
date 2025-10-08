@@ -1,5 +1,5 @@
 import React from 'react';
-import '../styles/GlitchText.css';
+import '../../styles/GlitchText.css';
 
 const GlitchText = ({
   children,
