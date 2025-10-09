@@ -14,7 +14,7 @@ export default function CheckoutStepper({ cart, user, setUser, direcciones, setD
   useEffect(() => {
     if (user) {
       setPersonalData({
-        nombre: user.nombre || '',
+        nombre: user.fullName || '',
         email: user.email || '',
         telefono: user.telefono || ''
       });
