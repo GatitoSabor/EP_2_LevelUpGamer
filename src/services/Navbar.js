@@ -3,10 +3,10 @@ import { useState } from 'react';
 export function useNavbar(onNavChange, onLogout) {
   const [showCommunityMenu, setShowCommunityMenu] = useState(false);
 
-  // Navegación alternativa para comunidad
   function handleCommunityEnter() {
     setShowCommunityMenu(true);
   }
+
   function handleCommunityLeave() {
     setShowCommunityMenu(false);
   }
@@ -16,11 +16,16 @@ export function useNavbar(onNavChange, onLogout) {
     onNavChange(page);
   }
 
+  function handleLogout() {
+    setShowCommunityMenu(false);
+    onLogout();
+  }
+
   return {
     showCommunityMenu,
     handleCommunityEnter,
     handleCommunityLeave,
     handleNavChange,
-    handleLogout: () => { setShowCommunityMenu(false); onLogout(); }
+    handleLogout
   };
 }

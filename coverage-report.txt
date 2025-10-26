@@ -1,0 +1,423 @@
+
+> levelup@0.1.0 test
+> karma start --single-run --log-level debug
+
+[36m25 10 2025 19:42:55.689:DEBUG [config]: [39mLoading config C:\Users\danip\EP_2_LevelUpGamer\karma.conf.js
+[36m25 10 2025 19:42:55.692:DEBUG [config]: [39mautoWatch set to false, because of singleRun
+[36m25 10 2025 19:42:55.693:DEBUG [karma-server]: [39mFinal config Config {
+  LOG_DISABLE: 'OFF',
+  LOG_ERROR: 'ERROR',
+  LOG_WARN: 'WARN',
+  LOG_INFO: 'INFO',
+  LOG_DEBUG: 'DEBUG',
+  frameworks: [ 'jasmine' ],
+  protocol: 'http:',
+  port: 9876,
+  listenAddress: '0.0.0.0',
+  hostname: 'localhost',
+  httpsServerConfig: {},
+  basePath: 'C:/Users/danip/EP_2_LevelUpGamer',
+  files: [
+    Pattern {
+      pattern: 'C:/Users/danip/EP_2_LevelUpGamer/src/**/*.test.js',
+      served: true,
+      included: true,
+      watched: true,
+      nocache: false,
+      weight: [ 1, 1, 1, 0, 0, 0 ],
+      type: undefined,
+      isBinary: undefined,
+      integrity: undefined
+    },
+    Pattern {
+      pattern: 'C:/Users/danip/EP_2_LevelUpGamer/src/**/*.spec.js',
+      served: true,
+      included: true,
+      watched: true,
+      nocache: false,
+      weight: [ 1, 1, 1, 0, 0, 0 ],
+      type: undefined,
+      isBinary: undefined,
+      integrity: undefined
+    }
+  ],
+  browserConsoleLogOptions: { level: 'debug', format: '%b %T: %m', terminal: true },
+  customContextFile: null,
+  customDebugFile: null,
+  customClientContextFile: null,
+  exclude: [ 'C:/Users/danip/EP_2_LevelUpGamer/karma.conf.js' ],
+  logLevel: 'DEBUG',
+  colors: true,
+  autoWatch: false,
+  autoWatchBatchDelay: 250,
+  restartOnFileChange: false,
+  usePolling: false,
+  reporters: [ 'progress', 'coverage' ],
+  singleRun: true,
+  browsers: [ 'ChromeHeadless' ],
+  captureTimeout: 60000,
+  pingTimeout: 5000,
+  proxies: {},
+  proxyValidateSSL: true,
+  preprocessors: [Object: null prototype] {
+    'C:/Users/danip/EP_2_LevelUpGamer/src/**/*.js': [ 'webpack', 'coverage' ],
+    'C:/Users/danip/EP_2_LevelUpGamer/src/**/*.jsx': [ 'webpack', 'coverage' ]
+  },
+  preprocessor_priority: {},
+  urlRoot: '/',
+  upstreamProxy: undefined,
+  reportSlowerThan: 0,
+  loggers: [
+    {
+      type: 'console',
+      layout: { type: 'pattern', pattern: '%[%d{DATETIME}:%p [%c]: %]%m' }
+    }
+  ],
+  transports: [ 'polling', 'websocket' ],
+  forceJSONP: false,
+  plugins: [ 'karma-*' ],
+  client: {
+    args: [],
+    useIframe: true,
+    runInParent: false,
+    captureConsole: true,
+    clearContext: true,
+    allowedReturnUrlPatterns: [ '^https?://' ]
+  },
+  defaultClient: {
+    args: [],
+    useIframe: true,
+    runInParent: false,
+    captureConsole: true,
+    clearContext: true,
+    allowedReturnUrlPatterns: [ '^https?://' ]
+  },
+  browserDisconnectTimeout: 2000,
+  browserDisconnectTolerance: 0,
+  browserNoActivityTimeout: 30000,
+  processKillTimeout: 2000,
+  concurrency: Infinity,
+  failOnEmptyTestSuite: true,
+  retryLimit: 2,
+  detached: false,
+  crossOriginAttribute: true,
+  browserSocketTimeout: 20000,
+  cmd: 'start',
+  configFile: 'C:\\Users\\danip\\EP_2_LevelUpGamer\\karma.conf.js',
+  webpack: {
+    mode: 'development',
+    module: {
+      rules: [
+        {
+          test: /\.(js|jsx)$/,
+          exclude: /node_modules/,
+          use: {
+            loader: 'babel-loader',
+            options: {
+              presets: [ '@babel/preset-env', '@babel/preset-react' ],
+              plugins: [ 'istanbul' ]
+            }
+          }
+        },
+        { test: /\.css$/, use: [ 'style-loader', 'css-loader' ] },
+        {
+          test: /\.(jpg|jpeg|png|gif|svg|webp)$/,
+          type: 'asset/inline'
+        }
+      ]
+    }
+  },
+  coverageReporter: {
+    type: 'html',
+    dir: 'coverage/',
+    subdir: [Function: subdir],
+    check: {
+      global: { statements: 80, branches: 80, functions: 80, lines: 80 }
+    }
+  }
+}
+[36m25 10 2025 19:42:55.693:DEBUG [plugin]: [39mLoading karma-* from C:\Users\danip\EP_2_LevelUpGamer\node_modules
+[36m25 10 2025 19:42:55.709:DEBUG [plugin]: [39mLoading plugin C:\Users\danip\EP_2_LevelUpGamer\node_modules\karma-chrome-launcher.
+[36m25 10 2025 19:42:55.712:DEBUG [plugin]: [39mLoading plugin C:\Users\danip\EP_2_LevelUpGamer\node_modules\karma-coverage.
+[36m25 10 2025 19:42:55.883:DEBUG [plugin]: [39mLoading plugin C:\Users\danip\EP_2_LevelUpGamer\node_modules\karma-jasmine.
+[36m25 10 2025 19:42:55.884:DEBUG [plugin]: [39mLoading plugin C:\Users\danip\EP_2_LevelUpGamer\node_modules\karma-webpack.
+[36m25 10 2025 19:42:55.964:DEBUG [preprocessor.coverage]: [39mcoverage included in reporters [ 'progress', 'coverage' ]
+[36m25 10 2025 19:42:55.967:DEBUG [web-server]: [39mInstantiating middleware
+[36m25 10 2025 19:42:55.975:DEBUG [reporter]: [39mTrying to load reporter: coverage
+[36m25 10 2025 19:42:55.975:DEBUG [reporter]: [39mTrying to load color-version of reporter: coverage (coverage_color)
+[36m25 10 2025 19:42:55.975:DEBUG [reporter]: [39mCouldn't load color-version.
+[33m25 10 2025 19:42:55.996:WARN [filelist]: [39mPattern "C:/Users/danip/EP_2_LevelUpGamer/src/**/*.spec.js" does not match any file.
+Webpack bundling...
+asset [1m[32mcommons.js[39m[22m 22.7 MiB [1m[32m[emitted][39m[22m (name: commons) (id hint: commons)
+asset [1m[32mruntime.js[39m[22m 8.35 KiB [1m[32m[emitted][39m[22m (name: runtime)
+asset [1m[32mProductDetailModal.test.1526968735.js[39m[22m 1.02 KiB [1m[32m[emitted][39m[22m (name: ProductDetailModal.test.1526968735)
+asset [1m[32mCheckoutStepper.test.1790629818.js[39m[22m 1.02 KiB [1m[32m[emitted][39m[22m (name: CheckoutStepper.test.1790629818)
+asset [1m[32mAuthTabs.test.2094016049.js[39m[22m 1 KiB [1m[32m[emitted][39m[22m (name: AuthTabs.test.2094016049)
+asset [1m[32mMiCuenta.test.1653478479.js[39m[22m 1 KiB [1m[32m[emitted][39m[22m (name: MiCuenta.test.1653478479)
+asset [1m[32mCatalog.test.4021350654.js[39m[22m 1 KiB [1m[32m[emitted][39m[22m (name: Catalog.test.4021350654)
+asset [1m[32mNavbar.test.1877552332.js[39m[22m 1020 bytes [1m[32m[emitted][39m[22m (name: Navbar.test.1877552332)
+asset [1m[32mbasic.test.2319716419.js[39m[22m 1020 bytes [1m[32m[emitted][39m[22m (name: basic.test.2319716419)
+asset [1m[32mHome.test.1280504288.js[39m[22m 1020 bytes [1m[32m[emitted][39m[22m (name: Home.test.1280504288)
+asset [1m[32mdemo.test.2662523436.js[39m[22m 1020 bytes [1m[32m[emitted][39m[22m (name: demo.test.2662523436)
+asset [1m[32mApp.test.794591665.js[39m[22m 1010 bytes [1m[32m[emitted][39m[22m (name: App.test.794591665)
+
+[1m[31mERROR[39m[22m in [1m./src/App.js[39m[22m [1m[32m8354:0-48[39m[22m
+[1mModule [1m[31mnot found[39m[22m[1m: [1m[31mError[39m[22m[1m: Can't resolve './components/layout/Navbar' in 'C:\Users\danip\EP_2_LevelUpGamer\src'[39m[22m
+ @ ./src/App.test.js 2:0-24 12:48-51 16:44-47 21:44-47 26:44-47
+
+[1m[31mERROR[39m[22m in [1m./src/App.js[39m[22m [1m[32m8355:0-43[39m[22m
+[1mModule [1m[31mnot found[39m[22m[1m: [1m[31mError[39m[22m[1m: Can't resolve './components/pages/Home' in 'C:\Users\danip\EP_2_LevelUpGamer\src'[39m[22m
+ @ ./src/App.test.js 2:0-24 12:48-51 16:44-47 21:44-47 26:44-47
+
+[1m[31mERROR[39m[22m in [1m./src/App.js[39m[22m [1m[32m8356:0-49[39m[22m
+[1mModule [1m[31mnot found[39m[22m[1m: [1m[31mError[39m[22m[1m: Can't resolve './components/pages/Catalog' in 'C:\Users\danip\EP_2_LevelUpGamer\src'[39m[22m
+ @ ./src/App.test.js 2:0-24 12:48-51 16:44-47 21:44-47 26:44-47
+
+[1m[31mERROR[39m[22m in [1m./src/App.js[39m[22m [1m[32m8357:0-51[39m[22m
+[1mModule [1m[31mnot found[39m[22m[1m: [1m[31mError[39m[22m[1m: Can't resolve './components/forms/AuthTabs' in 'C:\Users\danip\EP_2_LevelUpGamer\src'[39m[22m
+ @ ./src/App.test.js 2:0-24 12:48-51 16:44-47 21:44-47 26:44-47
+
+[1m[31mERROR[39m[22m in [1m./src/App.js[39m[22m [1m[32m8358:0-48[39m[22m
+[1mModule [1m[31mnot found[39m[22m[1m: [1m[31mError[39m[22m[1m: Can't resolve './components/layout/Footer' in 'C:\Users\danip\EP_2_LevelUpGamer\src'[39m[22m
+ @ ./src/App.test.js 2:0-24 12:48-51 16:44-47 21:44-47 26:44-47
+
+[1m[31mERROR[39m[22m in [1m./src/App.js[39m[22m [1m[32m8359:0-71[39m[22m
+[1mModule [1m[31mnot found[39m[22m[1m: [1m[31mError[39m[22m[1m: Can't resolve './components/pages/ProductDetailModal' in 'C:\Users\danip\EP_2_LevelUpGamer\src'[39m[22m
+ @ ./src/App.test.js 2:0-24 12:48-51 16:44-47 21:44-47 26:44-47
+
+[1m[31mERROR[39m[22m in [1m./src/App.js[39m[22m [1m[32m8360:0-51[39m[22m
+[1mModule [1m[31mnot found[39m[22m[1m: [1m[31mError[39m[22m[1m: Can't resolve './components/pages/MiCuenta' in 'C:\Users\danip\EP_2_LevelUpGamer\src'[39m[22m
+ @ ./src/App.test.js 2:0-24 12:48-51 16:44-47 21:44-47 26:44-47
+
+[1m[31mERROR[39m[22m in [1m./src/App.js[39m[22m [1m[32m8362:0-51[39m[22m
+[1mModule [1m[31mnot found[39m[22m[1m: [1m[31mError[39m[22m[1m: Can't resolve './components/pages/Noticias' in 'C:\Users\danip\EP_2_LevelUpGamer\src'[39m[22m
+ @ ./src/App.test.js 2:0-24 12:48-51 16:44-47 21:44-47 26:44-47
+
+[1m[31mERROR[39m[22m in [1m./src/App.js[39m[22m [1m[32m8363:0-65[39m[22m
+[1mModule [1m[31mnot found[39m[22m[1m: [1m[31mError[39m[22m[1m: Can't resolve './components/pages/CheckoutStepper' in 'C:\Users\danip\EP_2_LevelUpGamer\src'[39m[22m
+ @ ./src/App.test.js 2:0-24 12:48-51 16:44-47 21:44-47 26:44-47
+
+[1m[31mERROR[39m[22m in [1m./src/App.js[39m[22m [1m[32m8364:0-49[39m[22m
+[1mModule [1m[31mnot found[39m[22m[1m: [1m[31mError[39m[22m[1m: Can't resolve './components/pages/Eventos' in 'C:\Users\danip\EP_2_LevelUpGamer\src'[39m[22m
+ @ ./src/App.test.js 2:0-24 12:48-51 16:44-47 21:44-47 26:44-47
+
+[1m[31mERROR[39m[22m in [1m./src/App.js[39m[22m [1m[32m8365:0-51[39m[22m
+[1mModule [1m[31mnot found[39m[22m[1m: [1m[31mError[39m[22m[1m: Can't resolve './components/pages/Terminos' in 'C:\Users\danip\EP_2_LevelUpGamer\src'[39m[22m
+ @ ./src/App.test.js 2:0-24 12:48-51 16:44-47 21:44-47 26:44-47
+
+[1m[31mERROR[39m[22m in [1m./src/App.js[39m[22m [1m[32m8366:0-71[39m[22m
+[1mModule [1m[31mnot found[39m[22m[1m: [1m[31mError[39m[22m[1m: Can't resolve './components/pages/FormularioContacto' in 'C:\Users\danip\EP_2_LevelUpGamer\src'[39m[22m
+ @ ./src/App.test.js 2:0-24 12:48-51 16:44-47 21:44-47 26:44-47
+
+[1m[33m12 errors have detailed information that is not shown.
+Use 'stats.errorDetails: true' resp. '--stats-error-details' to show it.[39m[22m
+
+webpack 5.102.1 compiled with [1m[31m12 errors[39m[22m in 1632 ms
+[33m25 10 2025 19:42:58.115:WARN [filelist]: [39mPattern "C:/Users/danip/EP_2_LevelUpGamer/src/**/*.spec.js" does not match any file.
+[36m25 10 2025 19:42:58.115:DEBUG [preprocessor.coverage]: [39mProcessing "C:/Users/danip/EP_2_LevelUpGamer/src/services/CheckoutStepper.test.js".
+[36m25 10 2025 19:42:58.122:DEBUG [preprocessor.coverage]: [39mAdding source map to instrumented file for "C:/Users/danip/EP_2_LevelUpGamer/src/services/CheckoutStepper.test.js".
+[36m25 10 2025 19:42:58.122:DEBUG [preprocessor.coverage]: [39mProcessing "C:/Users/danip/EP_2_LevelUpGamer/src/services/Home.test.js".
+[36m25 10 2025 19:42:58.126:DEBUG [preprocessor.coverage]: [39mAdding source map to instrumented file for "C:/Users/danip/EP_2_LevelUpGamer/src/services/Home.test.js".
+[36m25 10 2025 19:42:58.126:DEBUG [preprocessor.coverage]: [39mProcessing "C:/Users/danip/EP_2_LevelUpGamer/src/services/AuthTabs.test.js".
+[36m25 10 2025 19:42:58.131:DEBUG [preprocessor.coverage]: [39mAdding source map to instrumented file for "C:/Users/danip/EP_2_LevelUpGamer/src/services/AuthTabs.test.js".
+[36m25 10 2025 19:42:58.131:DEBUG [preprocessor.coverage]: [39mProcessing "C:/Users/danip/EP_2_LevelUpGamer/src/App.test.js".
+[36m25 10 2025 19:42:58.134:DEBUG [preprocessor.coverage]: [39mAdding source map to instrumented file for "C:/Users/danip/EP_2_LevelUpGamer/src/App.test.js".
+[36m25 10 2025 19:42:58.135:DEBUG [preprocessor.coverage]: [39mProcessing "C:/Users/danip/EP_2_LevelUpGamer/src/services/Navbar.test.js".
+[36m25 10 2025 19:42:58.139:DEBUG [preprocessor.coverage]: [39mAdding source map to instrumented file for "C:/Users/danip/EP_2_LevelUpGamer/src/services/Navbar.test.js".
+[36m25 10 2025 19:42:58.139:DEBUG [preprocessor.coverage]: [39mProcessing "C:/Users/danip/EP_2_LevelUpGamer/src/services/Catalog.test.js".
+[36m25 10 2025 19:42:58.141:DEBUG [preprocessor.coverage]: [39mAdding source map to instrumented file for "C:/Users/danip/EP_2_LevelUpGamer/src/services/Catalog.test.js".
+[36m25 10 2025 19:42:58.141:DEBUG [preprocessor.coverage]: [39mProcessing "C:/Users/danip/EP_2_LevelUpGamer/src/services/basic.test.js".
+[36m25 10 2025 19:42:58.143:DEBUG [preprocessor.coverage]: [39mAdding source map to instrumented file for "C:/Users/danip/EP_2_LevelUpGamer/src/services/basic.test.js".
+[36m25 10 2025 19:42:58.143:DEBUG [preprocessor.coverage]: [39mProcessing "C:/Users/danip/EP_2_LevelUpGamer/src/services/demo.test.js".
+[36m25 10 2025 19:42:58.145:DEBUG [preprocessor.coverage]: [39mAdding source map to instrumented file for "C:/Users/danip/EP_2_LevelUpGamer/src/services/demo.test.js".
+[36m25 10 2025 19:42:58.145:DEBUG [preprocessor.coverage]: [39mProcessing "C:/Users/danip/EP_2_LevelUpGamer/src/services/ProductDetailModal.test.js".
+[36m25 10 2025 19:42:58.148:DEBUG [preprocessor.coverage]: [39mAdding source map to instrumented file for "C:/Users/danip/EP_2_LevelUpGamer/src/services/ProductDetailModal.test.js".
+[36m25 10 2025 19:42:58.148:DEBUG [preprocessor.coverage]: [39mProcessing "C:/Users/danip/EP_2_LevelUpGamer/src/services/MiCuenta.test.js".
+[36m25 10 2025 19:42:58.150:DEBUG [preprocessor.coverage]: [39mAdding source map to instrumented file for "C:/Users/danip/EP_2_LevelUpGamer/src/services/MiCuenta.test.js".
+[36m25 10 2025 19:42:58.152:DEBUG [preprocessor.coverage]: [39mProcessing "C:/Users/danip/EP_2_LevelUpGamer/src/services/basic.test.js".
+[36m25 10 2025 19:42:58.155:DEBUG [preprocessor.coverage]: [39mAdding source map to instrumented file for "C:/Users/danip/EP_2_LevelUpGamer/src/services/basic.test.js".
+[36m25 10 2025 19:42:58.155:DEBUG [preprocessor.coverage]: [39mProcessing "C:/Users/danip/EP_2_LevelUpGamer/src/services/demo.test.js".
+[36m25 10 2025 19:42:58.157:DEBUG [preprocessor.coverage]: [39mAdding source map to instrumented file for "C:/Users/danip/EP_2_LevelUpGamer/src/services/demo.test.js".
+[36m25 10 2025 19:42:58.157:DEBUG [preprocessor.coverage]: [39mProcessing "C:/Users/danip/EP_2_LevelUpGamer/src/services/AuthTabs.test.js".
+[36m25 10 2025 19:42:58.160:DEBUG [preprocessor.coverage]: [39mAdding source map to instrumented file for "C:/Users/danip/EP_2_LevelUpGamer/src/services/AuthTabs.test.js".
+[36m25 10 2025 19:42:58.160:DEBUG [preprocessor.coverage]: [39mProcessing "C:/Users/danip/EP_2_LevelUpGamer/src/services/Catalog.test.js".
+[36m25 10 2025 19:42:58.163:DEBUG [preprocessor.coverage]: [39mAdding source map to instrumented file for "C:/Users/danip/EP_2_LevelUpGamer/src/services/Catalog.test.js".
+[36m25 10 2025 19:42:58.163:DEBUG [preprocessor.coverage]: [39mProcessing "C:/Users/danip/EP_2_LevelUpGamer/src/App.test.js".
+[36m25 10 2025 19:42:58.172:DEBUG [preprocessor.coverage]: [39mAdding source map to instrumented file for "C:/Users/danip/EP_2_LevelUpGamer/src/App.test.js".
+[36m25 10 2025 19:42:58.172:DEBUG [preprocessor.coverage]: [39mProcessing "C:/Users/danip/EP_2_LevelUpGamer/src/services/Navbar.test.js".
+[36m25 10 2025 19:42:58.176:DEBUG [preprocessor.coverage]: [39mAdding source map to instrumented file for "C:/Users/danip/EP_2_LevelUpGamer/src/services/Navbar.test.js".
+[36m25 10 2025 19:42:58.176:DEBUG [preprocessor.coverage]: [39mProcessing "C:/Users/danip/EP_2_LevelUpGamer/src/services/CheckoutStepper.test.js".
+[36m25 10 2025 19:42:58.179:DEBUG [preprocessor.coverage]: [39mAdding source map to instrumented file for "C:/Users/danip/EP_2_LevelUpGamer/src/services/CheckoutStepper.test.js".
+[36m25 10 2025 19:42:58.180:DEBUG [preprocessor.coverage]: [39mProcessing "C:/Users/danip/EP_2_LevelUpGamer/src/services/MiCuenta.test.js".
+[36m25 10 2025 19:42:58.182:DEBUG [preprocessor.coverage]: [39mAdding source map to instrumented file for "C:/Users/danip/EP_2_LevelUpGamer/src/services/MiCuenta.test.js".
+[36m25 10 2025 19:42:58.183:DEBUG [preprocessor.coverage]: [39mProcessing "C:/Users/danip/EP_2_LevelUpGamer/src/services/ProductDetailModal.test.js".
+[36m25 10 2025 19:42:58.186:DEBUG [preprocessor.coverage]: [39mAdding source map to instrumented file for "C:/Users/danip/EP_2_LevelUpGamer/src/services/ProductDetailModal.test.js".
+[36m25 10 2025 19:42:58.186:DEBUG [preprocessor.coverage]: [39mProcessing "C:/Users/danip/EP_2_LevelUpGamer/src/services/Home.test.js".
+[36m25 10 2025 19:42:58.188:DEBUG [preprocessor.coverage]: [39mAdding source map to instrumented file for "C:/Users/danip/EP_2_LevelUpGamer/src/services/Home.test.js".
+[32m25 10 2025 19:42:58.244:INFO [karma-server]: [39mKarma v6.4.4 server started at http://localhost:9876/
+[32m25 10 2025 19:42:58.244:INFO [launcher]: [39mLaunching browsers ChromeHeadless with concurrency unlimited
+[32m25 10 2025 19:42:58.252:INFO [launcher]: [39mStarting browser ChromeHeadless
+[36m25 10 2025 19:42:58.252:DEBUG [launcher]: [39mnull -> BEING_CAPTURED
+[36m25 10 2025 19:42:58.253:DEBUG [temp-dir]: [39mCreating temp dir at C:\Users\danip\AppData\Local\Temp\karma-61231965
+[36m25 10 2025 19:42:58.254:DEBUG [launcher]: [39mC:\Program Files\Google\Chrome\Application\chrome.exe --user-data-dir=C:\Users\danip\AppData\Local\Temp\karma-61231965 --enable-automation --no-default-browser-check --no-first-run --disable-default-apps --disable-popup-blocking --disable-translate --disable-background-timer-throttling --disable-renderer-backgrounding --disable-device-discovery-notifications http://localhost:9876/?id=61231965 --headless --disable-gpu --disable-dev-shm-usage --remote-debugging-port=9222
+[36m25 10 2025 19:42:58.872:DEBUG [web-server]: [39mserving: C:\Users\danip\EP_2_LevelUpGamer\node_modules\karma\static/client.html
+[36m25 10 2025 19:42:58.916:DEBUG [web-server]: [39mserving: C:\Users\danip\EP_2_LevelUpGamer\node_modules\karma\static/karma.js
+[36m25 10 2025 19:42:58.945:DEBUG [web-server]: [39mserving: C:\Users\danip\EP_2_LevelUpGamer\node_modules\karma\static/favicon.ico
+[36m25 10 2025 19:42:58.949:DEBUG [karma-server]: [39mA browser has connected on socket zARoJscNpytKWPWnAAAB
+[36m25 10 2025 19:42:58.961:DEBUG [Chrome Headless 141.0.0.0 (Windows 10)]: [39mundefined -> CONNECTED
+[32m25 10 2025 19:42:58.961:INFO [Chrome Headless 141.0.0.0 (Windows 10)]: [39mConnected on socket zARoJscNpytKWPWnAAAB with id 61231965
+[36m25 10 2025 19:42:58.962:DEBUG [launcher]: [39mBEING_CAPTURED -> CAPTURED
+[36m25 10 2025 19:42:58.962:DEBUG [launcher]: [39mChromeHeadless (id 61231965) captured in 0.718 secs
+[36m25 10 2025 19:42:58.962:DEBUG [Chrome Headless 141.0.0.0 (Windows 10)]: [39mCONNECTED -> CONFIGURING
+[36m25 10 2025 19:42:58.967:DEBUG [middleware:karma]: [39mcustom files null null null
+[36m25 10 2025 19:42:58.967:DEBUG [middleware:karma]: [39mServing static request /context.html
+[36m25 10 2025 19:42:58.968:DEBUG [web-server]: [39mserving: C:\Users\danip\EP_2_LevelUpGamer\node_modules\karma\static/context.html
+[36m25 10 2025 19:42:58.975:DEBUG [web-server]: [39mserving: C:\Users\danip\EP_2_LevelUpGamer\node_modules\karma\static/context.js
+[36m25 10 2025 19:42:58.977:DEBUG [middleware:source-files]: [39mRequesting /absoluteC:/Users/danip/AppData/Local/Temp/_karma_webpack_127568/runtime.js?202a6b97bc5c8317f20993194398cfb691c8dde6
+[36m25 10 2025 19:42:58.977:DEBUG [middleware:source-files]: [39mFetching C:/Users/danip/AppData/Local/Temp/_karma_webpack_127568/runtime.js
+[36m25 10 2025 19:42:58.977:DEBUG [web-server]: [39mserving (cached): C:/Users/danip/AppData/Local/Temp/_karma_webpack_127568/runtime.js
+[36m25 10 2025 19:42:58.979:DEBUG [middleware:source-files]: [39mRequesting /absoluteC:/Users/danip/AppData/Local/Temp/_karma_webpack_127568/commons.js?ae609bd64027e4c290e38827b7c9661dd6ce40f4
+[36m25 10 2025 19:42:58.979:DEBUG [middleware:source-files]: [39mFetching C:/Users/danip/AppData/Local/Temp/_karma_webpack_127568/commons.js
+[36m25 10 2025 19:42:58.979:DEBUG [web-server]: [39mserving (cached): C:/Users/danip/AppData/Local/Temp/_karma_webpack_127568/commons.js
+[36m25 10 2025 19:42:59.086:DEBUG [middleware:source-files]: [39mRequesting /base/node_modules/karma-jasmine/node_modules/jasmine-core/lib/jasmine-core/jasmine.js?86d98e11f43f2c8cfac9fb4806ed6c0aced74cbe
+[36m25 10 2025 19:42:59.086:DEBUG [middleware:source-files]: [39mFetching C:/Users/danip/EP_2_LevelUpGamer/node_modules/karma-jasmine/node_modules/jasmine-core/lib/jasmine-core/jasmine.js
+[36m25 10 2025 19:42:59.086:DEBUG [web-server]: [39mserving (cached): C:/Users/danip/EP_2_LevelUpGamer/node_modules/karma-jasmine/node_modules/jasmine-core/lib/jasmine-core/jasmine.js
+[36m25 10 2025 19:42:59.089:DEBUG [middleware:source-files]: [39mRequesting /base/node_modules/karma-jasmine/lib/boot.js?760d54bbca4f739f1f8b252c1636d76201cc4e88
+[36m25 10 2025 19:42:59.089:DEBUG [middleware:source-files]: [39mFetching C:/Users/danip/EP_2_LevelUpGamer/node_modules/karma-jasmine/lib/boot.js
+[36m25 10 2025 19:42:59.089:DEBUG [web-server]: [39mserving (cached): C:/Users/danip/EP_2_LevelUpGamer/node_modules/karma-jasmine/lib/boot.js
+[36m25 10 2025 19:42:59.092:DEBUG [middleware:source-files]: [39mRequesting /base/node_modules/karma-jasmine/lib/adapter.js?db55991565c0f0381ab0fb3c340df5194b4bef99
+[36m25 10 2025 19:42:59.093:DEBUG [middleware:source-files]: [39mFetching C:/Users/danip/EP_2_LevelUpGamer/node_modules/karma-jasmine/lib/adapter.js
+[36m25 10 2025 19:42:59.093:DEBUG [web-server]: [39mserving (cached): C:/Users/danip/EP_2_LevelUpGamer/node_modules/karma-jasmine/lib/adapter.js
+[36m25 10 2025 19:42:59.096:DEBUG [middleware:source-files]: [39mRequesting /absoluteApp.test.794591665.js?832845b92cd6dcb098588594f060f7bc104f175c
+[36m25 10 2025 19:42:59.096:DEBUG [middleware:source-files]: [39mFetching App.test.794591665.js
+[36m25 10 2025 19:42:59.096:DEBUG [web-server]: [39mserving (cached): App.test.794591665.js
+[36m25 10 2025 19:42:59.100:DEBUG [middleware:source-files]: [39mRequesting /absoluteAuthTabs.test.2094016049.js?30a6b6a56e70c4f8eed51e7b407a0a71cf1a4113
+[36m25 10 2025 19:42:59.100:DEBUG [middleware:source-files]: [39mFetching AuthTabs.test.2094016049.js
+[36m25 10 2025 19:42:59.100:DEBUG [web-server]: [39mserving (cached): AuthTabs.test.2094016049.js
+[36m25 10 2025 19:42:59.103:DEBUG [middleware:source-files]: [39mRequesting /absoluteCatalog.test.4021350654.js?0da602841727b64760b0da21325ebc04021f7775
+[36m25 10 2025 19:42:59.103:DEBUG [middleware:source-files]: [39mFetching Catalog.test.4021350654.js
+[36m25 10 2025 19:42:59.104:DEBUG [web-server]: [39mserving (cached): Catalog.test.4021350654.js
+[36m25 10 2025 19:42:59.107:DEBUG [middleware:source-files]: [39mRequesting /absoluteCheckoutStepper.test.1790629818.js?be973368660e9748f7f22f4c575c6dddc3a4be5d
+[36m25 10 2025 19:42:59.107:DEBUG [middleware:source-files]: [39mFetching CheckoutStepper.test.1790629818.js
+[36m25 10 2025 19:42:59.107:DEBUG [web-server]: [39mserving (cached): CheckoutStepper.test.1790629818.js
+[36m25 10 2025 19:42:59.110:DEBUG [middleware:source-files]: [39mRequesting /absoluteHome.test.1280504288.js?007658874f23523f88581335de9dd5611ce86641
+[36m25 10 2025 19:42:59.110:DEBUG [middleware:source-files]: [39mFetching Home.test.1280504288.js
+[36m25 10 2025 19:42:59.110:DEBUG [web-server]: [39mserving (cached): Home.test.1280504288.js
+[36m25 10 2025 19:42:59.114:DEBUG [middleware:source-files]: [39mRequesting /absoluteMiCuenta.test.1653478479.js?eacbc79fa1dadfdeb1498c86d1d1100d718ac99f
+[36m25 10 2025 19:42:59.114:DEBUG [middleware:source-files]: [39mFetching MiCuenta.test.1653478479.js
+[36m25 10 2025 19:42:59.114:DEBUG [web-server]: [39mserving (cached): MiCuenta.test.1653478479.js
+[36m25 10 2025 19:42:59.118:DEBUG [middleware:source-files]: [39mRequesting /absoluteNavbar.test.1877552332.js?2b43a382693e0e85b13352786669ddadcb7c74f5
+[36m25 10 2025 19:42:59.118:DEBUG [middleware:source-files]: [39mFetching Navbar.test.1877552332.js
+[36m25 10 2025 19:42:59.118:DEBUG [web-server]: [39mserving (cached): Navbar.test.1877552332.js
+[36m25 10 2025 19:42:59.123:DEBUG [middleware:source-files]: [39mRequesting /absoluteProductDetailModal.test.1526968735.js?d55de4345ac59a9a64dab5a75d96693660f35b51
+[36m25 10 2025 19:42:59.123:DEBUG [middleware:source-files]: [39mFetching ProductDetailModal.test.1526968735.js
+[36m25 10 2025 19:42:59.123:DEBUG [web-server]: [39mserving (cached): ProductDetailModal.test.1526968735.js
+[36m25 10 2025 19:42:59.130:DEBUG [middleware:source-files]: [39mRequesting /absolutebasic.test.2319716419.js?04089d9c18f9e1bfe17ddce9df1190585d54047b
+[36m25 10 2025 19:42:59.130:DEBUG [middleware:source-files]: [39mFetching basic.test.2319716419.js
+[36m25 10 2025 19:42:59.130:DEBUG [web-server]: [39mserving (cached): basic.test.2319716419.js
+[36m25 10 2025 19:42:59.137:DEBUG [middleware:source-files]: [39mRequesting /absolutedemo.test.2662523436.js?f5c551f72b9317850c152c0f7502d20fae9d004b
+[36m25 10 2025 19:42:59.137:DEBUG [middleware:source-files]: [39mFetching demo.test.2662523436.js
+[36m25 10 2025 19:42:59.137:DEBUG [web-server]: [39mserving (cached): demo.test.2662523436.js
+[36m25 10 2025 19:42:59.197:DEBUG [Chrome Headless 141.0.0.0 (Windows 10)]: [39mCONFIGURING -> EXECUTING
+Chrome Headless 141.0.0.0 (Windows 10): Executed 0 of 25[32m SUCCESS[39m (0 secs / 0 secs)
+[1A[2KERROR: [36m'Warning: `ReactDOMTestUtils.act` is deprecated in favor of `React.act`. Import `act` from `react` instead of `react-dom/test-utils`. See https://react.dev/warnings/react-dom-test-utils for more info.'[39m
+Chrome Headless 141.0.0.0 (Windows 10): Executed 0 of 25[32m SUCCESS[39m (0 secs / 0 secs)
+[1A[2KERROR: [36m'Warning: The current testing environment is not configured to support act(...)'[39m
+Chrome Headless 141.0.0.0 (Windows 10): Executed 0 of 25[32m SUCCESS[39m (0 secs / 0 secs)
+[1A[2KERROR: [36m'Warning: The current testing environment is not configured to support act(...)'[39m
+Chrome Headless 141.0.0.0 (Windows 10): Executed 0 of 25[32m SUCCESS[39m (0 secs / 0 secs)
+[1A[2KERROR: [36m'Warning: The current testing environment is not configured to support act(...)'[39m
+Chrome Headless 141.0.0.0 (Windows 10): Executed 0 of 25[32m SUCCESS[39m (0 secs / 0 secs)
+[1A[2KERROR: [36m'Warning: The current testing environment is not configured to support act(...)'[39m
+Chrome Headless 141.0.0.0 (Windows 10): Executed 0 of 25[32m SUCCESS[39m (0 secs / 0 secs)
+[1A[2KERROR: [36m'Warning: The current testing environment is not configured to support act(...)'[39m
+Chrome Headless 141.0.0.0 (Windows 10): Executed 0 of 25[32m SUCCESS[39m (0 secs / 0 secs)
+[1A[2KERROR: [36m'Warning: The current testing environment is not configured to support act(...)'[39m
+Chrome Headless 141.0.0.0 (Windows 10): Executed 0 of 25[32m SUCCESS[39m (0 secs / 0 secs)
+[1A[2KERROR: [36m'Warning: The current testing environment is not configured to support act(...)'[39m
+Chrome Headless 141.0.0.0 (Windows 10): Executed 0 of 25[32m SUCCESS[39m (0 secs / 0 secs)
+[1A[2KERROR: [36m'Warning: The current testing environment is not configured to support act(...)'[39m
+Chrome Headless 141.0.0.0 (Windows 10): Executed 0 of 25[32m SUCCESS[39m (0 secs / 0 secs)
+[1A[2KERROR: [36m'Warning: The current testing environment is not configured to support act(...)'[39m
+Chrome Headless 141.0.0.0 (Windows 10): Executed 0 of 25[32m SUCCESS[39m (0 secs / 0 secs)
+[1A[2KERROR: [36m'Warning: The current testing environment is not configured to support act(...)'[39m
+Chrome Headless 141.0.0.0 (Windows 10): Executed 0 of 25[32m SUCCESS[39m (0 secs / 0 secs)
+[1A[2KERROR: [36m'Warning: The current testing environment is not configured to support act(...)'[39m
+Chrome Headless 141.0.0.0 (Windows 10): Executed 0 of 25[32m SUCCESS[39m (0 secs / 0 secs)
+[1A[2KERROR: [36m'Warning: The current testing environment is not configured to support act(...)'[39m
+Chrome Headless 141.0.0.0 (Windows 10): Executed 0 of 25[32m SUCCESS[39m (0 secs / 0 secs)
+[1A[2K[31mChrome Headless 141.0.0.0 (Windows 10) ERROR[39m
+  An error was thrown in afterAll
+  Uncaught Error: Cannot find module './components/layout/Navbar'
+  Error: Cannot find module './components/layout/Navbar'
+      at webpackMissingModule (webpack://levelup/./src/App.js?:7:50)
+      at eval (webpack://levelup/./src/App.js?:7:151)
+      at ./src/App.js (C:/Users/danip/AppData/Local/Temp/_karma_webpack_127568/commons.js:2205:1)
+      at __webpack_require__ (C:/Users/danip/AppData/Local/Temp/_karma_webpack_127568/runtime.js:31:41)
+      at eval (webpack://levelup/./src/App.test.js?:4:62)
+      at ./src/App.test.js (C:/Users/danip/AppData/Local/Temp/_karma_webpack_127568/commons.js:2216:1)
+      at __webpack_require__ (C:/Users/danip/AppData/Local/Temp/_karma_webpack_127568/runtime.js:31:41)
+      at __webpack_exec__ (App.test.js:12:48 <- App.test.794591665.js:10:96)
+      at App.test.js:13:55 <- App.test.794591665.js:10:278
+      at __webpack_require__.O (C:/Users/danip/AppData/Local/Temp/_karma_webpack_127568/runtime.js:68:23)
+Chrome Headless 141.0.0.0 (Windows 10): Executed 0 of 25[31m ERROR[39m (0 secs / 0 secs)
+[1A[2KChrome Headless 141.0.0.0 (Windows 10): Executed 1 of 25[31m ERROR[39m (0 secs / 0.001 secs)
+[1A[2KChrome Headless 141.0.0.0 (Windows 10): Executed 2 of 25[31m ERROR[39m (0 secs / 0.001 secs)
+[1A[2KChrome Headless 141.0.0.0 (Windows 10): Executed 3 of 25[31m ERROR[39m (0 secs / 0.001 secs)
+[1A[2KChrome Headless 141.0.0.0 (Windows 10): Executed 4 of 25[31m ERROR[39m (0 secs / 0.001 secs)
+[1A[2KChrome Headless 141.0.0.0 (Windows 10): Executed 5 of 25[31m ERROR[39m (0 secs / 0.001 secs)
+[1A[2KChrome Headless 141.0.0.0 (Windows 10): Executed 6 of 25[31m ERROR[39m (0 secs / 0.002 secs)
+[1A[2KChrome Headless 141.0.0.0 (Windows 10): Executed 7 of 25[31m ERROR[39m (0 secs / 0.003 secs)
+[1A[2KChrome Headless 141.0.0.0 (Windows 10): Executed 8 of 25[31m ERROR[39m (0 secs / 0.003 secs)
+[1A[2KChrome Headless 141.0.0.0 (Windows 10): Executed 9 of 25[31m ERROR[39m (0 secs / 0.003 secs)
+[1A[2KChrome Headless 141.0.0.0 (Windows 10): Executed 10 of 25[31m ERROR[39m (0 secs / 0.003 secs)
+[1A[2K[31mChrome Headless 141.0.0.0 (Windows 10) Catalog utils filtra productos por marca FAILED[39m
+	Expected 0 to be 1.
+	    at <Jasmine>
+	    at UserContext.eval (webpack://levelup/./src/services/Catalog.test.js?:15:29)
+	    at <Jasmine>
+Chrome Headless 141.0.0.0 (Windows 10): Executed 11 of 25[31m (1 FAILED)[39m[31m ERROR[39m (0 secs / 0.003 secs)
+[1A[2KChrome Headless 141.0.0.0 (Windows 10): Executed 12 of 25[31m (1 FAILED)[39m[31m ERROR[39m (0 secs / 0.003 secs)
+[1A[2KChrome Headless 141.0.0.0 (Windows 10): Executed 13 of 25[31m (1 FAILED)[39m[31m ERROR[39m (0 secs / 0.003 secs)
+[1A[2KChrome Headless 141.0.0.0 (Windows 10): Executed 14 of 25[31m (1 FAILED)[39m[31m ERROR[39m (0 secs / 0.003 secs)
+[1A[2KChrome Headless 141.0.0.0 (Windows 10): Executed 15 of 25[31m (1 FAILED)[39m[31m ERROR[39m (0 secs / 0.003 secs)
+[1A[2KChrome Headless 141.0.0.0 (Windows 10): Executed 16 of 25[31m (1 FAILED)[39m[31m ERROR[39m (0 secs / 0.003 secs)
+[1A[2KChrome Headless 141.0.0.0 (Windows 10): Executed 17 of 25[31m (1 FAILED)[39m[31m ERROR[39m (0 secs / 0.008 secs)
+[1A[2KChrome Headless 141.0.0.0 (Windows 10): Executed 18 of 25[31m (1 FAILED)[39m[31m ERROR[39m (0 secs / 0.009 secs)
+[1A[2KChrome Headless 141.0.0.0 (Windows 10): Executed 19 of 25[31m (1 FAILED)[39m[31m ERROR[39m (0 secs / 0.01 secs)
+[1A[2KChrome Headless 141.0.0.0 (Windows 10): Executed 20 of 25[31m (1 FAILED)[39m[31m ERROR[39m (0 secs / 0.01 secs)
+[1A[2K[31mChrome Headless 141.0.0.0 (Windows 10) useNavbar hook maneja correctamente el menú de comunidad FAILED[39m
+	Expected false to be true.
+	    at <Jasmine>
+	    at UserContext.eval (webpack://levelup/./src/services/Navbar.test.js?:69:38)
+	    at <Jasmine>
+Chrome Headless 141.0.0.0 (Windows 10): Executed 21 of 25[31m (2 FAILED)[39m[31m ERROR[39m (0 secs / 0.011 secs)
+[1A[2KChrome Headless 141.0.0.0 (Windows 10): Executed 22 of 25[31m (2 FAILED)[39m[31m ERROR[39m (0 secs / 0.011 secs)
+[1A[2KChrome Headless 141.0.0.0 (Windows 10): Executed 23 of 25[31m (2 FAILED)[39m[31m ERROR[39m (0 secs / 0.011 secs)
+[1A[2KChrome Headless 141.0.0.0 (Windows 10): Executed 24 of 25[31m (2 FAILED)[39m[31m ERROR[39m (0 secs / 0.011 secs)
+[1A[2KChrome Headless 141.0.0.0 (Windows 10): Executed 25 of 25[31m (2 FAILED)[39m[31m ERROR[39m (0 secs / 0.011 secs)
+[36m25 10 2025 19:42:59.230:DEBUG [Chrome Headless 141.0.0.0 (Windows 10)]: [39mEXECUTING -> CONNECTED
+[1A[2KChrome Headless 141.0.0.0 (Windows 10): Executed 25 of 25[31m (2 FAILED)[39m[31m ERROR[39m (0.033 secs / 0.011 secs)
+[36m25 10 2025 19:42:59.231:DEBUG [launcher]: [39mCAPTURED -> BEING_KILLED
+[36m25 10 2025 19:42:59.232:DEBUG [launcher]: [39mBEING_KILLED -> BEING_FORCE_KILLED
+[36m25 10 2025 19:42:59.232:DEBUG [Chrome Headless 141.0.0.0 (Windows 10)]: [39mCONNECTED -> DISCONNECTED
+[36m25 10 2025 19:42:59.233:DEBUG [karma-server]: [39mRun complete, exiting.
+[36m25 10 2025 19:42:59.233:DEBUG [launcher]: [39mDisconnecting all browsers
+[36m25 10 2025 19:42:59.233:DEBUG [launcher]: [39mBEING_FORCE_KILLED -> BEING_FORCE_KILLED
+[36m25 10 2025 19:42:59.233:DEBUG [proxy]: [39mDestroying proxy agents
+[36m25 10 2025 19:42:59.233:DEBUG [Chrome Headless 141.0.0.0 (Windows 10)]: [39mDISCONNECTED -> CONNECTED
+[1A[2KChrome Headless 141.0.0.0 (Windows 10): Executed 25 of 25[31m (2 FAILED)[39m[31m ERROR[39m (0.036 secs / 0.011 secs)
+[36m25 10 2025 19:42:59.234:DEBUG [launcher]: [39mBEING_FORCE_KILLED -> BEING_FORCE_KILLED
+[36m25 10 2025 19:42:59.234:DEBUG [Chrome Headless 141.0.0.0 (Windows 10)]: [39mCONNECTED -> DISCONNECTED
+[36m25 10 2025 19:42:59.234:DEBUG [karma-server]: [39mRun complete, exiting.
+[36m25 10 2025 19:42:59.234:DEBUG [launcher]: [39mDisconnecting all browsers
+[36m25 10 2025 19:42:59.234:DEBUG [launcher]: [39mBEING_FORCE_KILLED -> BEING_FORCE_KILLED
+[36m25 10 2025 19:42:59.234:DEBUG [proxy]: [39mDestroying proxy agents
+[91m25 10 2025 19:42:59.235:ERROR [coverage]: [39mChrome Headless 141.0.0.0 (Windows 10): Coverage for branches (38.46%) does not meet global threshold (80%)
+[36m25 10 2025 19:42:59.241:DEBUG [coverage]: [39mWriting coverage to C:/Users/danip/EP_2_LevelUpGamer/coverage/chrome
+[36m25 10 2025 19:42:59.271:DEBUG [coverage]: [39mWriting coverage to C:/Users/danip/EP_2_LevelUpGamer/coverage/chrome
+[36m25 10 2025 19:42:59.289:DEBUG [launcher]: [39mProcess ChromeHeadless exited with code null and signal SIGTERM
+[36m25 10 2025 19:42:59.289:DEBUG [temp-dir]: [39mCleaning temp dir C:\Users\danip\AppData\Local\Temp\karma-61231965
+[36m25 10 2025 19:42:59.316:DEBUG [launcher]: [39mFinished all browsers
+[36m25 10 2025 19:42:59.316:DEBUG [launcher]: [39mBEING_FORCE_KILLED -> FINISHED
+[36m25 10 2025 19:42:59.316:DEBUG [launcher]: [39mFINISHED -> FINISHED

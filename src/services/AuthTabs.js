@@ -12,7 +12,7 @@ export function validateSignUp(data) {
     if (birthDate > today) {
       errors.birthDate = 'La fecha no puede ser mayor a la fecha actual';
     } else {
-      const age = today.getFullYear() - birthDate.getFullYear();
+      let age = today.getFullYear() - birthDate.getFullYear();
       const m = today.getMonth() - birthDate.getMonth();
       if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
         age--;
