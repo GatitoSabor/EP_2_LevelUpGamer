@@ -9,4 +9,5 @@ describe('Home exports', () => {
     expect(featuredCategories).toBeDefined();
     expect(slides).toBeDefined();
   });
+
 });

@@ -2183,14 +2183,6 @@ const products = [
     categoria: "Limpieza Pc",
     estado: "preparacion" // o "en camino", "entregado"
   },
-  //para test
-  {
-  id: "PROD-NOMODAL-001",
-  name: "Mouse Pad Básico",
-  description: "Un mouse pad básico, durable y cómodo para oficina o gaming.",
-  // No incluir descriptionmodal
-  // Otras propiedades que sí puedan tener todos los productos...
-}
 ];
 
 export default products;

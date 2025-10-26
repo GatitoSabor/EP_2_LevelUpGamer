@@ -1,13 +1,12 @@
 import React, { useState, useEffect } from 'react';
 
 import Navbar from './components/layout/Navbar';
+import Footer from './components/layout/Footer';
 import Home from './components/pages/Home';
 import Catalog from './components/pages/Catalog';
-import AuthTabs from './components/forms/AuthTabs';
-import Footer from './components/layout/Footer';
 import ProductDetailModal from './components/pages/ProductDetailModal';
+import AuthTabs from './components/forms/AuthTabs';
 import MiCuenta from './components/pages/MiCuenta';
-import products from './data/products';
 import Noticias from './components/pages/Noticias';
 import CheckoutStepper from './components/pages/CheckoutStepper';
 import Eventos from './components/pages/Eventos';
@@ -45,7 +44,7 @@ export default function App() {
   const [page, setPage] = useState('home');
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [cart, setCart] = useState(() => {
-    const saved = localStorage.getItem('cart');
+  const saved = localStorage.getItem('cart');
     return saved ? JSON.parse(saved) : [];
   });
   const [showDiscountOnly, setShowDiscountOnly] = useState(false);
@@ -377,6 +376,7 @@ const actualizarDirecciones = (nuevasDirecciones) => {
     setCart(prevCart => prevCart.filter(item => item.id !== id));
   };
 
+  const safeCart = Array.isArray(cart) ? cart : [];
   const totalPrice = cart.reduce(
     (acc, item) => acc + item.price * (1 - (item.discount ?? 0)) * item.quantity,
     0

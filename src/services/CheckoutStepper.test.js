@@ -49,5 +49,6 @@ describe('CheckoutStepper utils', () => {
   it('subtotal de carrito vacío retorna 0', () => {
     expect(calcularSubtotal([], 0)).toBe(0);
   });
+  
 
 });

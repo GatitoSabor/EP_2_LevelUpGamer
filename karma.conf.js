@@ -14,30 +14,33 @@ module.exports = function(config) {
     preprocessors: {
       'src/setupTests.js': ['webpack'],
       'src/services/*.test.js': ['webpack', 'coverage'],
-      'src/data/*.test.js': ['webpack', 'coverage']
+      'src/data/*.test.js': ['webpack', 'coverage'],
+      'src/**/*.test.js': ['webpack', 'coverage'],
+      'src/**/*.unit.test.js': ['webpack', 'coverage']
     },
     webpack: {
-      mode: 'development',
-      module: {
-        rules: [
-          {
-            // Para imágenes: todas a null-loader (¡deja solo esta para imágenes!)
-            test: /\.(jpg|jpeg|png|gif|svg)$/i,
-            use: ['null-loader']
-          },
-          {
-            // Babel para JS/JSX
-            test: /\.(js|jsx)$/,
-            exclude: /node_modules/,
-            use: ['babel-loader']
-          }
-        ]
+  mode: 'development',
+  module: {
+    rules: [
+      {
+        test: /\.css$/,
+        use: ['style-loader', 'css-loader']
+      },
+      {
+        test: /\.(jpg|jpeg|png|gif|svg)$/i,
+        use: ['null-loader']
+      },
+      {
+        test: /\.(js|jsx)$/,
+        exclude: /node_modules/,
+        use: ['babel-loader']
       }
-      // ¡No pongas aquí asset/resource ni file-loader para imágenes!
-    },
-    webpackMiddleware: {
-      stats: 'errors-only'
-    },
+    ]
+  },
+  resolve: {
+    extensions: ['.js', '.jsx']
+  },
+},
     coverageReporter: {
       dir: 'coverage/',
       reporters: [
