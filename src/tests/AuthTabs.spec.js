@@ -26,7 +26,7 @@ describe('validateSignUp', () => {
 
   it('devuelve error si es menor de 18 años', () => {
     const menorEdad = new Date();
-    menorEdad.setFullYear(menorEdad.getFullYear() - 10); // 10 años atrás
+    menorEdad.setFullYear(menorEdad.getFullYear() - 10); 
     const errores = validateSignUp({
       username: 'test',
       password: '123',
@@ -40,7 +40,7 @@ describe('validateSignUp', () => {
 
   it('no devuelve errores si todo está correcto', () => {
     const mayorEdad = new Date();
-    mayorEdad.setFullYear(mayorEdad.getFullYear() - 20); // 20 años atrás
+    mayorEdad.setFullYear(mayorEdad.getFullYear() - 20); 
     const errores = validateSignUp({
       username: 'test',
       password: '123',

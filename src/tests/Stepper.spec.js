@@ -44,15 +44,12 @@ describe('Stepper', () => {
         </Stepper>
     );
 
-    // Click para ir de 1 -> 2
     fireEvent.click(screen.getByText(/Continue/i));
     expect(onStepChange).toHaveBeenCalledWith(2);
 
-    // Click para ir de 2 -> 3, ahora debe aparecer botón Complete, NO otro "Continue"
-    fireEvent.click(screen.getByText(/Continue/i)); // Si el botón sigue llamando onStepChange, debe recibir 3
+    fireEvent.click(screen.getByText(/Continue/i)); 
     expect(onStepChange).toHaveBeenCalledWith(3);
 
-    // Ahora estamos en el último step. Solo debe haber botón Complete.
     fireEvent.click(screen.getByText(/Complete/i));
     expect(onFinalStepCompleted).toHaveBeenCalled();
     });
@@ -70,7 +67,6 @@ describe('Stepper', () => {
 
   it('no rompe si no se pasan steps como children', () => {
     render(<Stepper initialStep={1}></Stepper>);
-    // No debería lanzar error, puede mostrar nada/vacío
   });
 
   it('soporta initialStep fuera de rango', () => {
@@ -109,29 +105,22 @@ describe('Stepper', () => {
     fireEvent.click(screen.getByText(/Continue/i));
     fireEvent.click(screen.getByText(/Continue/i));
     fireEvent.click(screen.getByText(/Complete/i));
-    // Sin expect: solo no debe crashear
   });
 
   it('el botón back tiene clase "inactive" si currentStep === 1', () => {
     render(<Stepper initialStep={1}>{TestSteps}</Stepper>);
-    // El botón Back solo renderiza para currentStep !== 1, así fuerzalo:
-    // Debes modificar el componente si quieres ver "inactive", porque por default no aparece cuando currentStep === 1.
-    // Si no puedes modificar Stepper para fuerzarlo, puedes ignorar esto ya que nunca se renderiza.
   });
 
   it('setea direction como 1 si avanzas y -1 si retrocedes con indicador', () => {
     render(<Stepper initialStep={1}>{TestSteps}</Stepper>);
-    // Click indicador 2 → 1 (avance)
     fireEvent.click(screen.getByText("2"));
-    // Click indicador 1 → 2 (retroceso, si vuelves atrás)
     fireEvent.click(screen.getByText("1"));
   });
 
   it('no ejecuta onClickStep cuando quedan deshabilitados los indicadores', () => {
     render(<Stepper initialStep={1} disableStepIndicators={true}>{TestSteps}</Stepper>);
-    // Nada debería pasar aun cuando intentas clickear steps
     fireEvent.click(screen.getByText("2"));
-    expect(screen.getByText(/Información Personal/i)).not.toBeNull(); // Sigue igual
+    expect(screen.getByText(/Información Personal/i)).not.toBeNull(); 
   });
 
   it('no rompe si el array de steps es 0 o falsy', () => {

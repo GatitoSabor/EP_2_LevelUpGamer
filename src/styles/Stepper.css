@@ -24,8 +24,8 @@
   margin-left: auto;
   margin-right: auto;
   width: 100%;
-  max-width: 60rem; /* más ancho */
-  min-height: 50rem; /* altura mínima para que se vea más grande */
+  max-width: 60rem; 
+  min-height: 50rem; 
   
   border-radius: 2rem;
   background-color: #fff;

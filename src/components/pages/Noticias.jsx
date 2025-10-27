@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import noticiasIniciales from '../../data/noticias'; // Ajusta la ruta a donde esté el archivo
+import noticiasIniciales from '../../data/noticias'; 
 import '../../styles/Noticias.css';
 
 export default function Noticias({ onNavigate }) {

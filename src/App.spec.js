@@ -4,7 +4,6 @@ import { render, screen } from '@testing-library/react';
 
 describe('App Component', function() {
   beforeEach(function() {
-    // Setup antes de cada test
     document.body.innerHTML = '';
   });
 

@@ -1,6 +1,6 @@
 .catalog-container {
   display: flex;
-  gap: 30px; /* separación entre filtro y productos */
+  gap: 30px; 
   padding: 20px;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   background-color: #f9f9f9;
@@ -13,7 +13,7 @@
 }
 
 .filter-menu {
-  width: 230px;  /* tamaño fijo */
+  width: 230px;  
   background-color: white;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
   border-radius: 12px;
@@ -24,12 +24,9 @@
   flex-direction: column;
   gap: 20px;
   font-size: 0.95rem;
-  /* Remover margin-left para evitar que los productos bajen */
   margin-left: 0;
 }
 
-
-/* Ajustes a grupos de filtros */
 .filter-group label {
   font-size: 1rem;
   margin-bottom: 6px;
@@ -45,15 +42,13 @@
   min-width: 100%;
 }
 
-/* Productos en cuadrícula de tamaño fijo */
 .products-grid {
-  flex: 1;                   /* ocupa espacio restante */
+  flex: 1;                 
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
   gap: 20px;
 }
 
-/* Tarjetas producto altura fija para uniformidad */
 .product-card {
   background-color: white;
   border-radius: 12px;
@@ -72,7 +67,6 @@
   box-shadow: 0 7px 14px rgb(0 0 0 / 0.14);
 }
 
-/* Imagen tamaño fijo uniforme */
 .product-card img {
   width: 100%;
   height: 140px;
@@ -81,7 +75,6 @@
   object-fit: contain;
 }
 
-/* Texto recortado para limitar altura */
 .product-card h4 {
   margin: 0 0 8px 0;
   font-weight: 700;
@@ -129,8 +122,6 @@
   background-color: #3f3fcf;
 }
 
-
-/* Responsive: filtro arriba, productos en columnas más chicas */
 @media (max-width: 1400px) {
   .catalog-container {
     max-width: 98%;

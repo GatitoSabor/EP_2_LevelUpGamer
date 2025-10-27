@@ -2181,7 +2181,7 @@ const products = [
     image: limpieza4,
     marca: "Thermal Grizzly",
     categoria: "Limpieza Pc",
-    estado: "preparacion" // o "en camino", "entregado"
+    estado: "preparacion" 
   },
 ];
 

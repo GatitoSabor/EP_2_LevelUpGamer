@@ -17,7 +17,6 @@ const relatedProducts = [
   { id: 'PK003', category: 'Teclados', price: 40000, discount: 0.1 }
 ];
 
-// Simula products importado con más elementos (si usas el real elimina el mock)
 const mockProducts = [
   { id: 'PK001', category: 'Teclados', price: 100000, discount: 0.15 },
   { id: 'PK002', category: 'Teclados', price: 60000, discount: 0 },

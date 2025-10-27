@@ -2,11 +2,10 @@ import React from 'react';
 import '../../styles/FormularioContacto.css';
 
 export default function FormularioContacto() {
-  // Controlador para el submit
   const handleSubmit = (event) => {
-    event.preventDefault(); // evitar recarga de página
+    event.preventDefault(); 
     alert('Formulario enviado con éxito');
-    event.target.reset(); // opcional: limpia el formulario tras enviar
+    event.target.reset(); 
   };
 
   return (

@@ -15,8 +15,6 @@ import FormularioContacto from './components/pages/FormularioContacto';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import products from './data/products';
 
-
-
 import './App.css';
 
 function puedeAplicarDescuento(cupon, producto) {
@@ -27,14 +25,12 @@ function puedeAplicarDescuento(cupon, producto) {
     return true;
   }
   if (cupon.id === 4) {
-    return true; // Envío gratis se activa aparte
+    return true; 
   }
   return false;
 }
 
 export default function App() {
-  
-
   
   const [user, setUser] = useState(null);
   const [direcciones, setDirecciones] = useState(user?.direcciones || []);
@@ -59,9 +55,9 @@ export default function App() {
     return saved ? JSON.parse(saved) : [];
   });
 
-  const [couponCode, setCouponCode] = useState(''); // para guardar el código ingresado
-  const [discountPercent, setDiscountPercent] = useState(0); // descuento activo
-  const [couponError, setCouponError] = useState(''); // mensaje de error cupón
+  const [couponCode, setCouponCode] = useState(''); 
+  const [discountPercent, setDiscountPercent] = useState(0); 
+  const [couponError, setCouponError] = useState(''); 
   const [cuponesInternos, setCuponesInternos] = useState(user ? user.cupones || [] : []);
 
   const [clienteData, setClienteData] = useState({ nombre: '', email: '' });
@@ -75,23 +71,40 @@ export default function App() {
     { codigo: "ENVIOGRATIS", descripcion: "Envío gratis...", descuento: 0, usosRestantes: 1 }
   ];
 
-  /*
-  useEffect(() => {
-    if (!couponCode) {
+  const handleFinishCheckout = (compra) => {
+    if(user) {
+      const usuarios = getUsuariosStorage();
+      const idx = usuarios.findIndex(u => u.username === user.username);
+      if(idx >= 0) {
+        usuarios[idx].compras = [...usuarios[idx].compras, ...compra];
+        localStorage.setItem('usuarios', JSON.stringify(usuarios));
+        setUser(usuarios[idx]);
+      }
+      setCompras(prev => [...prev, ...compra]); 
+    }
+
+    setCart([]);
+    setDiscountPercent(0);
+    setCouponCode('');
+    setPage('home'); 
+    setShowCheckout(false);
+  };
+
+  const handleApplyCoupon = () => {
+    const code = couponCode.trim().toUpperCase();
+    if (!code) {
+      setCouponError('Por favor ingresa un código');
       setDiscountPercent(0);
-      setCouponError('');
-      setShowFreeShippingOnly(false);
       return;
     }
 
-    const cupGeneral = cuponesDisponibles.find(c => c.codigo.toUpperCase() === couponCode.toUpperCase().trim());
-    const cupInterno = cuponesInternos.find(c => c.codigo.toUpperCase() === couponCode.toUpperCase().trim());
+    const cupGeneral = cuponesDisponibles.find(c => c.codigo.toUpperCase() === code);
+    const cupInterno = cuponesInternos.find(c => c.codigo.toUpperCase() === code);
     const cuponActivo = cupInterno || cupGeneral;
 
     if (!cuponActivo) {
+      setCouponError('Cupón inválido');
       setDiscountPercent(0);
-      setCouponError('Código de cupón inválido');
-      setShowFreeShippingOnly(false);
       return;
     }
 
@@ -102,109 +115,44 @@ export default function App() {
     } else {
       const valido = cart.every(producto => puedeAplicarDescuento(cuponActivo, producto));
       if (!valido) {
-        setDiscountPercent(0);
         setCouponError('No puedes aplicar este cupón a todos los productos de tu carrito.');
+        setDiscountPercent(0);
         setShowFreeShippingOnly(false);
       } else {
         setDiscountPercent(cuponActivo.descuento || 0);
         setCouponError('');
         setShowFreeShippingOnly(false);
+        alert(`Cupón aplicado! Tienes un descuento del ${cuponActivo.descuento}%`);
       }
     }
-  }, [cart, couponCode, cuponesDisponibles, cuponesInternos]);*/
-
-
-  const handleFinishCheckout = (compra) => {
-    // Guardar compra en compras del usuario
-    if(user) {
-      const usuarios = getUsuariosStorage();
-      const idx = usuarios.findIndex(u => u.username === user.username);
-      if(idx >= 0) {
-        usuarios[idx].compras = [...usuarios[idx].compras, ...compra];
-        localStorage.setItem('usuarios', JSON.stringify(usuarios));
-        setUser(usuarios[idx]);
-      }
-      setCompras(prev => [...prev, ...compra]); // Actualizar estado local compras si tienes
-    }
-
-    // Vaciar carrito y discount code
-    setCart([]);
-    setDiscountPercent(0);
-    setCouponCode('');
-    
-    // Cambiar página a home
-    setPage('home'); // Redirige al inicio o al carrito
-    
-    // Opcional: Si quieres mostrar carrito, deberías cambiar el estado para mostrar carrito
-    // Por ejemplo: setShowCheckout(false); y el render muestra carrito cuando showCheckout=false
-    setShowCheckout(false);
   };
-// Ahora la función handleApplyCoupon solo limpia errores,
-// para activarse la validación y el descuento es dinámico con useEffect
-const handleApplyCoupon = () => {
-  const code = couponCode.trim().toUpperCase();
-  if (!code) {
-    setCouponError('Por favor ingresa un código');
-    setDiscountPercent(0);
-    return;
-  }
 
-  const cupGeneral = cuponesDisponibles.find(c => c.codigo.toUpperCase() === code);
-  const cupInterno = cuponesInternos.find(c => c.codigo.toUpperCase() === code);
-  const cuponActivo = cupInterno || cupGeneral;
 
-  if (!cuponActivo) {
-    setCouponError('Cupón inválido');
-    setDiscountPercent(0);
-    return;
-  }
 
-  if (cuponActivo.id === 4) {
-    // Ejemplo: activar envío gratis
-    setDiscountPercent(0);
-    setCouponError('');
-    setShowFreeShippingOnly(true);
-  } else {
-    const valido = cart.every(producto => puedeAplicarDescuento(cuponActivo, producto));
-    if (!valido) {
-      setCouponError('No puedes aplicar este cupón a todos los productos de tu carrito.');
-      setDiscountPercent(0);
-      setShowFreeShippingOnly(false);
-    } else {
-      setDiscountPercent(cuponActivo.descuento || 0);
-      setCouponError('');
-      setShowFreeShippingOnly(false);
-      alert(`Cupón aplicado! Tienes un descuento del ${cuponActivo.descuento}%`);
+  const handleStartCheckout = () => {
+    if (cart.length === 0) {
+      alert('El carrito está vacío');
+      return;
     }
-  }
-};
-
-
-
-const handleStartCheckout = () => {
-  if (cart.length === 0) {
-    alert('El carrito está vacío');
-    return;
-  }
-  if (!user) {
-    alert('Debes iniciar sesión para realizar una compra.');
-    setPage('login');
-    return;
-  }
-  setShowCheckout(true);
-};
-
-useEffect(() => {
-    if (user) {
-      setCuponesInternos(user.cupones || []);
-      setDirecciones(user.direcciones || []);
+    if (!user) {
+      alert('Debes iniciar sesión para realizar una compra.');
+      setPage('login');
+      return;
     }
-  }, [user]);
+    setShowCheckout(true);
+  };
 
-const actualizarDirecciones = (nuevasDirecciones) => {
-  setDirecciones(nuevasDirecciones);
-  setUser(prev => ({ ...prev, direcciones: nuevasDirecciones }));
-};
+  useEffect(() => {
+      if (user) {
+        setCuponesInternos(user.cupones || []);
+        setDirecciones(user.direcciones || []);
+      }
+    }, [user]);
+
+  const actualizarDirecciones = (nuevasDirecciones) => {
+    setDirecciones(nuevasDirecciones);
+    setUser(prev => ({ ...prev, direcciones: nuevasDirecciones }));
+  };
 
   const handleCheckout = () => {
     if (cart.length === 0) {
@@ -241,7 +189,6 @@ const actualizarDirecciones = (nuevasDirecciones) => {
         };
         setUser(newUser);
 
-        // Actualiza localStorage también
         const usuarios = getUsuariosStorage();
         const idx = usuarios.findIndex(u => u.username === user.username);
         if (idx > -1) {
@@ -252,7 +199,6 @@ const actualizarDirecciones = (nuevasDirecciones) => {
     }
 
 
-    // Resto del checkout...
     const comprasConDescuento = cart.map(item => {
       const precioFinal = item.price * (1 - (item.discount ?? 0)) * (1 - discountPercent / 100);
       return { ...item, precioConDescuento: precioFinal };
@@ -301,7 +247,6 @@ const actualizarDirecciones = (nuevasDirecciones) => {
         };
         setUser(newUser);
 
-        // Actualiza localStorage también
         const usuarios = getUsuariosStorage();
         const idx = usuarios.findIndex(u => u.username === user.username);
         if (idx > -1) {
@@ -316,10 +261,8 @@ const actualizarDirecciones = (nuevasDirecciones) => {
       return { ...item, precioConDescuento: precioFinal };
     });
 
-    // Guardar compras en estado global y en user
     setCompras(prevCompras => [...prevCompras, ...comprasConDescuento]);
 
-    // Limpiar carrito, cupones y errores
     setCart([]);
     setDiscountPercent(0);
     setCouponCode('');
@@ -327,8 +270,7 @@ const actualizarDirecciones = (nuevasDirecciones) => {
 
     alert('Compra realizada con éxito');
 
-    // Redirigir y cerrar checkout
-    setPage('home'); // o 'carrito' si quieres mostrar carrito
+    setPage('home');
     setShowCheckout(false);
   };
 
@@ -350,7 +292,7 @@ const actualizarDirecciones = (nuevasDirecciones) => {
     });
   };
   const goToCart = () => {
-    setPage('carrito'); // o como manejes la página del carrito
+    setPage('carrito'); 
   };
 
   const incrementQuantity = (id) => {
@@ -388,70 +330,67 @@ const actualizarDirecciones = (nuevasDirecciones) => {
 
   const totalItems = cart.reduce((acc, item) => acc + item.quantity, 0);
 
-  // Leer usuarios de localStorage o comenzar vacio
-const getUsuariosStorage = () => {
-  const usuarios = localStorage.getItem('usuarios');
-  return usuarios ? JSON.parse(usuarios) : [];
-};
-
-// Función para manejar selección de producto (de productos relacionados)
-const handleSelectProduct = (product) => {
-  setSelectedProduct(product);
-  setPage('ProductDetailModal');  // o la página/modal que uses para ver producto
-};
-
-const handleSignUp = (datosUsuario) => {
-  const usuarios = getUsuariosStorage();
-  const existe = usuarios.some(u => u.username === datosUsuario.username);
-  
-  if (existe) {
-    alert('Usuario ya existe');
-    return;
-  }
-
-  const esDuoc = datosUsuario.email.toLowerCase().endsWith('@duoc.cl');
-  const nuevoUsuario = {
-    username: datosUsuario.username,
-    password: datosUsuario.password,
-    fullName: datosUsuario.fullName,  // corresponde el nombre
-    rut: datosUsuario.rut,
-    fechaNacimiento: datosUsuario.birthDate,  // fecha recibida
-    email: datosUsuario.email,
-    compras: [],
-    cupones: esDuoc ? [{ codigo: 'DUOC20', descuento: 20, id: 2 }] : [],
+  const getUsuariosStorage = () => {
+    const usuarios = localStorage.getItem('usuarios');
+    return usuarios ? JSON.parse(usuarios) : [];
   };
 
-  usuarios.push(nuevoUsuario);
-  localStorage.setItem('usuarios', JSON.stringify(usuarios));
-  alert('Usuario registrado exitosamente');
-  setPage('login');
-};
+  const handleSelectProduct = (product) => {
+    setSelectedProduct(product);
+    setPage('ProductDetailModal');  
+  };
 
+  const handleSignUp = (datosUsuario) => {
+    const usuarios = getUsuariosStorage();
+    const existe = usuarios.some(u => u.username === datosUsuario.username);
+    
+    if (existe) {
+      alert('Usuario ya existe');
+      return;
+    }
 
-const handleLogin = ({ username, password }) => {
-  const usuarios = getUsuariosStorage();
-  const usuario = usuarios.find(u => u.username === username && u.password === password);
+    const esDuoc = datosUsuario.email.toLowerCase().endsWith('@duoc.cl');
+    const nuevoUsuario = {
+      username: datosUsuario.username,
+      password: datosUsuario.password,
+      fullName: datosUsuario.fullName,  
+      rut: datosUsuario.rut,
+      fechaNacimiento: datosUsuario.birthDate,  
+      email: datosUsuario.email,
+      compras: [],
+      cupones: esDuoc ? [{ codigo: 'DUOC20', descuento: 20, id: 2 }] : [],
+    };
 
-  if (!usuario) {
-    alert('Usuario o contraseña incorrectos');
-    return;
-  }
-
-  setUser(usuario);
-  setPage('miCuenta');
-};
-
-// Para agregar compras
-const handleGuardarCompra = (compra) => {
-  const usuarios = getUsuariosStorage();
-  const index = usuarios.findIndex(u => u.username === user.username);
-
-  if (index >= 0) {
-    usuarios[index].compras = [...usuarios[index].compras, ...compra];
+    usuarios.push(nuevoUsuario);
     localStorage.setItem('usuarios', JSON.stringify(usuarios));
-    setUser(usuarios[index]); // actualizar estado usuario con compras nuevas
-  }
-};
+    alert('Usuario registrado exitosamente');
+    setPage('login');
+  };
+
+
+  const handleLogin = ({ username, password }) => {
+    const usuarios = getUsuariosStorage();
+    const usuario = usuarios.find(u => u.username === username && u.password === password);
+
+    if (!usuario) {
+      alert('Usuario o contraseña incorrectos');
+      return;
+    }
+
+    setUser(usuario);
+    setPage('miCuenta');
+  };
+
+  const handleGuardarCompra = (compra) => {
+    const usuarios = getUsuariosStorage();
+    const index = usuarios.findIndex(u => u.username === user.username);
+
+    if (index >= 0) {
+      usuarios[index].compras = [...usuarios[index].compras, ...compra];
+      localStorage.setItem('usuarios', JSON.stringify(usuarios));
+      setUser(usuarios[index]); 
+    }
+  };
 
 
 
@@ -479,7 +418,6 @@ const handleGuardarCompra = (compra) => {
     }
   }, [clearSearch]);
 
-  // Sincronizar direcciones del user cuando cambia user
   useEffect(() => {
     if (user?.direcciones) {
       setDirecciones(user.direcciones);
@@ -488,7 +426,6 @@ const handleGuardarCompra = (compra) => {
 
   useEffect(() => {
     if (page !== 'catalogo') {
-      // Al salir del catálogo, resetea todos los filtros
       setShowDiscountOnly(false);
       setShowValorantOnly(false);
       setShowFreeShippingOnly(false);
@@ -500,7 +437,7 @@ const handleGuardarCompra = (compra) => {
     setShowDiscountOnly(false);
     setShowValorantOnly(false);
     setShowFreeShippingOnly(false);
-    setCategoriaFiltrada(categoria); // o "" para limpiar
+    setCategoriaFiltrada(categoria); 
     setPage('catalogo');
   };
 
@@ -511,7 +448,7 @@ const handleGuardarCompra = (compra) => {
 
   const handleShowValorantProducts = () => {
     setShowValorantOnly(true);
-    setShowDiscountOnly(false); // aseguramos que el filtro descuento no esté activo
+    setShowDiscountOnly(false); 
     setPage('catalogo');
   };
 
@@ -580,7 +517,7 @@ const handleGuardarCompra = (compra) => {
                 onShowNews={() => goToPage('noticias')}
                 onShowEvents={() => goToPage('eventos')}
                 onShowCategory={handleShowCategory}
-                onShowFreeShipping={handleShowFreeShipping} // función que definiste en el padre
+                onShowFreeShipping={handleShowFreeShipping} 
                 onGoToRegister={handleGoToRegister}
               />
             )}
@@ -632,14 +569,12 @@ const handleGuardarCompra = (compra) => {
                   Carro ({cart.length} {cart.length === 1 ? 'item' : 'items'})
                 </h2>
 
-                {/* Mensaje de descuento activo */}
                 {discountPercent > 0 && (
                   <div className="active-discount-message">
                     Tienes un descuento activo del {discountPercent}% aplicado en tu compra.
                   </div>
                 )}
 
-                {/* Campo para ingresar cupón */}
                 <div className="coupon-apply">
                   <input
                     type="text"

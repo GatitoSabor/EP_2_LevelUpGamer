@@ -78,7 +78,6 @@ describe('SearchDropdown máxima cobertura', () => {
   });
 
   it('permite click en sugerencia y producto filtrado (ramas rojas)', () => {
-    // Productos de distintas categorías
     const prods = [
       { id: 1, name: 'Teclado RGB', description: 'mecánico', category: 'Periféricos', image: '', price: 1 },
       { id: 2, name: 'Mouse Pro', description: 'gamer', category: 'Oficina', image: '', price: 2 },
@@ -87,12 +86,10 @@ describe('SearchDropdown máxima cobertura', () => {
     render(<SearchDropdown products={prods} onSelectProduct={onSelectProduct} clearSignal={false} />);
     const input = screen.getByRole('searchbox') || screen.getByRole('textbox');
 
-    // Sugerencia: buscar categoría 'Periféricos'
     fireEvent.change(input, { target: { value: 'peri' } });
     expect(screen.getByText(/Periféricos/i)).not.toBeNull();
     fireEvent.mouseDown(screen.getByText(/Periféricos/i));
 
-    // Producto: buscar por nombre 'Teclado RGB'
     fireEvent.change(input, { target: { value: 'teclado' } });
     expect(screen.getByText(/Teclado RGB/i)).not.toBeNull();
     fireEvent.mouseDown(screen.getByText(/Teclado RGB/i));

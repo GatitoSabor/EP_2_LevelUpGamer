@@ -79,19 +79,17 @@
   z-index: 1000;
 }
 
-/* Clase para textos no clicables (centro ayuda, bases concursos) */
 .footer-text-info {
-  color: #d7c8ff; /* morado clarito */
+  color: #d7c8ff; 
   font-family: 'Roboto', sans-serif;
   font-size: 0.95rem;
   cursor: default;
 }
 
-/* Clase para textos clicables (botones, enlaces) */
 .footer-text-link {
   background: none;
   border: none;
-  color: #d7c8ff; /* mismo morado clarito */
+  color: #d7c8ff;
   cursor: pointer;
   padding: 0;
   font-family: 'Roboto', sans-serif;
@@ -102,7 +100,7 @@
 
 .footer-text-link:hover,
 .footer-text-link:focus {
-  color: #9b68ff; /* morado más fuerte al hover */
+  color: #9b68ff; 
   outline: none;
   text-decoration: none;
 }

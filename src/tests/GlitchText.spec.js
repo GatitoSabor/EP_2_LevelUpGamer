@@ -15,6 +15,4 @@ describe('GlitchText', () => {
     expect(getByText('Dos')).not.toBeNull();
   });
 
-  // El matcher .toMatchSnapshot() es exclusivo de Jest;
-  // Jasmine no tiene snapshot por defecto. Puedes omitirlo.
 });

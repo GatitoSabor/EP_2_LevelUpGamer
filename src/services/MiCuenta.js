@@ -5,7 +5,6 @@ export const descuentos = [
   { id: 4, texto: "Envío gratuito", puntos: 300 }
 ];
 
-// Función para canjear descuento si hay suficientes puntos
 export function canjearDescuento(puntos, desc, cupones, setCuponesInternos, setPuntos) {
   if (puntos < desc.puntos) {
     alert("No tienes suficientes puntos para esta opción.");

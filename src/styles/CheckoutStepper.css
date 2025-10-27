@@ -5,9 +5,9 @@
   font-weight: 600;
 
   text-align: center;
-  max-width: 600px; /* aumentar el ancho máximo */
-  margin: 0 auto; /* centrar el formulario */
-  padding: 1.5rem; /* menos espacio con los bordes */
+  max-width: 600px; 
+  margin: 0 auto; 
+  padding: 1.5rem; 
   box-sizing: border-box;
 }
 

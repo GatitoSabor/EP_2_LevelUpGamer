@@ -19,13 +19,11 @@ export default function SearchDropdown({ products = [], onSelectProduct, clearSi
     setQuery(value);
 
     if (value.length > 1) {
-      // Filtrar productos por coincidencia de nombre o descripción
       const productsMatched = products.filter(p =>
         p.name.toLowerCase().includes(value.toLowerCase()) ||
         p.description.toLowerCase().includes(value.toLowerCase())
       );
 
-      // Filtrar categorías únicas que coincidan con la búsqueda
       const categoriesMatched = [
         ...new Set(
           products
@@ -66,7 +64,6 @@ export default function SearchDropdown({ products = [], onSelectProduct, clearSi
 
       {(filteredCategories.length > 0 || filteredProducts.length > 0) && (
         <div className="search-dropdown-results">
-          {/* SUGERENCIAS */}
           {filteredCategories.length > 0 && (
             <div className="search-section">
               <div className="section-title">Sugerencias</div>
@@ -84,8 +81,6 @@ export default function SearchDropdown({ products = [], onSelectProduct, clearSi
               ))}
             </div>
           )}
-
-          {/* PRODUCTOS */}
           {filteredProducts.length > 0 && (
             <div className="search-section">
               <div className="section-title">Productos</div>
@@ -114,14 +109,12 @@ export default function SearchDropdown({ products = [], onSelectProduct, clearSi
               ))}
             </div>
           )}
-          {/* Botón Ver todos los productos */}
           <div className="search-view-all" style={{ textAlign: 'right', padding: '5px 10px', cursor: 'pointer', color: '#007bff' }}
             onMouseDown={() => {
-              // Aquí puedes manejar la acción de ver todos, por ejemplo limpiar búsqueda y mostrar catálogo completo
               setQuery('');
               setFilteredCategories([]);
               setFilteredProducts([]);
-              onSelectProduct(null); // O enviar a algún handler para mostrar todos productos
+              onSelectProduct(null); 
             }}
           >
             Ver todos los productos

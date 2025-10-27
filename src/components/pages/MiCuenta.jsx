@@ -8,16 +8,13 @@ export default function MiCuenta({ compraSeleccionada, setCompraSeleccionada, us
   const [puntos, setPuntos] = useState(user?.puntos || 5000);
   const [historialPuntos, setHistorialPuntos] = useState([]);
 
-  // Dirección edit
   const [editIndex, setEditIndex] = useState(null);
   const [calle, setCalle] = useState('');
   const [numero, setNumero] = useState('');
   const [tipo, setTipo] = useState('Casa');
 
-  // Usuario editable
   const [editableUser, setEditableUser] = useState(user);
 
-  // Contraseña
   const [passwordForm, setPasswordForm] = useState({ actual: '', nueva: '', repetir: '' });
 
   useEffect(() => {
@@ -36,8 +33,6 @@ export default function MiCuenta({ compraSeleccionada, setCompraSeleccionada, us
     }, 5000);
     return () => clearInterval(interval);
   }, []);
-
-  // Manejadores básicos para editar y guardar datos
 
   const handleComprar = (desc) => {
     canjearDescuento(puntos, desc, cupones, setCuponesInternos, setPuntos);
@@ -72,8 +67,6 @@ export default function MiCuenta({ compraSeleccionada, setCompraSeleccionada, us
     alert('Contraseña modificada con éxito');
     setPasswordForm({ actual: '', nueva: '', repetir: '' });
   };
-
-  // Direcciones manejadores para añadir, editar, eliminar similar a lo anterior
 
   const handleAddDireccion = () => {
     if (!calle.trim() || !numero.trim()) return alert('Completa calle y número');

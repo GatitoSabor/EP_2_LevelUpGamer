@@ -10,7 +10,6 @@
   margin-top: 20px;
 }
 
-/* Sidebar */
 .mi-cuenta-container .sidebar {
   width: 240px;
   background-color: #5a3fed;
@@ -19,7 +18,6 @@
   padding: 30px 15px;
 }
 
-/* Botones barra lateral */
 .mi-cuenta-container .sidebar button {
   color: white;
   background-color: transparent;
@@ -46,7 +44,6 @@
   box-shadow: 0 4px 8px rgba(177, 156, 217, 0.5);
 }
 
-/* Contenido principal */
 .mi-cuenta-container .content {
   flex-grow: 1;
   padding: 40px 50px;
@@ -56,7 +53,6 @@
   border-radius: 0 12px 12px 0;
 }
 
-/* Titulos principales */
 .mi-cuenta-container .content h2 {
   margin-top: 0;
   font-size: 26px;
@@ -65,7 +61,6 @@
   letter-spacing: 0.04em;
 }
 
-/* Ordenes de compra */
 .orden-compra {
   margin-bottom: 25px;
   border-radius: 6px;
@@ -102,7 +97,6 @@
   font-weight: 400;
 }
 
-/* Productos en orden */
 .productos-orden {
   background-color: white;
   padding: 20px 25px;
@@ -139,7 +133,6 @@
   font-size: 15px;
 }
 
-/* Compras grid */
 .compras-grid {
   display: flex;
   flex-direction: column;
@@ -186,7 +179,6 @@
   font-size: 1rem;
 }
 
-/* Lista de cupones */
 .lista-cupones {
   list-style-type: none;
   padding-left: 0;
@@ -201,7 +193,6 @@
   font-weight: 600;
 }
 
-/* Datos personales */
 .datos-personales label {
   display: block;
   font-weight: 600;
@@ -226,7 +217,6 @@
   box-shadow: 0 0 8px rgba(90, 63, 237, 0.4);
 }
 
-/* Botón guardar */
 .guardar-btn {
   background-color: #5a3fed;
   color: white;
@@ -243,7 +233,6 @@
   box-shadow: 0 4px 16px rgba(65, 41, 182, 0.5);
 }
 
-/* Lista descuentos */
 .lista-descuentos {
   list-style-type: disc;
   padding-left: 20px;
@@ -258,7 +247,6 @@
   font-weight: 600;
 }
 
-/* Grid de descuentos */
 .descuentos-grid {
   display: flex;
   gap: 20px;
@@ -286,8 +274,6 @@
   margin-bottom: 20px;
 }
 
-
-/* Botón comprar */
 .btn-comprar {
   background-color: #5a3fed;
   color: white;
@@ -304,7 +290,6 @@
   background-color: #4129b6;
 }
 
-/* Contador de puntos */
 .contador-puntos {
   font-size: 1.3rem;
   margin-bottom: 25px;
@@ -312,7 +297,6 @@
   font-weight: 700;
 }
 
-/* Direcciones y contraseña */
 .direcciones-section {
   background: white;
   border-radius: 12px;
@@ -339,7 +323,6 @@
   font-size: 1.5rem;
 }
 
-/* Lista de direcciones */
 .direcciones-section ul {
   list-style: none;
   padding: 0;
@@ -367,7 +350,6 @@
   outline: none;
 }
 
-/* Inputs y selects en direcciones */
 .direcciones-section input,
 .direcciones-section select {
   width: calc(33.33% - 14px);
@@ -396,7 +378,6 @@
   }
 }
 
-/* Botones sección direcciones */
 .direcciones-section button {
   font-weight: 600;
   padding: 12px 28px;
@@ -424,7 +405,6 @@
   box-shadow: none;
 }
 
-/* Botones Añadir, Modificar y Eliminar */
 .direcciones-section button.add {
   background-color: #6c63ff;
 }
@@ -450,7 +430,6 @@
   background-color: #8e2a27;
 }
 
-/* Contraseña */
 .contrasena-section label {
   display: block;
   font-weight: 600;
@@ -491,7 +470,6 @@
   background: #4129b6;
 }
 
-/* Responsive improvements */
 @media (max-width: 900px) {
   .mi-cuenta-container {
     flex-direction: column;
@@ -540,7 +518,6 @@
   }
 }
 
-/* Historial de puntos ganados */
 .historial-puntos {
   margin-top: 20px;
   background: linear-gradient(145deg, #e0f7fa, #b2ebf2);
@@ -606,7 +583,6 @@
   margin-top: 12px;
 }
 
-/* Contenedor general de seguimiento */
 .seguimiento-container {
   max-width: 620px;
   margin: 0 auto;
@@ -618,7 +594,6 @@
   color: #333;
 }
 
-/* Título */
 .seguimiento-container h2 {
   color: #5a3fed;
   margin-bottom: 20px;
@@ -627,7 +602,6 @@
   letter-spacing: 0.04em;
 }
 
-/* Detalles de producto y estado */
 .seguimiento-container p {
   font-size: 1.1rem;
   margin-bottom: 12px;
@@ -635,7 +609,6 @@
   font-weight: 600;
 }
 
-/* Barra de progreso principal */
 .barra-progreso {
   display: flex;
   justify-content: space-between;
@@ -643,7 +616,6 @@
   gap: 15px;
 }
 
-/* Etapas del proceso */
 .etapa {
   flex: 1;
   padding: 12px 0;
@@ -657,14 +629,12 @@
   cursor: default;
 }
 
-/* Etapa activa resaltada */
 .etapa.activa {
   background-color: #5a3fed;
   color: white;
   box-shadow: 0 4px 10px rgba(90, 63, 237, 0.6);
 }
 
-/* Botón volver */
 .btn-primary {
   background-color: #5a3fed;
   color: white;
@@ -683,7 +653,6 @@
   box-shadow: 0 4px 16px rgba(65, 41, 182, 0.5);
 }
 
-/* Responsividad para barras de progreso y contenedor */
 @media (max-width: 600px) {
   .seguimiento-container {
     padding: 20px 15px;

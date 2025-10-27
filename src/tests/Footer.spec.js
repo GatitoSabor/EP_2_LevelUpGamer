@@ -5,7 +5,6 @@ import Footer from '../components/layout/Footer';
 describe('Footer', () => {
   it('muestra el texto de derechos reservados', () => {
     render(<Footer />);
-    // Jasmine: existe en el árbol
     expect(screen.getByText(/levelup-gamer todos los derechos reservados/i)).not.toBeNull();
   });
 
@@ -13,7 +12,6 @@ describe('Footer', () => {
     render(<Footer />);
     const ayudaLink = screen.getByText(/centro de ayuda/i);
     expect(ayudaLink.tagName).toBe('A');
-    // Jasmine: comparar atributo manualmente
     expect(ayudaLink.getAttribute('href')).toBe('/centro-de-ayuda');
   });
 
@@ -29,7 +27,6 @@ describe('Footer', () => {
   it('abre el modal de Quiénes somos', () => {
     render(<Footer />);
     fireEvent.click(screen.getByText(/quiénes somos/i));
-    // Jasmine: existe el modal
     expect(screen.getByText(/somos una empresa dedicada/)).not.toBeNull();
   });
 

@@ -19,7 +19,6 @@ describe('generarDireccionCompleta', () => {
 
 describe('calcularPrecioConDescuentos', () => {
   it('considera ambos descuentos correctamente', () => {
-    // Suponiendo precio base 100, descuentoProducto 0.1 y descuentoCupon 0.2
     expect(calcularPrecioConDescuentos(100, 0.1, 0.2)).toBeCloseTo(72); // 100 * 0.9 * 0.8
   });
 
@@ -46,7 +45,6 @@ describe('calcularSubtotal', () => {
       { price: 10000, discount: 0.1, quantity: 2 },
       { price: 5000, discount: 0, quantity: 1 }
     ];
-    // 10000*0.9*2 + 5000*1 = 18000 + 5000 = 23000
     expect(calcularSubtotal(cart)).toBeCloseTo(23000);
   });
 
@@ -54,7 +52,6 @@ describe('calcularSubtotal', () => {
     const cart = [
       { price: 10000, priceTransferencia: 8000, discount: 0, quantity: 1 }
     ];
-    // Debe usar priceTransferencia
     expect(calcularSubtotal(cart, 0, 'priceTransferencia')).toBe(8000);
   });
 

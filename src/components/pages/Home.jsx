@@ -6,7 +6,7 @@ import ProductDetailModal from './ProductDetailModal';
 import promoImage from '../../assets/promos/promo.jpg';
 import promoImage2 from '../../assets/promos/promodes.jpg';
 import promoVal from '../../assets/promos/valo.jpg';
-import '../../styles/Home.css';  // Ruta según donde tengas tu archivo CSS
+import '../../styles/Home.css';  
 
 
 import {
@@ -59,7 +59,6 @@ export default function Home({
   return (
     <div className="home-root">
 
-      {/* Carrusel */}
       <Container>
         <Row className="justify-content-center">
           <Col xs={12} md={10} lg={8}>
@@ -78,7 +77,6 @@ export default function Home({
         </Row>
       </Container>
 
-      {/* Promo con productos */}
       <Container className="my-5">
         <Row className="justify-content-center align-items-center">
           <Col xs={12} md={4} lg={3} onClick={handlePromoClick} style={{ cursor: 'pointer' }}>
@@ -105,7 +103,6 @@ export default function Home({
         </Row>
       </Container>
 
-      {/* Productos Valorant y promo */}
       <Container className="my-5">
         <Row className="justify-content-center align-items-center flex-md-row-reverse">
           <Col xs={12} md={4} lg={3} onClick={handleValorantPromoClick} style={{ cursor: 'pointer' }}>
@@ -131,7 +128,6 @@ export default function Home({
         </Row>
       </Container>
 
-      {/* Categorías destacadas */}
       <Container className="my-5">
         <Row className="featured-categories-container justify-content-center">
           {featuredCategories.map(cat => (
@@ -142,7 +138,6 @@ export default function Home({
         </Row>
       </Container>
 
-      {/* Envío gratis con productos y promo */}
       <Container className="my-5">
         <Row className="justify-content-center align-items-center">
           <Col xs={12} md={8} lg={9} className="products-container">

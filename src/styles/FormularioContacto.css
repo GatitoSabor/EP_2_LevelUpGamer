@@ -1,24 +1,24 @@
 .form-contacto-section {
   max-width: 450px;
   margin: 40px auto;
-  background: #fff;            /* Fondo blanco */
+  background: #fff;           
   padding: 28px 32px 20px 32px;
   border-radius: 10px;
   box-shadow: 0 2px 14px rgba(80,50,120,0.1);
-  color: #5a5af3;              /* Texto principal más morado */
+  color: #5a5af3;             
   font-family: 'Roboto', sans-serif;
-  border: 1.5px solid #9b68ff; /* Borde sutil morado */
+  border: 1.5px solid #9b68ff; 
 }
 
 .form-contacto-titulo {
-  color: #7b33ea;              /* Título violeta fuerte */
+  color: #7b33ea;              
   font-size: 2rem;
   margin-bottom: 8px;
   text-align: center;
 }
 
 .form-contacto-descripcion {
-  color: #000000;              /* Descripción morado intenso */
+  color: #000000;              
   font-size: 1rem;
   margin-bottom: 20px;
   text-align: center;
@@ -31,7 +31,7 @@
 }
 
 .form-contacto-formulario label {
-  color: #6e29c9;              /* Morado intermedio */
+  color: #6e29c9;              
   font-size: 1rem;
   margin-bottom: 2px;
 }

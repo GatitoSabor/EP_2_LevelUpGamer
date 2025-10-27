@@ -23,7 +23,6 @@ export function validateSignUp(data) {
     }
   }
   if (!data.email) errors.email = 'Correo electrónico requerido';
-  // puedes agregar regex o lógica extra de validación aquí
   return errors;
 }
 

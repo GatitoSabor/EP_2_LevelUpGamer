@@ -4,7 +4,7 @@ export default function CartIcon({ itemCount }) {
   return (
     <div style={{ position: "relative", display: "inline-block", cursor: "pointer" }}>
       <img
-        src="/ruta/a/tu-icono-carrito.png" // Cambia por la ruta real de tu icono
+        src="/ruta/a/tu-icono-carrito.png" 
         alt="Carrito"
         style={{ width: 32, height: 32 }}
       />
