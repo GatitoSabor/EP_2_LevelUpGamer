@@ -5,14 +5,16 @@ import Footer from '../components/layout/Footer';
 describe('Footer', () => {
   it('muestra el texto de derechos reservados', () => {
     render(<Footer />);
-    expect(screen.getByText(/levelup-gamer todos los derechos reservados/i)).toBeInTheDocument();
+    // Jasmine: existe en el árbol
+    expect(screen.getByText(/levelup-gamer todos los derechos reservados/i)).not.toBeNull();
   });
 
   it('tiene enlace a Centro de ayuda', () => {
     render(<Footer />);
     const ayudaLink = screen.getByText(/centro de ayuda/i);
     expect(ayudaLink.tagName).toBe('A');
-    expect(ayudaLink).toHaveAttribute('href', '/centro-de-ayuda');
+    // Jasmine: comparar atributo manualmente
+    expect(ayudaLink.getAttribute('href')).toBe('/centro-de-ayuda');
   });
 
   it('llama a onNavigate al hacer click en Formulario de contacto y Términos', () => {
@@ -27,14 +29,19 @@ describe('Footer', () => {
   it('abre el modal de Quiénes somos', () => {
     render(<Footer />);
     fireEvent.click(screen.getByText(/quiénes somos/i));
-    expect(screen.getByText(/somos una empresa dedicada/)).toBeInTheDocument();
+    // Jasmine: existe el modal
+    expect(screen.getByText(/somos una empresa dedicada/)).not.toBeNull();
   });
 
   it('muestra los íconos de redes sociales', () => {
     render(<Footer />);
-    expect(screen.getByRole('link', { name: /instagram/i })).toHaveAttribute('href', 'https://instagram.com');
-    expect(screen.getByRole('link', { name: /facebook/i })).toHaveAttribute('href', 'https://facebook.com');
-    expect(screen.getByRole('link', { name: /twitter/i })).toHaveAttribute('href', 'https://twitter.com');
-    expect(screen.getByRole('link', { name: /whatsapp/i })).toHaveAttribute('href', 'https://web.whatsapp.com/');
+    const instagram = screen.getByRole('link', { name: /instagram/i });
+    const facebook = screen.getByRole('link', { name: /facebook/i });
+    const twitter = screen.getByRole('link', { name: /twitter/i });
+    const whatsapp = screen.getByRole('link', { name: /whatsapp/i });
+    expect(instagram.getAttribute('href')).toBe('https://instagram.com');
+    expect(facebook.getAttribute('href')).toBe('https://facebook.com');
+    expect(twitter.getAttribute('href')).toBe('https://twitter.com');
+    expect(whatsapp.getAttribute('href')).toBe('https://web.whatsapp.com/');
   });
 });

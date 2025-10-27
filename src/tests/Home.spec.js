@@ -1,4 +1,3 @@
-import products from '../data/products';
 import {
   filteredProductIds,
   filteredProducts,
@@ -14,17 +13,17 @@ describe('Home module', () => {
   });
 
   it('filteredProducts son productos filtrados por id', () => {
-    expect(filteredProducts.every(p => filteredProductIds.includes(p.id))).toBeTrue();
+    expect(filteredProducts.every(p => filteredProductIds.includes(p.id))).toBe(true);
   });
 
   it('valorantProducts contiene máximo 4 y todos juego="Valorant"', () => {
     expect(valorantProducts.length).toBeLessThanOrEqual(4);
-    expect(valorantProducts.every(p => p.juego === 'Valorant')).toBeTrue();
+    expect(valorantProducts.every(p => p.juego === 'Valorant')).toBe(true);
   });
 
   it('freeShippingProducts contiene máximo 4 y todos tienen envioGratis', () => {
     expect(freeShippingProducts.length).toBeLessThanOrEqual(4);
-    expect(freeShippingProducts.every(p => p.envioGratis)).toBeTrue();
+    expect(freeShippingProducts.every(p => p.envioGratis)).toBe(true);
   });
 
   it('featuredCategories tiene nombre, imagen y filtro', () => {

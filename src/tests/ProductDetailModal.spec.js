@@ -1,4 +1,3 @@
-import products from '../data/products';
 import {
   calcularStock,
   obtenerPrecioDescontado,
@@ -36,18 +35,18 @@ describe('ProductDetailModal functions', () => {
   });
 
   it('obtenerPrecioDescontado calcula bien el descuento', () => {
-    expect(obtenerPrecioDescontado(testProduct)).toBeCloseTo(85000); // 100000*(1-0.15)
-    expect(obtenerPrecioDescontado({...testProduct, discount: 0})).toBeCloseTo(100000);
-    expect(obtenerPrecioDescontado({...testProduct, discount: undefined})).toBeCloseTo(100000);
+    expect(obtenerPrecioDescontado(testProduct)).toBeCloseTo(85000);
+    expect(obtenerPrecioDescontado({ ...testProduct, discount: 0 })).toBeCloseTo(100000);
+    expect(obtenerPrecioDescontado({ ...testProduct, discount: undefined })).toBeCloseTo(100000);
   });
 
   it('obtenerPrecioTransferencia aplica rebaja extra sobre descuento', () => {
-    expect(obtenerPrecioTransferencia(testProduct)).toBeCloseTo(79900); // 100000*0.85*0.94
+    expect(obtenerPrecioTransferencia(testProduct)).toBeCloseTo(79900);
   });
 
   it('obtenerProductosRelacionados filtra por categoría y excluye el actual', () => {
     const relacionados = obtenerProductosRelacionados(testProduct);
-    expect(relacionados.every(p => p.category === 'Teclados')).toBeTrue();
+    expect(relacionados.every(p => p.category === 'Teclados')).toBe(true);
     expect(relacionados.find(p => p.id === testProduct.id)).toBeUndefined();
     expect(relacionados.length).toBeLessThanOrEqual(5);
   });

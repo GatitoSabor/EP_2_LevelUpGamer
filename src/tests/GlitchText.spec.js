@@ -5,18 +5,16 @@ import GlitchText from '../components/ui/GlitchText';
 describe('GlitchText', () => {
   it('renderiza el texto correctamente', () => {
     const { getByText } = render(<GlitchText>Glitch Example</GlitchText>);
-    expect(getByText('Glitch Example')).toBeInTheDocument();
+    expect(getByText('Glitch Example')).not.toBeNull();
   });
 
   it('permite cambios de props/children', () => {
     const { getByText, rerender } = render(<GlitchText>Uno</GlitchText>);
-    expect(getByText('Uno')).toBeInTheDocument();
+    expect(getByText('Uno')).not.toBeNull();
     rerender(<GlitchText>Dos</GlitchText>);
-    expect(getByText('Dos')).toBeInTheDocument();
+    expect(getByText('Dos')).not.toBeNull();
   });
 
-  it('coincide con snapshot', () => {
-    const { container } = render(<GlitchText>Snap</GlitchText>);
-    expect(container).toMatchSnapshot();
-  });
+  // El matcher .toMatchSnapshot() es exclusivo de Jest;
+  // Jasmine no tiene snapshot por defecto. Puedes omitirlo.
 });

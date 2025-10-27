@@ -5,7 +5,7 @@ import silla1 from '../assets/sillas/silla1.jpg';
 
 /*Controles*/
 import controladorXboxImg from '../assets/mandos/controlador-xbox.jpg';
-import mando1 from '../assets/mandos/ps5.jpg';
+import mando1 from '../assets/mandos/mandops5.jpg';
 import mando2 from '../assets/mandos/mando2.jpg';
 import mando3 from '../assets/mandos/mando3.jpg';
 

@@ -25,7 +25,7 @@ describe('filtrarProductos', () => {
   it('filtra por marca', () => {
     const filters = { marca: 'Logitech', categoria: '', juego: '', precioMin: 0, precioMax: 100000, soloConDescuento: false, envioGratis: false };
     const resultado = filtrarProductos(mockProducts, filters);
-    expect(resultado.every(p => p.marca === 'Logitech')).toBeTrue();
+    expect(resultado.every(p => p.marca === 'Logitech')).toBe(true);
   });
 
   it('filtra por categoria', () => {
@@ -38,26 +38,26 @@ describe('filtrarProductos', () => {
   it('filtra por rango de precio', () => {
     const filters = { marca: '', categoria: '', juego: '', precioMin: 45000, precioMax: 60000, soloConDescuento: false, envioGratis: false };
     const resultado = filtrarProductos(mockProducts, filters);
-    expect(resultado.every(p => p.price >= 45000 && p.price <= 60000)).toBeTrue();
+    expect(resultado.every(p => p.price >= 45000 && p.price <= 60000)).toBe(true);
   });
 
   it('filtra solo con descuento', () => {
     const filters = { marca: '', categoria: '', juego: '', precioMin: 0, precioMax: 100000, soloConDescuento: true, envioGratis: false };
     const resultado = filtrarProductos(mockProducts, filters);
-    expect(resultado.every(p => p.discount && p.discount > 0)).toBeTrue();
+    expect(resultado.every(p => p.discount && p.discount > 0)).toBe(true);
   });
 
   it('filtra por envio gratis', () => {
     const filters = { marca: '', categoria: '', juego: '', precioMin: 0, precioMax: 100000, soloConDescuento: false, envioGratis: true };
     const resultado = filtrarProductos(mockProducts, filters);
-    expect(resultado.every(p => p.envioGratis === true)).toBeTrue();
+    expect(resultado.every(p => p.envioGratis === true)).toBe(true);
   });
 
   it('filtra por juego', () => {
     const filters = { marca: '', categoria: '', juego: 'Valorant', precioMin: 0, precioMax: 100000, soloConDescuento: false, envioGratis: false };
     const resultado = filtrarProductos(mockProducts, filters);
     expect(resultado.length).toBe(2);
-    expect(resultado.every(p => p.juego === 'Valorant')).toBeTrue();
+    expect(resultado.every(p => p.juego === 'Valorant')).toBe(true);
   });
 });
 

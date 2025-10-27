@@ -15,9 +15,7 @@ describe('SearchDropdown máxima cobertura', () => {
   });
 
   it('limpia input y estados con botón limpiar (casos repetidos)', () => {
-    render(
-      <SearchDropdown products={demoProducts} onSelectProduct={onSelectProduct} clearSignal={false} />
-    );
+    render(<SearchDropdown products={demoProducts} onSelectProduct={onSelectProduct} clearSignal={false} />);
     const input = screen.getByRole('searchbox') || screen.getByRole('textbox');
     fireEvent.change(input, { target: { value: 'algo' } });
     fireEvent.click(screen.getByLabelText(/limpiar/i));
@@ -27,9 +25,7 @@ describe('SearchDropdown máxima cobertura', () => {
   });
 
   it('prueba búsqueda que no arroja resultados y cubre else', () => {
-    render(
-      <SearchDropdown products={demoProducts} onSelectProduct={onSelectProduct} clearSignal={false} />
-    );
+    render(<SearchDropdown products={demoProducts} onSelectProduct={onSelectProduct} clearSignal={false} />);
     const input = screen.getByRole('searchbox') || screen.getByRole('textbox');
     fireEvent.change(input, { target: { value: 'noxxxx' } });
     expect(screen.queryByText(/Periféricos/i)).toBeNull();
@@ -37,9 +33,7 @@ describe('SearchDropdown máxima cobertura', () => {
   });
 
   it('prueba búsqueda de un solo caracter (no debería mostrar resultados)', () => {
-    render(
-      <SearchDropdown products={demoProducts} onSelectProduct={onSelectProduct} clearSignal={false} />
-    );
+    render(<SearchDropdown products={demoProducts} onSelectProduct={onSelectProduct} clearSignal={false} />);
     const input = screen.getByRole('searchbox') || screen.getByRole('textbox');
     fireEvent.change(input, { target: { value: 'o' } });
     expect(screen.queryByText(/Periféricos/i)).toBeNull();
@@ -57,27 +51,21 @@ describe('SearchDropdown máxima cobertura', () => {
         price: i
       }))
     ];
-    render(
-      <SearchDropdown products={moreCategories} onSelectProduct={onSelectProduct} clearSignal={false} />
-    );
+    render(<SearchDropdown products={moreCategories} onSelectProduct={onSelectProduct} clearSignal={false} />);
     const input = screen.getByRole('searchbox') || screen.getByRole('textbox');
     fireEvent.change(input, { target: { value: 'cat' } });
     expect(screen.getAllByText(/Cat/i).length).toBeLessThanOrEqual(5);
   });
 
   it('llama onSelectProduct(null) con botón "Ver todos los productos"', () => {
-    render(
-      <SearchDropdown products={demoProducts} onSelectProduct={onSelectProduct} clearSignal={false} />
-    );
+    render(<SearchDropdown products={demoProducts} onSelectProduct={onSelectProduct} clearSignal={false} />);
     fireEvent.change(screen.getByRole('searchbox') || screen.getByRole('textbox'), { target: { value: 'mou' } });
     fireEvent.mouseDown(screen.getByText(/Ver todos los productos/i));
     expect(onSelectProduct).toHaveBeenCalledWith(null);
   });
 
   it('limpia con clearSignal cambiado (useEffect)', () => {
-    const { rerender } = render(
-      <SearchDropdown products={[]} onSelectProduct={onSelectProduct} clearSignal={false} />
-    );
+    const { rerender } = render(<SearchDropdown products={[]} onSelectProduct={onSelectProduct} clearSignal={false} />);
     rerender(<SearchDropdown products={[]} onSelectProduct={onSelectProduct} clearSignal={true} />);
   });
 
@@ -101,15 +89,15 @@ describe('SearchDropdown máxima cobertura', () => {
 
     // Sugerencia: buscar categoría 'Periféricos'
     fireEvent.change(input, { target: { value: 'peri' } });
-    expect(screen.getByText(/Periféricos/i)).toBeInTheDocument();
+    expect(screen.getByText(/Periféricos/i)).not.toBeNull();
     fireEvent.mouseDown(screen.getByText(/Periféricos/i));
 
     // Producto: buscar por nombre 'Teclado RGB'
     fireEvent.change(input, { target: { value: 'teclado' } });
-    expect(screen.getByText(/Teclado RGB/i)).toBeInTheDocument();
+    expect(screen.getByText(/Teclado RGB/i)).not.toBeNull();
     fireEvent.mouseDown(screen.getByText(/Teclado RGB/i));
     expect(onSelectProduct).toHaveBeenCalledWith(
-      expect.objectContaining({ name: 'Teclado RGB' })
+      jasmine.objectContaining({ name: 'Teclado RGB' })
     );
   });
 });

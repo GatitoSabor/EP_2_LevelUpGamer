@@ -1,5 +1,5 @@
 export function generarDireccionCompleta(calle, numero, tipo) {
-  return `${calle.trim()} ${numero.trim()} ${tipo}`;
+  return `${calle.trim()} ${numero.trim()} ${tipo}`.replace(/\s+/g, ' ').trim();
 }
 
 export function calcularPrecioConDescuentos(precioBase = 0, descuentoProducto = 0, descuentoCupon = 0) {

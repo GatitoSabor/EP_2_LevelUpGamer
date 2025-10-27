@@ -27,9 +27,8 @@ describe('Navbar - cobertura completa de navegación', () => {
   it('abre el menú Comunidad, navega a Noticias y Eventos', async () => {
     render(<Navbar {...baseProps} onNavChange={onNavChange} onSelectProduct={onSelectProduct} onLogout={onLogout} />);
     const comunidadBtn = screen.getByText(/Comunidad/i);
-    fireEvent.mouseEnter(comunidadBtn);
+    fireEvent.click(comunidadBtn);
 
-    // Espera a que los botones existan en el DOM
     const noticiasBtn = await screen.findByText(/Noticias/i, {}, { timeout: 1000 });
     fireEvent.click(noticiasBtn);
     expect(onNavChange).toHaveBeenCalledWith('noticias');
@@ -67,12 +66,12 @@ describe('Navbar - cobertura completa de navegación', () => {
 
   it('navega a Carrito', () => {
     render(<Navbar {...baseProps} onNavChange={onNavChange} onSelectProduct={onSelectProduct} onLogout={onLogout} />);
-    fireEvent.click(screen.getByRole('button', { name: /carrito/i }));
+    fireEvent.click(screen.getByText("2"));
     expect(onNavChange).toHaveBeenCalledWith('carrito');
   });
 
   it('renderiza badge del carrito si cartCount > 0', () => {
     render(<Navbar {...baseProps} onNavChange={onNavChange} onSelectProduct={onSelectProduct} onLogout={onLogout} />);
-    expect(screen.getByText('2')).toBeInTheDocument();
+    expect(screen.getByText('2')).not.toBeNull();
   });
 });
