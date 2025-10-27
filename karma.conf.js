@@ -6,41 +6,52 @@ module.exports = function(config) {
     frameworks: ['jasmine', 'webpack'],
     files: [
       'src/setupTests.js',
-      'src/services/*.test.js',
-      'src/data/*.test.js',
-      'src/**/*.test.js',
-      'src/**/*.unit.test.js'
+      'src/services/*.spec.js',
+      'src/data/*.spec.js',
+      'src/tests/*.spec.js',
+      'src/tests/**/*.spec.js',  // Incluye subcarpetas en tests/
+      'src/**/*.spec.js',        // Incluye cualquier *.spec.js en src/
+      'src/**/*.spec.jsx'
     ],
     preprocessors: {
       'src/setupTests.js': ['webpack'],
-      'src/services/*.test.js': ['webpack', 'coverage'],
-      'src/data/*.test.js': ['webpack', 'coverage'],
-      'src/**/*.test.js': ['webpack', 'coverage'],
-      'src/**/*.unit.test.js': ['webpack', 'coverage']
+      'src/services/*.spec.js': ['webpack', 'coverage'],
+      'src/data/*.spec.js': ['webpack', 'coverage'],
+      'src/tests/*.spec.js': ['webpack', 'coverage'],
+      'src/tests/**/*.spec.js': ['webpack', 'coverage'],
+      'src/**/*.spec.js': ['webpack', 'coverage'],
+      'src/**/*.spec.jsx': ['webpack', 'coverage']
     },
     webpack: {
-  mode: 'development',
-  module: {
-    rules: [
-      {
-        test: /\.css$/,
-        use: ['style-loader', 'css-loader']
+      mode: 'development',
+      module: {
+        rules: [
+          {
+            test: /\.css$/,
+            use: ['style-loader', 'css-loader']
+          },
+          {
+            test: /\.(jpg|jpeg|png|gif|svg)$/i,
+            use: [
+              {
+                loader: 'file-loader',
+                options: {
+                  name: '[name].[ext]'
+                }
+              }
+            ]
+          },
+          {
+            test: /\.(js|jsx)$/,
+            exclude: /node_modules/,
+            use: ['babel-loader']
+          }
+        ]
       },
-      {
-        test: /\.(jpg|jpeg|png|gif|svg)$/i,
-        use: ['null-loader']
+      resolve: {
+        extensions: ['.js', '.jsx']
       },
-      {
-        test: /\.(js|jsx)$/,
-        exclude: /node_modules/,
-        use: ['babel-loader']
-      }
-    ]
-  },
-  resolve: {
-    extensions: ['.js', '.jsx']
-  },
-},
+    },
     coverageReporter: {
       dir: 'coverage/',
       reporters: [

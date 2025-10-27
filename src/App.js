@@ -13,6 +13,8 @@ import Eventos from './components/pages/Eventos';
 import Terminos from './components/pages/Terminos';
 import FormularioContacto from './components/pages/FormularioContacto';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import products from './data/products';
+
 
 
 import './App.css';
