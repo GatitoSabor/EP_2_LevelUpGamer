@@ -14,6 +14,8 @@ import Terminos from './components/pages/Terminos';
 import FormularioContacto from './components/pages/FormularioContacto';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import products from './data/products';
+import Dashboard from './components/pages/Dashboard';
+
 
 import './App.css';
 
@@ -372,6 +374,11 @@ export default function App() {
     const usuarios = getUsuariosStorage();
     const usuario = usuarios.find(u => u.username === username && u.password === password);
 
+    if (username === 'admin' && password === 'admin123') {
+      setUser({ username: 'admin', role: 'admin' });
+      setPage('dashboard');
+      return;
+    }
     if (!usuario) {
       alert('Usuario o contraseña incorrectos');
       return;
@@ -544,6 +551,11 @@ export default function App() {
                 }}
               />
             )}
+
+            {page === 'dashboard' && user?.role === 'admin' && (
+              <Dashboard />
+            )}
+
 
             {page === 'carrito' && (
               showCheckout ? (
