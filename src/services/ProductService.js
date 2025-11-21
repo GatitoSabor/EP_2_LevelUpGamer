@@ -1,22 +1,36 @@
+// src/services/ProductService.js
 import axios from 'axios';
 
-const BASE_URL = 'http://localhost:8080/api/v1/producto'; // Usa el puerto/ruta real de tu backend
+const API_URL = 'http://localhost:8080/api/v1/producto';
 
-class ProductService {
+const ProductService = {
   getAll() {
-    return axios.get(BASE_URL);
-  }
+    return axios.get(API_URL);
+  },
+  
   getById(id) {
-    return axios.get(`${BASE_URL}/${id}`);
-  }
-  create(product) {
-    return axios.post(BASE_URL, product);
-  }
-  update(id, product) {
-    return axios.put(`${BASE_URL}/${id}`, product);
-  }
+    return axios.get(`${API_URL}/${id}`);
+  },
+  
+  create(producto) {
+    return axios.post(API_URL, producto);
+  },
+  
+  update(id, producto) {
+    return axios.put(`${API_URL}/${id}`, producto);
+  },
+  
   delete(id) {
-    return axios.delete(`${BASE_URL}/${id}`);
+    return axios.delete(`${API_URL}/${id}`);
+  },
+  
+  getByCategoria(categoria) {
+    return axios.get(`${API_URL}/categoria/${categoria}`);
+  },
+  
+  getByMarca(marca) {
+    return axios.get(`${API_URL}/marca/${marca}`);
   }
-}
-export default new ProductService();
+};
+
+export default ProductService;

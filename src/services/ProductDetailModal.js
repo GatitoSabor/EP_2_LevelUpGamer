@@ -1,18 +1,22 @@
-import products from '../data/products';
+// src/services/ProductDetailModal.js
 
-export function calcularStock() {
-  return Math.floor(Math.random() * 20) + 1;
+export function calcularStock(producto) {
+  // Si tienes stock real del backend, úsalo; si no, genera aleatorio
+  return producto.stock || Math.floor(Math.random() * 20) + 1;
 }
 
-export function obtenerPrecioDescontado(product) {
-  return product.price * (1 - (product.discount ?? 0));
+export function obtenerPrecioDescontado(producto) {
+  return producto.precio * (1 - (producto.descuento ?? 0));
 }
 
-export function obtenerPrecioTransferencia(product) {
-  const precioDescontado = obtenerPrecioDescontado(product);
+export function obtenerPrecioTransferencia(producto) {
+  const precioDescontado = obtenerPrecioDescontado(producto);
   return precioDescontado * 0.94;
 }
 
-export function obtenerProductosRelacionados(product) {
-  return products.filter(p => p.category === product.category && p.id !== product.id).slice(0, 5);
+export function obtenerProductosRelacionados(producto, todosLosProductos) {
+  // Ahora recibe todos los productos como parámetro
+  return todosLosProductos
+    .filter(p => p.categoria === producto.categoria && p.idProducto !== producto.idProducto)
+    .slice(0, 5);
 }

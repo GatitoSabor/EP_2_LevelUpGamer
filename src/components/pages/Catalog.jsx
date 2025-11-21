@@ -1,7 +1,7 @@
 // src/components/pages/Catalog.jsx
 import React, { useState, useEffect } from 'react';
 import { Container, Row, Col, Form } from 'react-bootstrap';
-import ProductService from '../../services/ProductService'; // <-- Asegúrate de tener este servicio
+import ProductService from '../../services/ProductService';
 import '../../styles/Catalog.css';
 
 export default function Catalog({
@@ -28,8 +28,12 @@ export default function Catalog({
   useEffect(() => {
     setLoading(true);
     ProductService.getAll()
-      .then(response => setProducts(response.data))
-      .catch(() => {
+      .then(response => {
+        console.log('Productos cargados:', response.data);
+        setProducts(response.data);
+      })
+      .catch((err) => {
+        console.error('Error al cargar productos:', err);
         setError('No se pudieron cargar los productos');
         setProducts([]);
       })
@@ -42,15 +46,15 @@ export default function Catalog({
     }
   }, [initialFilters.envioGratis]);
 
-  const marcas = Array.from(new Set(products.map(p => p.marca || '')));
-  const categorias = Array.from(new Set(products.map(p => p.categoria || '')));
-  const juegos = Array.from(new Set(products.map(p => p.juego || '')));
+  const marcas = Array.from(new Set(products.map(p => p.marca || '').filter(Boolean)));
+  const categorias = Array.from(new Set(products.map(p => p.categoria || '').filter(Boolean)));
+  const juegos = Array.from(new Set(products.map(p => p.juego || '').filter(Boolean)));
 
   const productosFiltrados = products
     .filter(p => !filters.marca || p.marca === filters.marca)
     .filter(p => !filters.categoria || p.categoria === filters.categoria)
     .filter(p => !filters.juego || p.juego === filters.juego)
-    .filter(p => !filters.soloConDescuento || p.descuento)
+    .filter(p => !filters.soloConDescuento || (p.descuento && p.descuento > 0))
     .filter(p => !filters.envioGratis || p.envioGratis)
     .filter(p => p.precio >= filters.precioMin)
     .filter(p => p.precio <= filters.precioMax);
@@ -60,7 +64,7 @@ export default function Catalog({
       {loading ? (
         <p>Cargando productos...</p>
       ) : error ? (
-        <p>{error}</p>
+        <p className="text-danger">{error}</p>
       ) : (
         <Row>
           <Col xs={12} md={3} className="filter-menu mb-4">
@@ -77,6 +81,7 @@ export default function Catalog({
                   ))}
                 </Form.Select>
               </Form.Group>
+
               <Form.Group className="mb-3" controlId="categoria">
                 <Form.Label>Categoría</Form.Label>
                 <Form.Select
@@ -89,6 +94,7 @@ export default function Catalog({
                   ))}
                 </Form.Select>
               </Form.Group>
+
               <Form.Group className="mb-3" controlId="juego">
                 <Form.Label>Juego</Form.Label>
                 <Form.Select
@@ -101,6 +107,7 @@ export default function Catalog({
                   ))}
                 </Form.Select>
               </Form.Group>
+
               <Form.Group className="mb-3" controlId="precioMin">
                 <Form.Label>Precio mínimo</Form.Label>
                 <Form.Control
@@ -109,6 +116,7 @@ export default function Catalog({
                   onChange={e => setFilters({ ...filters, precioMin: Number(e.target.value) })}
                 />
               </Form.Group>
+
               <Form.Group className="mb-3" controlId="precioMax">
                 <Form.Label>Precio máximo</Form.Label>
                 <Form.Control
@@ -122,6 +130,7 @@ export default function Catalog({
                   }
                 />
               </Form.Group>
+
               <Form.Group className="mb-3" controlId="soloConDescuento">
                 <Form.Check
                   type="checkbox"
@@ -130,6 +139,7 @@ export default function Catalog({
                   onChange={e => setFilters({ ...filters, soloConDescuento: e.target.checked })}
                 />
               </Form.Group>
+
               <Form.Group className="mb-3" controlId="envioGratis">
                 <Form.Check
                   type="checkbox"
@@ -140,31 +150,61 @@ export default function Catalog({
               </Form.Group>
             </Form>
           </Col>
+
           <Col xs={12} md={9}>
             <Row>
               {productosFiltrados.map(producto => (
-                <Col xs={12} md={4} key={producto.id} className="mb-4">
+                <Col xs={12} sm={6} md={4} key={producto.idProducto} className="mb-4">
                   <div className="product-card">
+                    <img 
+                      src={producto.imagen} 
+                      alt={producto.nombre}
+                      className="product-image"
+                      style={{ width: '100%', height: '200px', objectFit: 'cover' }}
+                    />
                     <h5>{producto.nombre}</h5>
-                    <p>Marca: {producto.marca}</p>
-                    <p>Categoría: {producto.categoria}</p>
-                    <p>Juego: {producto.juego}</p>
-                    <p>Precio: ${producto.precio}</p>
-                    {onAddToCart && (
-                      <button onClick={() => onAddToCart(producto)}>
-                        Agregar al carrito
-                      </button>
+                    <p className="text-muted">{producto.descripcion}</p>
+                    <p><strong>Marca:</strong> {producto.marca}</p>
+                    <p><strong>Categoría:</strong> {producto.categoria}</p>
+                    {producto.juego && <p><strong>Juego:</strong> {producto.juego}</p>}
+                    <p className="price">
+                      <strong>Precio:</strong> ${producto.precio.toLocaleString('es-CL')}
+                    </p>
+                    {producto.descuento > 0 && (
+                      <p className="discount text-success">
+                        Descuento: {(producto.descuento * 100).toFixed(0)}%
+                      </p>
                     )}
-                    {setSelectedProduct && (
-                      <button onClick={() => setSelectedProduct(producto)}>
-                        Ver detalle
-                      </button>
+                    {producto.envioGratis && (
+                      <p className="text-primary">🚚 Envío gratis</p>
                     )}
+                    <p><strong>Stock:</strong> {producto.stock}</p>
+                    
+                    <div className="product-actions">
+                      {onAddToCart && (
+                        <button 
+                          className="btn btn-primary btn-sm me-2"
+                          onClick={() => onAddToCart(producto)}
+                        >
+                          Agregar al carrito
+                        </button>
+                      )}
+                      {setSelectedProduct && (
+                        <button 
+                          className="btn btn-outline-secondary btn-sm"
+                          onClick={() => setSelectedProduct(producto)}
+                        >
+                          Ver detalle
+                        </button>
+                      )}
+                    </div>
                   </div>
                 </Col>
               ))}
             </Row>
-            {productosFiltrados.length === 0 && <p>No hay productos que coincidan.</p>}
+            {productosFiltrados.length === 0 && (
+              <p className="text-center">No hay productos que coincidan con los filtros.</p>
+            )}
           </Col>
         </Row>
       )}

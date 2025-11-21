@@ -5,6 +5,7 @@
   "dependencies": {
     "@testing-library/dom": "^10.4.1",
     "@testing-library/user-event": "^13.5.0",
+    "axios": "^1.13.2",
     "bootstrap": "^5.3.8",
     "framer-motion": "^12.23.22",
     "react": "^18.2.0",

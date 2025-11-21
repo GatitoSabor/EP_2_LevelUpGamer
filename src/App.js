@@ -12,39 +12,36 @@ import CheckoutStepper from './components/pages/CheckoutStepper';
 import Eventos from './components/pages/Eventos';
 import Terminos from './components/pages/Terminos';
 import FormularioContacto from './components/pages/FormularioContacto';
+import ProductService from './services/ProductService';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import products from './data/products';
 import Dashboard from './components/pages/Dashboard';
-
 
 import './App.css';
 
 function puedeAplicarDescuento(cupon, producto) {
   if (cupon.id === 1 || cupon.id === 2) {
-    return !producto.discount && producto.price <= 1000000;
+    return !producto.descuento && producto.precio <= 1000000;
   }
-  if (cupon.id === 3) {
+  if (cupon.id === 3 || cupon.id === 4) {
     return true;
-  }
-  if (cupon.id === 4) {
-    return true; 
   }
   return false;
 }
 
 export default function App() {
-  
   const [user, setUser] = useState(null);
   const [direcciones, setDirecciones] = useState(user?.direcciones || []);
   const [activeTab, setActiveTab] = useState('compras');
   const [compraSeleccionada, setCompraSeleccionada] = useState(null);
   const [categoriaFiltrada, setCategoriaFiltrada] = useState('');
 
+  const [products, setProducts] = useState([]);
+  const [loadingProducts, setLoadingProducts] = useState(true);
 
   const [page, setPage] = useState('home');
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [cart, setCart] = useState(() => {
-  const saved = localStorage.getItem('cart');
+    const saved = localStorage.getItem('cart');
     return saved ? JSON.parse(saved) : [];
   });
   const [showDiscountOnly, setShowDiscountOnly] = useState(false);
@@ -52,14 +49,13 @@ export default function App() {
   const [showFreeShippingOnly, setShowFreeShippingOnly] = useState(false);
   const [clearSearch, setClearSearch] = useState(false);
   const [compras, setCompras] = useState(() => {
-  const saved = localStorage.getItem('compras');
-  
+    const saved = localStorage.getItem('compras');
     return saved ? JSON.parse(saved) : [];
   });
 
-  const [couponCode, setCouponCode] = useState(''); 
-  const [discountPercent, setDiscountPercent] = useState(0); 
-  const [couponError, setCouponError] = useState(''); 
+  const [couponCode, setCouponCode] = useState('');
+  const [discountPercent, setDiscountPercent] = useState(0);
+  const [couponError, setCouponError] = useState('');
   const [cuponesInternos, setCuponesInternos] = useState(user ? user.cupones || [] : []);
 
   const [clienteData, setClienteData] = useState({ nombre: '', email: '' });
@@ -67,11 +63,24 @@ export default function App() {
   const [pagoData, setPagoData] = useState({ numeroTarjeta: '', expiracion: '' });
   const [showCheckout, setShowCheckout] = useState(false);
 
-
   const cuponesDisponibles = [
     { codigo: "DESC10", descripcion: "10% de descuento...", descuento: 10, usosRestantes: 1 },
     { codigo: "ENVIOGRATIS", descripcion: "Envío gratis...", descuento: 0, usosRestantes: 1 }
   ];
+
+  useEffect(() => {
+    setLoadingProducts(true);
+    ProductService.getAll()
+      .then(response => {
+        console.log('Productos cargados desde backend:', response.data);
+        setProducts(response.data);
+      })
+      .catch(err => {
+        console.error('Error al cargar productos:', err);
+        setProducts([]);
+      })
+      .finally(() => setLoadingProducts(false));
+  }, []);
 
   const handleFinishCheckout = (compra) => {
     if(user) {
@@ -82,13 +91,12 @@ export default function App() {
         localStorage.setItem('usuarios', JSON.stringify(usuarios));
         setUser(usuarios[idx]);
       }
-      setCompras(prev => [...prev, ...compra]); 
+      setCompras(prev => [...prev, ...compra]);
     }
-
     setCart([]);
     setDiscountPercent(0);
     setCouponCode('');
-    setPage('home'); 
+    setPage('home');
     setShowCheckout(false);
   };
 
@@ -129,8 +137,6 @@ export default function App() {
     }
   };
 
-
-
   const handleStartCheckout = () => {
     if (cart.length === 0) {
       alert('El carrito está vacío');
@@ -145,73 +151,15 @@ export default function App() {
   };
 
   useEffect(() => {
-      if (user) {
-        setCuponesInternos(user.cupones || []);
-        setDirecciones(user.direcciones || []);
-      }
-    }, [user]);
+    if (user) {
+      setCuponesInternos(user.cupones || []);
+      setDirecciones(user.direcciones || []);
+    }
+  }, [user]);
 
   const actualizarDirecciones = (nuevasDirecciones) => {
     setDirecciones(nuevasDirecciones);
     setUser(prev => ({ ...prev, direcciones: nuevasDirecciones }));
-  };
-
-  const handleCheckout = () => {
-    if (cart.length === 0) {
-      alert('El carrito está vacío');
-      return;
-    }
-    if (!user) {
-      alert('Debes iniciar sesión para realizar una compra.');
-      setPage('login');
-      return;
-    }
-
-    if (couponCode) {
-      setCuponesInternos(prevCupones =>
-        prevCupones
-          .map(c =>
-            c.codigo.toUpperCase() === couponCode.toUpperCase()
-              ? { ...c, usosRestantes: (c.usosRestantes || 1) - 1 }
-              : c
-          )
-          .filter(c => !(c.codigo.toUpperCase() === couponCode.toUpperCase() && (c.usosRestantes || 1) <= 0))
-      );
-
-      if (user) {
-        const newUser = {
-          ...user,
-          cupones: (user.cupones || [])
-            .map(c =>
-              c.codigo.toUpperCase() === couponCode.toUpperCase()
-                ? { ...c, usosRestantes: (c.usosRestantes || 1) - 1 }
-                : c
-            )
-            .filter(c => !(c.codigo.toUpperCase() === couponCode.toUpperCase() && (c.usosRestantes || 1) <= 0)),
-        };
-        setUser(newUser);
-
-        const usuarios = getUsuariosStorage();
-        const idx = usuarios.findIndex(u => u.username === user.username);
-        if (idx > -1) {
-          usuarios[idx] = newUser;
-          localStorage.setItem('usuarios', JSON.stringify(usuarios));
-        }
-      }
-    }
-
-
-    const comprasConDescuento = cart.map(item => {
-      const precioFinal = item.price * (1 - (item.discount ?? 0)) * (1 - discountPercent / 100);
-      return { ...item, precioConDescuento: precioFinal };
-    });
-
-    setCompras(prevCompras => [...prevCompras, ...comprasConDescuento]);
-    setCart([]);
-    setDiscountPercent(0);
-    setCouponCode('');
-    setCouponError('');
-    alert('Compra realizada con éxito');
   };
 
   const handleCompleteCheckout = () => {
@@ -259,19 +207,16 @@ export default function App() {
     }
 
     const comprasConDescuento = cart.map(item => {
-      const precioFinal = item.price * (1 - (item.discount ?? 0)) * (1 - discountPercent / 100);
+      const precioFinal = item.precio * (1 - (item.descuento ?? 0)) * (1 - discountPercent / 100);
       return { ...item, precioConDescuento: precioFinal };
     });
 
     setCompras(prevCompras => [...prevCompras, ...comprasConDescuento]);
-
     setCart([]);
     setDiscountPercent(0);
     setCouponCode('');
     setCouponError('');
-
     alert('Compra realizada con éxito');
-
     setPage('home');
     setShowCheckout(false);
   };
@@ -280,56 +225,49 @@ export default function App() {
     setSelectedProduct(null);
   };
 
-
   const addToCart = (product) => {
     setCart(prevCart => {
-      const existing = prevCart.find(item => item.id === product.id);
+      const existing = prevCart.find(item => item.idProducto === product.idProducto);
       if (existing) {
         return prevCart.map(item =>
-          item.id === product.id ? { ...item, quantity: item.quantity + 1 } : item
+          item.idProducto === product.idProducto ? { ...item, quantity: item.quantity + 1 } : item
         );
       } else {
         return [...prevCart, { ...product, quantity: 1 }];
       }
     });
   };
-  const goToCart = () => {
-    setPage('carrito'); 
-  };
+
+  const goToCart = () => setPage('carrito');
 
   const incrementQuantity = (id) => {
     setCart(prevCart =>
       prevCart.map(item =>
-        item.id === id ? { ...item, quantity: item.quantity + 1 } : item
+        item.idProducto === id ? { ...item, quantity: item.quantity + 1 } : item
       )
     );
   };
-
-
-  
 
   const decrementQuantity = (id) => {
     setCart(prevCart =>
       prevCart
         .map(item =>
-          item.id === id ? { ...item, quantity: item.quantity - 1 } : item
+          item.idProducto === id ? { ...item, quantity: item.quantity - 1 } : item
         )
         .filter(item => item.quantity > 0)
     );
   };
 
   const removeFromCart = (id) => {
-    setCart(prevCart => prevCart.filter(item => item.id !== id));
+    setCart(prevCart => prevCart.filter(item => item.idProducto !== id));
   };
 
-  const safeCart = Array.isArray(cart) ? cart : [];
   const totalPrice = cart.reduce(
-    (acc, item) => acc + item.price * (1 - (item.discount ?? 0)) * item.quantity,
+    (acc, item) => acc + item.precio * (1 - (item.descuento ?? 0)) * item.quantity,
     0
   );
 
   const precioConDescuento = totalPrice * (1 - discountPercent / 100);
-
   const totalItems = cart.reduce((acc, item) => acc + item.quantity, 0);
 
   const getUsuariosStorage = () => {
@@ -339,10 +277,10 @@ export default function App() {
 
   const handleSelectProduct = (product) => {
     setSelectedProduct(product);
-    setPage('ProductDetailModal');  
+    setPage('ProductDetailModal');
   };
 
-  const handleSignUp = (datosUsuario) => {
+    const handleSignUp = (datosUsuario) => {
     const usuarios = getUsuariosStorage();
     const existe = usuarios.some(u => u.username === datosUsuario.username);
     
@@ -355,9 +293,9 @@ export default function App() {
     const nuevoUsuario = {
       username: datosUsuario.username,
       password: datosUsuario.password,
-      fullName: datosUsuario.fullName,  
+      fullName: datosUsuario.fullName,
       rut: datosUsuario.rut,
-      fechaNacimiento: datosUsuario.birthDate,  
+      fechaNacimiento: datosUsuario.birthDate,
       email: datosUsuario.email,
       compras: [],
       cupones: esDuoc ? [{ codigo: 'DUOC20', descuento: 20, id: 2 }] : [],
@@ -368,7 +306,6 @@ export default function App() {
     alert('Usuario registrado exitosamente');
     setPage('login');
   };
-
 
   const handleLogin = ({ username, password }) => {
     const usuarios = getUsuariosStorage();
@@ -387,19 +324,6 @@ export default function App() {
     setUser(usuario);
     setPage('miCuenta');
   };
-
-  const handleGuardarCompra = (compra) => {
-    const usuarios = getUsuariosStorage();
-    const index = usuarios.findIndex(u => u.username === user.username);
-
-    if (index >= 0) {
-      usuarios[index].compras = [...usuarios[index].compras, ...compra];
-      localStorage.setItem('usuarios', JSON.stringify(usuarios));
-      setUser(usuarios[index]); 
-    }
-  };
-
-
 
   const handleLogout = () => {
     setUser(null);
@@ -444,7 +368,7 @@ export default function App() {
     setShowDiscountOnly(false);
     setShowValorantOnly(false);
     setShowFreeShippingOnly(false);
-    setCategoriaFiltrada(categoria); 
+    setCategoriaFiltrada(categoria);
     setPage('catalogo');
   };
 
@@ -455,7 +379,7 @@ export default function App() {
 
   const handleShowValorantProducts = () => {
     setShowValorantOnly(true);
-    setShowDiscountOnly(false); 
+    setShowDiscountOnly(false);
     setPage('catalogo');
   };
 
@@ -470,6 +394,10 @@ export default function App() {
   const handleGoToRegister = () => {
     setPage('signup');
   };
+
+  if (loadingProducts) {
+    return <div className="loading-screen">Cargando productos...</div>;
+  }
 
   return (
     <div className="app">
@@ -497,85 +425,85 @@ export default function App() {
             onGoToCart={goToCart}
             onBuyNow={() => alert('Función comprar ahora no implementada')}
             onSelectProduct={handleSelectProduct}
+            allProducts={products}
           />
         ) : page === 'miCuenta' && user ? (
-          <MiCuenta 
-          activeTab={activeTab}
+          <MiCuenta
+            activeTab={activeTab}
           setActiveTab={setActiveTab}
           compraSeleccionada={compraSeleccionada}
           setCompraSeleccionada={setCompraSeleccionada}
-          user={user} 
-          setUser={setUser} 
-          direcciones={direcciones} 
+          user={user}
+          setUser={setUser}
+          direcciones={direcciones}
           setDirecciones={actualizarDirecciones}
-          compras={compras} 
-          cupones={cuponesInternos} 
-          setCuponesInternos={setCuponesInternos} />
-        ) : (
-          <>
-            {page === 'home' && (
-              <Home
-                onAddToCart={addToCart} 
-                onSelectProduct={handleSelectProduct} 
-                onGoToCart={goToCart}
-                onBuyNow={() => alert('Función comprar ahora no implementada')}
-                onShowDiscountProducts={handleShowDiscountProducts}
-                onShowValorantProducts={handleShowValorantProducts}
-                onShowNews={() => goToPage('noticias')}
-                onShowEvents={() => goToPage('eventos')}
-                onShowCategory={handleShowCategory}
-                onShowFreeShipping={handleShowFreeShipping} 
-                onGoToRegister={handleGoToRegister}
+          compras={compras}
+          cupones={cuponesInternos}
+          setCuponesInternos={setCuponesInternos}
+        />
+      ) : (
+        <>
+          {page === 'home' && (
+            <Home
+              onAddToCart={addToCart}
+              onSelectProduct={handleSelectProduct}
+              onGoToCart={goToCart}
+              onBuyNow={() => alert('Función comprar ahora no implementada')}
+              onShowDiscountProducts={handleShowDiscountProducts}
+              onShowValorantProducts={handleShowValorantProducts}
+              onShowNews={() => goToPage('noticias')}
+              onShowEvents={() => goToPage('eventos')}
+              onShowCategory={handleShowCategory}
+              onShowFreeShipping={handleShowFreeShipping}
+              onGoToRegister={handleGoToRegister}
+            />
+          )}
+
+          {page === 'catalogo' && (
+            <Catalog
+              key={
+                showDiscountOnly
+                  ? 'with-discount'
+                  : showValorantOnly
+                  ? 'with-valorant'
+                  : 'normal'
+              }
+              onAddToCart={addToCart}
+              setSelectedProduct={setSelectedProduct}
+              showFreeShippingOnly={showFreeShippingOnly}
+              setShowFreeShippingOnly={setShowFreeShippingOnly}
+              initialFilters={{
+                soloConDescuento: showDiscountOnly,
+                juego: showValorantOnly ? 'Valorant' : '',
+                envioGratis: showFreeShippingOnly,
+                categoria: categoriaFiltrada,
+              }}
+            />
+          )}
+
+          {page === 'dashboard' && user?.role === 'admin' && (
+            <Dashboard />
+          )}
+
+          {page === 'carrito' && (
+            showCheckout ? (
+              <CheckoutStepper
+                user={user}
+                setUser={setUser}
+                cart={cart}
+                cartItems={cart}
+                direcciones={direcciones}
+                setDirecciones={setDirecciones}
+                discountPercent={discountPercent}
+                onFinishCheckout={handleCompleteCheckout}
+                clienteData={clienteData}
+                setClienteData={setClienteData}
+                direccionData={direccionData}
+                setDireccionData={actualizarDirecciones}
+                pagoData={pagoData}
+                setPagoData={setPagoData}
               />
-            )}
-
-            {page === 'catalogo' && (
-              <Catalog
-                key={
-                  showDiscountOnly
-                    ? 'with-discount'
-                    : showValorantOnly
-                    ? 'with-valorant'
-                    : 'normal'
-                }
-                products={products}
-                onAddToCart={addToCart}
-                setSelectedProduct={setSelectedProduct}
-                showFreeShippingOnly={showFreeShippingOnly}
-                setShowFreeShippingOnly={setShowFreeShippingOnly}
-                initialFilters={{
-                  soloConDescuento: showDiscountOnly,
-                  juego: showValorantOnly ? 'Valorant' : '',
-                  envioGratis: showFreeShippingOnly,
-                  categoria: categoriaFiltrada,
-                }}
-              />
-            )}
-
-            {page === 'dashboard' && user?.role === 'admin' && (
-              <Dashboard />
-            )}
-
-
-            {page === 'carrito' && (
-              showCheckout ? (
-                <CheckoutStepper
-                  user={user}
-                  setUser={setUser} 
-                  cart={cart}
-                  cartItems={cart}
-                  direcciones={direcciones} 
-                  setDirecciones={setDirecciones} 
-                  discountPercent={discountPercent}
-                  onFinishCheckout={handleCompleteCheckout}
-                  clienteData={clienteData}
-                  setClienteData={setClienteData}
-                  direccionData={direccionData}
-                  setDireccionData={actualizarDirecciones}
-                  pagoData={pagoData}
-                  setPagoData={setPagoData}
-                />
-              ) : (
+            ) : (
               <section className="cart">
                 <h2>
                   Carro ({cart.length} {cart.length === 1 ? 'item' : 'items'})
@@ -604,33 +532,33 @@ export default function App() {
                       <p>No hay productos en el carrito.</p>
                     ) : (
                       cart.map((item) => (
-                        <div key={item.id} className="cart-item">
+                        <div key={item.idProducto} className="cart-item">
                           <img
-                            src={item.image}
-                            alt={item.name}
+                            src={item.imagen}
+                            alt={item.nombre}
                             className="cart-item-image"
                           />
                           <div className="cart-item-info">
-                            <h3>{item.name}</h3>
-                            <p>{item.description}</p>
+                            <h3>{item.nombre}</h3>
+                            <p>{item.descripcion}</p>
                             <div className="quantity-controls">
-                              <button onClick={() => decrementQuantity(item.id)}>-</button>
+                              <button onClick={() => decrementQuantity(item.idProducto)}>-</button>
                               <span>{item.quantity}</span>
-                              <button onClick={() => incrementQuantity(item.id)}>+</button>
+                              <button onClick={() => incrementQuantity(item.idProducto)}>+</button>
                             </div>
                           </div>
                           <div className="cart-item-pricing">
                             <p className="price-discounted">
                               $
                               {(
-                                item.price *
-                                (1 - (item.discount ?? 0))
+                                item.precio *
+                                (1 - (item.descuento ?? 0))
                               ).toLocaleString('es-CL')}
                             </p>
-                            {item.discount && item.discount > 0 && (
+                            {item.descuento && item.descuento > 0 && (
                               <>
                                 <p className="price-original">
-                                  {item.price.toLocaleString('es-CL')}
+                                  {item.precio.toLocaleString('es-CL')}
                                 </p>
                                 <p className="discount-label">Producto con descuento</p>
                               </>
@@ -639,8 +567,8 @@ export default function App() {
                             <p className="subtotal">
                               $
                               {(
-                                item.price *
-                                (1 - (item.discount ?? 0)) *
+                                item.precio *
+                                (1 - (item.descuento ?? 0)) *
                                 item.quantity *
                                 0.94
                               ).toLocaleString('es-CL')}
@@ -648,7 +576,7 @@ export default function App() {
                           </div>
                           <button
                             className="remove-btn"
-                            onClick={() => removeFromCart(item.id)}
+                            onClick={() => removeFromCart(item.idProducto)}
                           >
                             Eliminar
                           </button>
@@ -682,23 +610,20 @@ export default function App() {
                   </aside>
                 </div>
               </section>
-              )
-            )}
-            {page === 'noticias' && <Noticias onNavigate={goToPage} />}
-            {page === 'eventos' && <Eventos onNavigate={goToPage} />}
-            {page === 'contacto' && <FormularioContacto />}
-            {page === 'terminos' && <Terminos />}
+            )
+          )}
+          {page === 'noticias' && <Noticias onNavigate={goToPage} />}
+          {page === 'eventos' && <Eventos onNavigate={goToPage} />}
+          {page === 'contacto' && <FormularioContacto />}
+          {page === 'terminos' && <Terminos />}
+        </>
+      )}
+    </main>
 
-            
-          </>
-        )}
-
-        
-      </main>
-
-      <Footer 
+    <Footer
       onNavigate={setPage}
-      setCompraSeleccionada={setCompraSeleccionada}/>
-    </div>
+      setCompraSeleccionada={setCompraSeleccionada}
+    />
+  </div>
   );
 }

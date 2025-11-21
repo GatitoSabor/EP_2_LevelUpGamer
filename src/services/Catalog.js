@@ -1,11 +1,12 @@
+// src/services/catalog.js
 export function filtrarProductos(products, filters) {
   return products.filter(p => 
     (filters.marca === '' || p.marca === filters.marca) &&
     (filters.categoria === '' || p.categoria === filters.categoria) &&
     (filters.juego === '' || p.juego === filters.juego) &&
-    p.price >= filters.precioMin &&
-    p.price <= filters.precioMax &&
-    (!filters.soloConDescuento || (p.discount && p.discount > 0)) &&
+    p.precio >= filters.precioMin &&
+    p.precio <= filters.precioMax &&
+    (!filters.soloConDescuento || (p.descuento && p.descuento > 0)) &&
     (!filters.envioGratis || p.envioGratis === true)
   );
 }

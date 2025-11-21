@@ -1,40 +1,70 @@
+// src/components/pages/Home.jsx
 import React, { useState, useEffect } from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
 import Carousel from 'react-spring-3d-carousel';
 import { config } from 'react-spring';
 import ProductDetailModal from './ProductDetailModal';
+import ProductService from '../../services/ProductService';
 import promoImage from '../../assets/promos/promo.jpg';
 import promoImage2 from '../../assets/promos/promodes.jpg';
 import promoVal from '../../assets/promos/valo.jpg';
-import '../../styles/Home.css';  
-
+import '../../styles/Home.css';
 
 import {
-  filteredProducts, valorantProducts, freeShippingProducts,
-  featuredCategories, slides as slideData
+  getFilteredProducts,
+  getValorantProducts,
+  getFreeShippingProducts,
+  getDiscountProducts,
+  featuredCategories,
+  slides as slideData
 } from '../../services/Home';
 
 export default function Home({
-  onAddToCart, onBuyNow, onShowDiscountProducts,
-  onShowValorantProducts, onShowFreeShipping, onGoToRegister,
+  onAddToCart,
+  onBuyNow,
+  onShowDiscountProducts,
+  onShowValorantProducts,
+  onShowFreeShipping,
+  onGoToRegister,
   onShowCategory
 }) {
   const [goToSlide, setGoToSlide] = useState(0);
   const [selectedProduct, setSelectedProduct] = useState(null);
+  const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-  const handlePromoClick = () => { if(onShowDiscountProducts) onShowDiscountProducts(); };
-  const handleValorantPromoClick = () => { if(onShowValorantProducts) onShowValorantProducts(); };
-  const handleFreeShippingClick = () => { if(onShowFreeShipping) onShowFreeShipping(); };
-  const handleGoToRegisterClick = () => { if(onGoToRegister) onGoToRegister(); };
-  const handleCategoryClick = (category) => { if(onShowCategory) onShowCategory(category); };
+  // Cargar productos del backend
+  useEffect(() => {
+    ProductService.getAll()
+      .then(response => {
+        console.log('Productos cargados en Home:', response.data);
+        setProducts(response.data);
+      })
+      .catch(err => {
+        console.error('Error al cargar productos:', err);
+        setProducts([]);
+      })
+      .finally(() => setLoading(false));
+  }, []);
+
+  const handlePromoClick = () => { if (onShowDiscountProducts) onShowDiscountProducts(); };
+  const handleValorantPromoClick = () => { if (onShowValorantProducts) onShowValorantProducts(); };
+  const handleFreeShippingClick = () => { if (onShowFreeShipping) onShowFreeShipping(); };
+  const handleGoToRegisterClick = () => { if (onGoToRegister) onGoToRegister(); };
+  const handleCategoryClick = (category) => { if (onShowCategory) onShowCategory(category); };
 
   const slides = slideData.map(slide => ({
     key: slide.key,
-    content: <img src={slide.src} alt={`Promo ${slide.key}`} className="main-carousel-image" onClick={
-      slide.key === 0 ? handleValorantPromoClick :
-      slide.key === 1 ? handleFreeShippingClick :
-      handleGoToRegisterClick
-    } />
+    content: <img 
+      src={slide.src} 
+      alt={`Promo ${slide.key}`} 
+      className="main-carousel-image" 
+      onClick={
+        slide.key === 0 ? handleValorantPromoClick :
+        slide.key === 1 ? handleFreeShippingClick :
+        handleGoToRegisterClick
+      } 
+    />
   }));
 
   useEffect(() => {
@@ -44,6 +74,15 @@ export default function Home({
     return () => clearInterval(timer);
   }, [slides.length]);
 
+  // Obtener productos filtrados
+  const filteredProducts = getDiscountProducts(products);
+  const valorantProducts = getValorantProducts(products);
+  const freeShippingProducts = getFreeShippingProducts(products);
+
+  if (loading) {
+    return <div className="text-center my-5">Cargando productos...</div>;
+  }
+
   if (selectedProduct) {
     return (
       <ProductDetailModal
@@ -52,13 +91,13 @@ export default function Home({
         onAddToCart={onAddToCart}
         onBuyNow={onBuyNow}
         onSelectProduct={setSelectedProduct}
+        allProducts={products}
       />
     );
   }
 
   return (
     <div className="home-root">
-
       <Container>
         <Row className="justify-content-center">
           <Col xs={12} md={10} lg={8}>
@@ -77,6 +116,7 @@ export default function Home({
         </Row>
       </Container>
 
+      {/* Sección de productos con descuento */}
       <Container className="my-5">
         <Row className="justify-content-center align-items-center">
           <Col xs={12} md={4} lg={3} onClick={handlePromoClick} style={{ cursor: 'pointer' }}>
@@ -84,17 +124,24 @@ export default function Home({
           </Col>
           <Col xs={12} md={8} lg={9} className="products-container">
             {filteredProducts.map(product => (
-              <div key={product.id} className="discounted-product-card" style={{ cursor: 'pointer', margin: '0 3px' }} onClick={() => setSelectedProduct(product)}>
-                {product.label && (
-                  <div className={`product-label ${product.label.toLowerCase().replace(/\s/g, '-')}`}>
-                    {product.label}
+              <div 
+                key={product.idProducto} 
+                className="discounted-product-card" 
+                style={{ cursor: 'pointer', margin: '0 3px' }} 
+                onClick={() => setSelectedProduct(product)}
+              >
+                {product.estado && (
+                  <div className={`product-label ${product.estado.toLowerCase().replace(/\s/g, '-')}`}>
+                    {product.estado}
                   </div>
                 )}
-                <img src={product.image} alt={product.name} className="discounted-product-image" />
-                <h3 className="discounted-product-name">{product.name}</h3>
+                <img src={product.imagen} alt={product.nombre} className="discounted-product-image" />
+                <h3 className="discounted-product-name">{product.nombre}</h3>
                 <p className="discounted-product-price">
-                  <span className="original-price">${product.price.toLocaleString('es-CL')}</span>
-                  <span className="discounted-price">${(product.price * (1 - (product.discount || 0))).toLocaleString('es-CL')}</span>
+                  <span className="original-price">${product.precio.toLocaleString('es-CL')}</span>
+                  <span className="discounted-price">
+                    ${(product.precio * (1 - (product.descuento || 0))).toLocaleString('es-CL')}
+                  </span>
                 </p>
                 <p className="payment-method">Transferencias</p>
               </div>
@@ -103,6 +150,7 @@ export default function Home({
         </Row>
       </Container>
 
+      {/* Sección de productos Valorant */}
       <Container className="my-5">
         <Row className="justify-content-center align-items-center flex-md-row-reverse">
           <Col xs={12} md={4} lg={3} onClick={handleValorantPromoClick} style={{ cursor: 'pointer' }}>
@@ -110,16 +158,23 @@ export default function Home({
           </Col>
           <Col xs={12} md={8} lg={9} className="products-container">
             {valorantProducts.map(product => (
-              <div key={product.id} className="discounted-product-card" style={{ cursor: 'pointer', margin: '0 3px' }} onClick={() => setSelectedProduct(product)}>
-                {product.label && (
-                  <div className={`product-label ${product.label.toLowerCase().replace(/\s/g, '-')}`}>
-                    {product.label}
+              <div 
+                key={product.idProducto} 
+                className="discounted-product-card" 
+                style={{ cursor: 'pointer', margin: '0 3px' }} 
+                onClick={() => setSelectedProduct(product)}
+              >
+                {product.estado && (
+                  <div className={`product-label ${product.estado.toLowerCase().replace(/\s/g, '-')}`}>
+                    {product.estado}
                   </div>
                 )}
-                <img src={product.image} alt={product.name} className="discounted-product-image" />
-                <h3 className="discounted-product-name">{product.name}</h3>
+                <img src={product.imagen} alt={product.nombre} className="discounted-product-image" />
+                <h3 className="discounted-product-name">{product.nombre}</h3>
                 <p className="discounted-product-price">
-                  <span className="discounted-price">${(product.price * (1 - (product.discount || 0))).toLocaleString('es-CL')}</span>
+                  <span className="discounted-price">
+                    ${(product.precio * (1 - (product.descuento || 0))).toLocaleString('es-CL')}
+                  </span>
                 </p>
                 <p className="payment-method">Transferencias</p>
               </div>
@@ -128,41 +183,59 @@ export default function Home({
         </Row>
       </Container>
 
+      {/* Categorías destacadas */}
       <Container className="my-5">
         <Row className="featured-categories-container justify-content-center">
           {featuredCategories.map(cat => (
-            <Col key={cat.name} xs={12} sm={6} md={4} lg={3} className="category-card" onClick={() => handleCategoryClick(cat.filtro)} style={{ cursor: 'pointer' }}>
+            <Col 
+              key={cat.name} 
+              xs={12} sm={6} md={4} lg={3} 
+              className="category-card" 
+              onClick={() => handleCategoryClick(cat.filtro)} 
+              style={{ cursor: 'pointer' }}
+            >
               <img src={cat.image} alt={cat.name} />
             </Col>
           ))}
         </Row>
       </Container>
 
+      {/* Sección de envío gratis */}
       <Container className="my-5">
         <Row className="justify-content-center align-items-center">
           <Col xs={12} md={8} lg={9} className="products-container">
             {freeShippingProducts.map(product => (
-              <div key={product.id} className="discounted-product-card" style={{ cursor: 'pointer', margin: '0 3px' }} onClick={() => setSelectedProduct(product)}>
-                {product.label && (
-                  <div className={`product-label ${product.label.toLowerCase().replace(/\s/g, '-')}`}>
-                    {product.label}
+              <div 
+                key={product.idProducto} 
+                className="discounted-product-card" 
+                style={{ cursor: 'pointer', margin: '0 3px' }} 
+                onClick={() => setSelectedProduct(product)}
+              >
+                {product.estado && (
+                  <div className={`product-label ${product.estado.toLowerCase().replace(/\s/g, '-')}`}>
+                    {product.estado}
                   </div>
                 )}
-                <img src={product.image} alt={product.name} className="discounted-product-image" />
-                <h3 className="discounted-product-name">{product.name}</h3>
+                <img src={product.imagen} alt={product.nombre} className="discounted-product-image" />
+                <h3 className="discounted-product-name">{product.nombre}</h3>
                 <p className="discounted-product-price">
-                  <span className="discounted-price">${(product.price * (1 - (product.discount || 0))).toLocaleString('es-CL')}</span>
+                  <span className="discounted-price">
+                    ${(product.precio * (1 - (product.descuento || 0))).toLocaleString('es-CL')}
+                  </span>
                 </p>
                 <p className="payment-method">Transferencias</p>
               </div>
             ))}
           </Col>
-          <Col xs={12} md={4} lg={3} onClick={() => onShowFreeShipping && onShowFreeShipping()} style={{ cursor: 'pointer' }}>
+          <Col 
+            xs={12} md={4} lg={3} 
+            onClick={() => onShowFreeShipping && onShowFreeShipping()} 
+            style={{ cursor: 'pointer' }}
+          >
             <img src={promoImage2} alt="Promoción Envío Gratis" className="promo-image" style={{ objectFit: 'contain' }} />
           </Col>
         </Row>
       </Container>
-
     </div>
   );
 }
