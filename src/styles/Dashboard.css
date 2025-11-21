@@ -1,0 +1,130 @@
+.dashboard-container {
+  max-width: 900px;
+  margin: 40px auto 0 auto;
+  background: #26223b;
+  border-radius: 12px;
+  box-shadow: 0 2px 16px rgba(84, 36, 192, 0.25);
+  padding: 32px;
+}
+
+.dashboard-tabs {
+  display: flex;
+  margin-bottom: 32px;
+  border-bottom: 2px solid #7E57C2;
+}
+
+.dashboard-tabs button {
+  background: none;
+  border: none;
+  font-weight: bold;
+  color: #b18fff;
+  padding: 14px 34px;
+  cursor: pointer;
+  transition: color 0.2s, border-bottom 0.2s;
+  font-size: 1.1rem;
+  border-bottom: 2px solid transparent;
+}
+
+.dashboard-tabs button.active {
+  color: #fff;
+  border-bottom: 2px solid #b18fff;
+}
+
+.dashboard-content {
+  margin-top: 24px;
+}
+
+/* ADMIN INFO BLOCK */
+.admin-info {
+  background: #353149;
+  padding: 22px 28px;
+  border-radius: 8px;
+  box-shadow: 0 1px 8px rgba(84, 36, 192, 0.1);
+  color: #fff;
+}
+
+.admin-info h2 {
+  margin-bottom: 18px;
+  color: #b18fff;
+  font-size: 1.5rem;
+}
+
+/* PRODUCT MANAGER SECTION (si usas dentro del dashboard) */
+.product-manager {
+  background: #353149;
+  padding: 22px 28px;
+  border-radius: 8px;
+  box-shadow: 0 1px 8px rgba(84, 36, 192, 0.1);
+  margin-top: 20px;
+  color: #fff;
+}
+
+.product-manager h2 {
+  color: #b18fff;
+  margin-bottom: 14px;
+}
+
+.product-form {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+.product-form input {
+  border: 1px solid #b18fff;
+  background: #242135;
+  color: #fff;
+  border-radius: 5px;
+  padding: 7px 10px;
+  font-size: 0.97rem;
+  margin-bottom: 5px;
+}
+
+.product-form button {
+  background: #b18fff;
+  border: none;
+  color: #fff;
+  font-weight: bold;
+  padding: 8px 22px;
+  border-radius: 5px;
+  margin-left: 6px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.product-form button:hover {
+  background: #7E57C2;
+}
+
+.product-list {
+  list-style: none;
+  padding: 0;
+}
+
+.product-list li {
+  background: #2d273e;
+  margin-bottom: 12px;
+  padding: 11px 20px;
+  border-radius: 7px;
+  color: #eee;
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.product-list button {
+  background: #623bc4;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  padding: 5px 12px;
+  margin-right: 8px;
+  font-size: 0.97rem;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.product-list button:hover {
+  background: #b18fff;
+}

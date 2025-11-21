@@ -1,33 +1,43 @@
 import React, { useState } from 'react';
 
-export default function LoginForm({ onLogin, ...props }) {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
+export default function LoginForm({ onLogin }) {
+  const [credentials, setCredentials] = useState({ username: '', password: '' });
+  const [loading, setLoading] = useState(false);
 
-  const handleSubmit = e => {
+  const handleChange = (e) => {
+    setCredentials({ ...credentials, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    onLogin({ username, password });
+    setLoading(true);
+    await onLogin(credentials); // Llama al handler pasado por props
+    setLoading(false);
   };
 
   return (
-    <form onSubmit={handleSubmit} className="form" {...props}>
+    <form className="login-form" onSubmit={handleSubmit}>
       <input
         type="text"
-        placeholder="Usuario"
-        value={username}
-        onChange={e => setUsername(e.target.value)}
+        name="username"
+        placeholder="Correo electrónico"
+        value={credentials.username}
+        onChange={handleChange}
         required
         autoComplete="username"
       />
       <input
         type="password"
+        name="password"
         placeholder="Contraseña"
-        value={password}
-        onChange={e => setPassword(e.target.value)}
+        value={credentials.password}
+        onChange={handleChange}
         required
         autoComplete="current-password"
       />
-      <button type="submit" className="submit-btn">Ingresar</button>
+      <button type="submit" disabled={loading}>
+        {loading ? 'Ingresando...' : 'Ingresar'}
+      </button>
     </form>
   );
 }

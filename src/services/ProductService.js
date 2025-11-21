@@ -4,32 +4,46 @@ import axios from 'axios';
 const API_URL = 'http://localhost:8080/api/v1/producto';
 
 const ProductService = {
-  getAll() {
-    return axios.get(API_URL);
+  getAll(token) {
+    return axios.get(API_URL, {
+      headers: token ? { 'Authorization': `Bearer ${token}` } : {}
+    });
   },
-  
-  getById(id) {
-    return axios.get(`${API_URL}/${id}`);
+
+  getById(id, token) {
+    return axios.get(`${API_URL}/${id}`, {
+      headers: token ? { 'Authorization': `Bearer ${token}` } : {}
+    });
   },
-  
-  create(producto) {
-    return axios.post(API_URL, producto);
+
+  create(producto, token) {
+    return axios.post(API_URL, producto, {
+      headers: { 'Authorization': `Bearer ${token}` }
+    });
   },
-  
-  update(id, producto) {
-    return axios.put(`${API_URL}/${id}`, producto);
+
+  update(id, producto, token) {
+    return axios.put(`${API_URL}/${id}`, producto, {
+      headers: { 'Authorization': `Bearer ${token}` }
+    });
   },
-  
-  delete(id) {
-    return axios.delete(`${API_URL}/${id}`);
+
+  delete(id, token) {
+    return axios.delete(`${API_URL}/${id}`, {
+      headers: { 'Authorization': `Bearer ${token}` }
+    });
   },
-  
-  getByCategoria(categoria) {
-    return axios.get(`${API_URL}/categoria/${categoria}`);
+
+  getByCategoria(categoria, token) {
+    return axios.get(`${API_URL}/categoria/${categoria}`, {
+      headers: token ? { 'Authorization': `Bearer ${token}` } : {}
+    });
   },
-  
-  getByMarca(marca) {
-    return axios.get(`${API_URL}/marca/${marca}`);
+
+  getByMarca(marca, token) {
+    return axios.get(`${API_URL}/marca/${marca}`, {
+      headers: token ? { 'Authorization': `Bearer ${token}` } : {}
+    });
   }
 };
 

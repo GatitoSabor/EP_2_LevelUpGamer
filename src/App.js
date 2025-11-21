@@ -280,50 +280,76 @@ export default function App() {
     setPage('ProductDetailModal');
   };
 
-    const handleSignUp = (datosUsuario) => {
-    const usuarios = getUsuariosStorage();
-    const existe = usuarios.some(u => u.username === datosUsuario.username);
-    
-    if (existe) {
-      alert('Usuario ya existe');
-      return;
+  const handleSignUp = async (datosUsuario) => {
+    try {
+      const response = await fetch('http://localhost:8080/api/v1/usuario', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          nombre_completo: datosUsuario.fullName,
+          rut: datosUsuario.rut,
+          fecha_nacimiento: datosUsuario.birthDate,
+          edad: calcularEdad(datosUsuario.birthDate),
+          correo: datosUsuario.email,
+          descuentoDuoc: datosUsuario.email.trim().toLowerCase().endsWith('@duoc.cl'),
+          password: datosUsuario.password
+        })
+      });
+      if (response.ok) {
+        alert('Usuario registrado exitosamente. Inicia sesión.');
+        setPage('login');
+      } else {
+        alert('Error en el registro, revisa los campos.');
+      }
+    } catch (error) {
+      alert('No se pudo conectar con el backend.');
+      console.error(error);
     }
-
-    const esDuoc = datosUsuario.email.toLowerCase().endsWith('@duoc.cl');
-    const nuevoUsuario = {
-      username: datosUsuario.username,
-      password: datosUsuario.password,
-      fullName: datosUsuario.fullName,
-      rut: datosUsuario.rut,
-      fechaNacimiento: datosUsuario.birthDate,
-      email: datosUsuario.email,
-      compras: [],
-      cupones: esDuoc ? [{ codigo: 'DUOC20', descuento: 20, id: 2 }] : [],
-    };
-
-    usuarios.push(nuevoUsuario);
-    localStorage.setItem('usuarios', JSON.stringify(usuarios));
-    alert('Usuario registrado exitosamente');
-    setPage('login');
   };
 
-  const handleLogin = ({ username, password }) => {
-    const usuarios = getUsuariosStorage();
-    const usuario = usuarios.find(u => u.username === username && u.password === password);
+  const handleLogin = async ({ username, password }) => {
+    try {
+      const response = await fetch('http://localhost:8080/api/v1/usuario/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ correo: username, password: password })
+      });
+      if (response.ok) {
+        const data = await response.json();
+        const token = data.token || '';
+        localStorage.setItem('jwt', token);
 
-    if (username === 'admin' && password === 'admin123') {
-      setUser({ username: 'admin', role: 'admin' });
-      setPage('dashboard');
-      return;
+        // Si el backend devolvió tipo ADMIN
+        if (data.tipo === "ADMIN") {
+          setUser({ ...data.admin, role: 'ADMIN', token }); // Guarda datos admin
+          setPage('dashboard'); // Redirige al Dashboard
+        } 
+        // Si devolvió tipo USER
+        else if (data.tipo === "USER") {
+          setUser({ ...data.usuario, role: 'USER', token }); // Guarda datos usuario
+          setPage('miCuenta'); // Redirige a MiCuenta
+        }
+        // Por si acaso, puede agregar else para errores inesperados
+      } else {
+        alert('Usuario o contraseña incorrectos');
+      }
+    } catch (error) {
+      alert('No se pudo conectar con el backend.');
+      console.error(error);
     }
-    if (!usuario) {
-      alert('Usuario o contraseña incorrectos');
-      return;
-    }
-
-    setUser(usuario);
-    setPage('miCuenta');
   };
+
+
+  // Aux
+  function calcularEdad(birthDateStr) {
+    const birthDate = new Date(birthDateStr);
+    const today = new Date();
+    let age = today.getFullYear() - birthDate.getFullYear();
+    const m = today.getMonth() - birthDate.getMonth();
+    if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) age--;
+    return age;
+  }
+
 
   const handleLogout = () => {
     setUser(null);
@@ -415,9 +441,13 @@ export default function App() {
       />
 
       <main className="main-content">
-        {!user && (page === 'login' || page === 'signup') ? (
+        {/* Login y registro */}
+        {!user && (page === 'login' || page === 'signup') && (
           <AuthTabs onLogin={handleLogin} onSignUp={handleSignUp} />
-        ) : selectedProduct ? (
+        )}
+
+        {/* Modal de detalle de producto */}
+        {selectedProduct && (
           <ProductDetailModal
             product={selectedProduct}
             onAddToCart={addToCart}
@@ -427,84 +457,91 @@ export default function App() {
             onSelectProduct={handleSelectProduct}
             allProducts={products}
           />
-        ) : page === 'miCuenta' && user ? (
+        )}
+
+        {/* Mi Cuenta solo si es user */}
+        {page === 'miCuenta' && user?.role === 'USER' && (
           <MiCuenta
             activeTab={activeTab}
-          setActiveTab={setActiveTab}
-          compraSeleccionada={compraSeleccionada}
-          setCompraSeleccionada={setCompraSeleccionada}
-          user={user}
-          setUser={setUser}
-          direcciones={direcciones}
-          setDirecciones={actualizarDirecciones}
-          compras={compras}
-          cupones={cuponesInternos}
-          setCuponesInternos={setCuponesInternos}
-        />
-      ) : (
-        <>
-          {page === 'home' && (
-            <Home
-              onAddToCart={addToCart}
-              onSelectProduct={handleSelectProduct}
-              onGoToCart={goToCart}
-              onBuyNow={() => alert('Función comprar ahora no implementada')}
-              onShowDiscountProducts={handleShowDiscountProducts}
-              onShowValorantProducts={handleShowValorantProducts}
-              onShowNews={() => goToPage('noticias')}
-              onShowEvents={() => goToPage('eventos')}
-              onShowCategory={handleShowCategory}
-              onShowFreeShipping={handleShowFreeShipping}
-              onGoToRegister={handleGoToRegister}
+            setActiveTab={setActiveTab}
+            compraSeleccionada={compraSeleccionada}
+            setCompraSeleccionada={setCompraSeleccionada}
+            user={user}
+            setUser={setUser}
+            direcciones={direcciones}
+            setDirecciones={actualizarDirecciones}
+            compras={compras}
+            cupones={cuponesInternos}
+            setCuponesInternos={setCuponesInternos}
+          />
+        )}
+
+        {/* Dashboard solo si es admin */}
+        {page === 'dashboard' && user?.role === 'ADMIN' && (
+          <Dashboard admin={user} token={user.token} />
+        )}
+
+        {/* Home */}
+        {page === 'home' && (
+          <Home
+            onAddToCart={addToCart}
+            onSelectProduct={handleSelectProduct}
+            onGoToCart={goToCart}
+            onBuyNow={() => alert('Función comprar ahora no implementada')}
+            onShowDiscountProducts={handleShowDiscountProducts}
+            onShowValorantProducts={handleShowValorantProducts}
+            onShowNews={() => goToPage('noticias')}
+            onShowEvents={() => goToPage('eventos')}
+            onShowCategory={handleShowCategory}
+            onShowFreeShipping={handleShowFreeShipping}
+            onGoToRegister={handleGoToRegister}
+          />
+        )}
+
+        {/* Catálogo */}
+        {page === 'catalogo' && (
+          <Catalog
+            key={
+              showDiscountOnly
+                ? 'with-discount'
+                : showValorantOnly
+                ? 'with-valorant'
+                : 'normal'
+            }
+            onAddToCart={addToCart}
+            setSelectedProduct={setSelectedProduct}
+            showFreeShippingOnly={showFreeShippingOnly}
+            setShowFreeShippingOnly={setShowFreeShippingOnly}
+            initialFilters={{
+              soloConDescuento: showDiscountOnly,
+              juego: showValorantOnly ? 'Valorant' : '',
+              envioGratis: showFreeShippingOnly,
+              categoria: categoriaFiltrada,
+            }}
+          />
+        )}
+
+        {/* Carrito */}
+        {page === 'carrito' && (
+          showCheckout ? (
+            <CheckoutStepper
+              user={user}
+              setUser={setUser}
+              cart={cart}
+              cartItems={cart}
+              direcciones={direcciones}
+              setDirecciones={setDirecciones}
+              discountPercent={discountPercent}
+              onFinishCheckout={handleCompleteCheckout}
+              clienteData={clienteData}
+              setClienteData={setClienteData}
+              direccionData={direccionData}
+              setDireccionData={actualizarDirecciones}
+              pagoData={pagoData}
+              setPagoData={setPagoData}
             />
-          )}
-
-          {page === 'catalogo' && (
-            <Catalog
-              key={
-                showDiscountOnly
-                  ? 'with-discount'
-                  : showValorantOnly
-                  ? 'with-valorant'
-                  : 'normal'
-              }
-              onAddToCart={addToCart}
-              setSelectedProduct={setSelectedProduct}
-              showFreeShippingOnly={showFreeShippingOnly}
-              setShowFreeShippingOnly={setShowFreeShippingOnly}
-              initialFilters={{
-                soloConDescuento: showDiscountOnly,
-                juego: showValorantOnly ? 'Valorant' : '',
-                envioGratis: showFreeShippingOnly,
-                categoria: categoriaFiltrada,
-              }}
-            />
-          )}
-
-          {page === 'dashboard' && user?.role === 'admin' && (
-            <Dashboard />
-          )}
-
-          {page === 'carrito' && (
-            showCheckout ? (
-              <CheckoutStepper
-                user={user}
-                setUser={setUser}
-                cart={cart}
-                cartItems={cart}
-                direcciones={direcciones}
-                setDirecciones={setDirecciones}
-                discountPercent={discountPercent}
-                onFinishCheckout={handleCompleteCheckout}
-                clienteData={clienteData}
-                setClienteData={setClienteData}
-                direccionData={direccionData}
-                setDireccionData={actualizarDirecciones}
-                pagoData={pagoData}
-                setPagoData={setPagoData}
-              />
-            ) : (
-              <section className="cart">
+          ) : (
+            <section className="cart">
                 <h2>
                   Carro ({cart.length} {cart.length === 1 ? 'item' : 'items'})
                 </h2>
@@ -610,16 +647,15 @@ export default function App() {
                   </aside>
                 </div>
               </section>
-            )
-          )}
-          {page === 'noticias' && <Noticias onNavigate={goToPage} />}
-          {page === 'eventos' && <Eventos onNavigate={goToPage} />}
-          {page === 'contacto' && <FormularioContacto />}
-          {page === 'terminos' && <Terminos />}
-        </>
-      )}
-    </main>
+          )
+        )}
 
+        {/* Otras páginas */}
+        {page === 'noticias' && <Noticias onNavigate={goToPage} />}
+        {page === 'eventos' && <Eventos onNavigate={goToPage} />}
+        {page === 'contacto' && <FormularioContacto />}
+        {page === 'terminos' && <Terminos />}
+      </main>
     <Footer
       onNavigate={setPage}
       setCompraSeleccionada={setCompraSeleccionada}
@@ -627,3 +663,5 @@ export default function App() {
   </div>
   );
 }
+
+
