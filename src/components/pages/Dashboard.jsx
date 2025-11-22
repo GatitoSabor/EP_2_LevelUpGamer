@@ -92,6 +92,7 @@ export default function Dashboard({ admin, token }) {
       precio: producto.precio || 0,
       categoria: producto.categoria || '',
       marca: producto.marca || '',
+      imagen: producto.imagen || '',
       descuento: producto.descuento || 0,
       envioGratis: Boolean(producto.envioGratis),
       juego: producto.juego || ''
@@ -109,7 +110,7 @@ export default function Dashboard({ admin, token }) {
         setShowModal(false);
         setEditing(null);
         setForm({
-          nombre:'', descripcion:'', precio:0, categoria:'', marca:'',
+          nombre:'', descripcion:'', precio:0, categoria:'', marca:'', imagen:'',
           descuento:0, envioGratis:false, juego:''
         });
       })

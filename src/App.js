@@ -465,12 +465,12 @@ export default function App() {
                     cupones={cuponesInternos}
                     setCuponesInternos={setCuponesInternos}
                   />
-                : <Navigate to="/" />
+                : <Navigate to="/miCuenta" />
             } />
             <Route path="/dashboard" element={
               user?.role === 'ADMIN'
                 ? <Dashboard admin={user} token={user.token} />
-                : <Navigate to="/" />
+                : <Navigate to="/dashboard" />
             } />
             <Route path="/noticias" element={<Noticias onNavigate={navigate} />} />
             <Route path="/eventos" element={<Eventos onNavigate={navigate} />} />
