@@ -1,17 +1,17 @@
-// src/components/pages/Catalog.jsx
 import React, { useState, useEffect } from 'react';
-import { Container, Row, Col, Form } from 'react-bootstrap';
+import { Container, Form } from 'react-bootstrap';
 import ProductService from '../../services/ProductService';
 import '../../styles/Catalog.css';
 
 export default function Catalog({
+  products: productsProp,
   showFreeShippingOnly,
   setShowFreeShippingOnly,
   onAddToCart,
   setSelectedProduct,
   initialFilters = {},
 }) {
-  const [products, setProducts] = useState([]);
+  const [products, setProducts] = useState(productsProp && productsProp.length > 0 ? productsProp : []);
   const [filters, setFilters] = useState({
     marca: '',
     categoria: '',
@@ -22,23 +22,25 @@ export default function Catalog({
     envioGratis: false,
     ...initialFilters
   });
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(productsProp ? false : true);
   const [error, setError] = useState('');
 
+  // Solo hace fetch si no hay products por props
   useEffect(() => {
+    if (productsProp && productsProp.length > 0) {
+      setProducts(productsProp);
+      setLoading(false);
+      return;
+    }
     setLoading(true);
     ProductService.getAll()
-      .then(response => {
-        console.log('Productos cargados:', response.data);
-        setProducts(response.data);
-      })
-      .catch((err) => {
-        console.error('Error al cargar productos:', err);
+      .then(response => setProducts(response.data))
+      .catch(() => {
         setError('No se pudieron cargar los productos');
         setProducts([]);
       })
       .finally(() => setLoading(false));
-  }, []);
+  }, [productsProp]);
 
   useEffect(() => {
     if (typeof initialFilters.envioGratis === 'boolean') {
@@ -60,15 +62,16 @@ export default function Catalog({
     .filter(p => p.precio <= filters.precioMax);
 
   return (
-    <Container fluid className="catalog-container py-4">
+    <Container fluid className="catalog-container py-4" style={{ display: 'flex', gap: '30px' }}>
       {loading ? (
         <p>Cargando productos...</p>
       ) : error ? (
         <p className="text-danger">{error}</p>
       ) : (
-        <Row>
-          <Col xs={12} md={3} className="filter-menu mb-4">
+        <>
+          <div className="filter-menu mb-4">
             <Form>
+              {/* Marca */}
               <Form.Group className="mb-3" controlId="marca">
                 <Form.Label>Marca</Form.Label>
                 <Form.Select
@@ -81,7 +84,7 @@ export default function Catalog({
                   ))}
                 </Form.Select>
               </Form.Group>
-
+              {/* Categoría */}
               <Form.Group className="mb-3" controlId="categoria">
                 <Form.Label>Categoría</Form.Label>
                 <Form.Select
@@ -94,7 +97,7 @@ export default function Catalog({
                   ))}
                 </Form.Select>
               </Form.Group>
-
+              {/* Juego */}
               <Form.Group className="mb-3" controlId="juego">
                 <Form.Label>Juego</Form.Label>
                 <Form.Select
@@ -107,7 +110,7 @@ export default function Catalog({
                   ))}
                 </Form.Select>
               </Form.Group>
-
+              {/* Precio mínimo */}
               <Form.Group className="mb-3" controlId="precioMin">
                 <Form.Label>Precio mínimo</Form.Label>
                 <Form.Control
@@ -116,7 +119,7 @@ export default function Catalog({
                   onChange={e => setFilters({ ...filters, precioMin: Number(e.target.value) })}
                 />
               </Form.Group>
-
+              {/* Precio máximo */}
               <Form.Group className="mb-3" controlId="precioMax">
                 <Form.Label>Precio máximo</Form.Label>
                 <Form.Control
@@ -130,7 +133,7 @@ export default function Catalog({
                   }
                 />
               </Form.Group>
-
+              {/* Solo con descuento */}
               <Form.Group className="mb-3" controlId="soloConDescuento">
                 <Form.Check
                   type="checkbox"
@@ -139,7 +142,7 @@ export default function Catalog({
                   onChange={e => setFilters({ ...filters, soloConDescuento: e.target.checked })}
                 />
               </Form.Group>
-
+              {/* Envío gratis */}
               <Form.Group className="mb-3" controlId="envioGratis">
                 <Form.Check
                   type="checkbox"
@@ -149,64 +152,65 @@ export default function Catalog({
                 />
               </Form.Group>
             </Form>
-          </Col>
+          </div>
 
-          <Col xs={12} md={9}>
-            <Row>
+          <div className="products-panel" style={{ flex: 1 }}>
+            <div className="products-grid">
               {productosFiltrados.map(producto => (
-                <Col xs={12} sm={6} md={4} key={producto.idProducto} className="mb-4">
-                  <div className="product-card">
-                    <img 
-                      src={producto.imagen} 
-                      alt={producto.nombre}
-                      className="product-image"
-                      style={{ width: '100%', height: '200px', objectFit: 'cover' }}
-                    />
-                    <h5>{producto.nombre}</h5>
-                    <p className="text-muted">{producto.descripcion}</p>
-                    <p><strong>Marca:</strong> {producto.marca}</p>
-                    <p><strong>Categoría:</strong> {producto.categoria}</p>
-                    {producto.juego && <p><strong>Juego:</strong> {producto.juego}</p>}
-                    <p className="price">
-                      <strong>Precio:</strong> ${producto.precio.toLocaleString('es-CL')}
+                <div className="product-card" key={producto.idProducto}>
+                  <img
+                    src={
+                      producto.imagen
+                        ? producto.imagen.startsWith('http')
+                          ? producto.imagen
+                          : `http://localhost:8080${producto.imagen}`
+                        : 'URL_FALLBACK_O_PLACEHOLDER'
+                    }
+                    alt={producto.nombre}
+                  />
+                  <h5>{producto.nombre}</h5>
+                  <p className="text-muted">{producto.descripcion}</p>
+                  <p><strong>Marca:</strong> {producto.marca}</p>
+                  <p><strong>Categoría:</strong> {producto.categoria}</p>
+                  {producto.juego && <p><strong>Juego:</strong> {producto.juego}</p>}
+                  <p className="price">
+                    <strong>Precio:</strong> ${producto.precio.toLocaleString('es-CL')}
+                  </p>
+                  {producto.descuento > 0 && (
+                    <p className="discount text-success">
+                      Descuento: {(producto.descuento * 100).toFixed(0)}%
                     </p>
-                    {producto.descuento > 0 && (
-                      <p className="discount text-success">
-                        Descuento: {(producto.descuento * 100).toFixed(0)}%
-                      </p>
+                  )}
+                  {producto.envioGratis && (
+                    <p className="text-primary">🚚 Envío gratis</p>
+                  )}
+                  <p><strong>Stock:</strong> {producto.stock}</p>
+                  <div className="product-actions">
+                    {onAddToCart && (
+                      <button
+                        className="btn btn-primary btn-sm me-2"
+                        onClick={() => onAddToCart(producto)}
+                      >
+                        Agregar al carrito
+                      </button>
                     )}
-                    {producto.envioGratis && (
-                      <p className="text-primary">🚚 Envío gratis</p>
+                    {setSelectedProduct && (
+                      <button
+                        className="btn btn-outline-secondary btn-sm"
+                        onClick={() => setSelectedProduct(producto)}
+                      >
+                        Ver detalle
+                      </button>
                     )}
-                    <p><strong>Stock:</strong> {producto.stock}</p>
-                    
-                    <div className="product-actions">
-                      {onAddToCart && (
-                        <button 
-                          className="btn btn-primary btn-sm me-2"
-                          onClick={() => onAddToCart(producto)}
-                        >
-                          Agregar al carrito
-                        </button>
-                      )}
-                      {setSelectedProduct && (
-                        <button 
-                          className="btn btn-outline-secondary btn-sm"
-                          onClick={() => setSelectedProduct(producto)}
-                        >
-                          Ver detalle
-                        </button>
-                      )}
-                    </div>
                   </div>
-                </Col>
+                </div>
               ))}
-            </Row>
+            </div>
             {productosFiltrados.length === 0 && (
               <p className="text-center">No hay productos que coincidan con los filtros.</p>
             )}
-          </Col>
-        </Row>
+          </div>
+        </>
       )}
     </Container>
   );

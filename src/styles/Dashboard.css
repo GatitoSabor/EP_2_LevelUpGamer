@@ -128,3 +128,101 @@
 .product-list button:hover {
   background: #b18fff;
 }
+
+/* MODAL FONDO Y CONTENIDO */
+.modal-content {
+  background: #232038 !important;
+  border-radius: 11px !important;
+  border: 1.5px solid #654acf;
+  box-shadow: 0 4px 32px rgba(153, 102, 255, 0.12);
+  color: #fff;
+}
+
+/* Cabecera del modal */
+.modal-header {
+  border-bottom: 1.5px solid #56409c;
+  background: #2e274b;
+}
+
+.modal-title {
+  font-family: "Orbitron", "Montserrat", monospace, sans-serif;
+  font-size: 2rem;
+  color: #ffec53;
+  letter-spacing: 0.03em;
+}
+
+/* Botón de cierre de modal */
+.btn-close {
+  filter: invert(100%) grayscale(100%) brightness(160%);
+}
+
+/* Inputs del modal */
+.product-form input,
+.product-form textarea {
+  border: 1.5px solid #8e65f7;
+  background: #2b254a;
+  color: #ffe9ff;
+  font-weight: 500;
+  border-radius: 6px;
+  margin-bottom: 11px;
+  font-size: 1.02rem;
+  transition: border 0.18s;
+}
+.product-form input:focus,
+.product-form textarea:focus {
+  border-color: #cba8ff;
+  box-shadow: 0 0 4px #cba8ff99;
+  outline: none;
+}
+
+/* Placeholder violeta */
+.product-form input::placeholder,
+.product-form textarea::placeholder {
+  color: #b58cffcc;
+}
+
+/* Labels y checkboxes */
+.product-form label {
+  color: #beabec;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+/* Checkbox custom */
+.product-form input[type="checkbox"] {
+  accent-color: #a085ff;
+}
+
+/* Botones del formulario */
+.product-form button,
+.modal-footer .btn {
+  background: linear-gradient(90deg, #b18fff, #8a63f7 80%);
+  border: none;
+  color: #fffffc !important;
+  font-weight: bold;
+  letter-spacing: 0.02em;
+  border-radius: 6px;
+  margin-top: 7px;
+  box-shadow: 0 2px 7px #7E57C240;
+  padding: 8px 28px;
+  transition: background .2s;
+}
+.product-form button:hover,
+.modal-footer .btn:hover {
+  background: linear-gradient(90deg, #8a63f7, #b18fff 90%);
+  color: #fff4b9 !important;
+}
+
+.modal-body {
+  padding: 2.2rem 2.4rem !important;
+  color: #fff;
+}
+
+@media (max-width: 500px) {
+  .modal-body { padding: 1rem !important; }
+}
+
+/* Foco y validación */
+.product-form input:invalid {
+  border-color: #ff6161;
+}

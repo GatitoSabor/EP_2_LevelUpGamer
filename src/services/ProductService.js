@@ -44,7 +44,17 @@ const ProductService = {
     return axios.get(`${API_URL}/marca/${marca}`, {
       headers: token ? { 'Authorization': `Bearer ${token}` } : {}
     });
+  },
+
+  createForm(formData, token) {
+    return axios.post(API_URL, formData, {
+      headers: {
+        'Authorization': `Bearer ${token}`,
+        'Content-Type': 'multipart/form-data'
+      }
+    });
   }
+
 };
 
 export default ProductService;
