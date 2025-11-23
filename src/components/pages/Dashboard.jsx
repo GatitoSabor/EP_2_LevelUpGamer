@@ -10,20 +10,14 @@ export default function Dashboard({ admin, token }) {
   const [editing, setEditing] = useState(null);
   const [showModal, setShowModal] = useState(false);
 
-  // Estados de producto para crear/editar
+  // Ahora el estado incluye "stock"
   const [form, setForm] = useState({
-    nombre: '',
-    descripcion: '',
-    precio: 0,
-    categoria: '',
-    marca: '',
-    descuento: 0,
-    envioGratis: false,
-    juego: ''
+    nombre: '', descripcion: '', precio: 0, categoria: '',
+    marca: '', descuento: 0, envioGratis: false, juego: '',
+    imagen: '', stock: 0
   });
   const [file, setFile] = useState(null);
 
-  // Cargar datos del admin
   useEffect(() => {
     if (tab === 'datos') {
       ProductService.getById(admin.idAdministrador, token)
@@ -32,7 +26,6 @@ export default function Dashboard({ admin, token }) {
     }
   }, [tab, admin, token]);
 
-  // Cargar productos
   useEffect(() => {
     if (tab === 'productos') {
       ProductService.getAll(token)
@@ -41,7 +34,6 @@ export default function Dashboard({ admin, token }) {
     }
   }, [tab, editing, token]);
 
-  // Manejar inputs
   const handleInput = e => {
     const { name, value, type, checked } = e.target;
     setForm(prev => ({
@@ -51,18 +43,16 @@ export default function Dashboard({ admin, token }) {
   };
   const handleFileInput = e => setFile(e.target.files[0]);
 
-  // Abrir modal para nuevo producto
   const openNewProductModal = () => {
     setEditing(null);
     setForm({
       nombre:'', descripcion:'', precio:0, categoria:'', marca:'',
-      descuento:0, envioGratis:false, juego:''
+      descuento:0, envioGratis:false, juego:'', imagen:'', stock:0
     });
     setFile(null);
     setShowModal(true);
   };
 
-  // Crear producto (con imagen)
   const handleCreate = async (e) => {
     e.preventDefault();
     const formData = new FormData();
@@ -76,14 +66,13 @@ export default function Dashboard({ admin, token }) {
         setEditing(null);
         setForm({
           nombre:'', descripcion:'', precio:0, categoria:'', marca:'',
-          descuento:0, envioGratis:false, juego:''
+          descuento:0, envioGratis:false, juego:'', imagen:'', stock:0
         });
         setFile(null);
       })
       .catch(() => alert('Error al crear producto'));
   };
 
-  // Editar producto (sin imagen de momento)
   const handleEdit = producto => {
     setEditing(producto.idProducto);
     setForm({
@@ -96,13 +85,13 @@ export default function Dashboard({ admin, token }) {
       imagen: producto.imagen || '',
       descuento: producto.descuento || 0,
       envioGratis: Boolean(producto.envioGratis),
-      juego: producto.juego || ''
+      juego: producto.juego || '',
+      stock: producto.stock ?? 0
     });
     setFile(null);
     setShowModal(true);
   };
 
-  // Actualizar producto (solo datos básicos)
   const handleUpdate = async (e) => {
     e.preventDefault();
     ProductService.update(form.idProducto, form, token)
@@ -112,13 +101,12 @@ export default function Dashboard({ admin, token }) {
         setEditing(null);
         setForm({
           nombre:'', descripcion:'', precio:0, categoria:'', marca:'', imagen:'',
-          descuento:0, envioGratis:false, juego:''
+          descuento:0, envioGratis:false, juego:'', stock:0
         });
       })
       .catch(() => alert('Error al actualizar producto'));
   };
 
-  // Eliminar producto
   const handleDelete = async (idProducto) => {
     if (!window.confirm('¿Eliminar producto?')) return;
     ProductService.delete(idProducto, token)
@@ -129,46 +117,112 @@ export default function Dashboard({ admin, token }) {
       .catch(() => alert('Error al eliminar producto'));
   };
 
-  // Modal con el formulario de producto
   const ProductModal = (
     <Modal show={showModal} onHide={() => setShowModal(false)} centered>
       <Modal.Header closeButton>
         <Modal.Title>{editing ? "Editar Producto" : "Nuevo Producto"}</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <form onSubmit={editing ? handleUpdate : handleCreate} className="product-form" encType="multipart/form-data">
-          <input name="nombre" value={form.nombre} onChange={handleInput} placeholder="Nombre" required />
-          <input name="descripcion" value={form.descripcion} onChange={handleInput} placeholder="Descripción" required />
-          <input name="precio" value={form.precio} onChange={handleInput} type="number" placeholder="Precio" required />
-          <input name="categoria" value={form.categoria} onChange={handleInput} placeholder="Categoría" required />
-          <input name="marca" value={form.marca} onChange={handleInput} placeholder="Marca" required />
-          <input name="descuento" value={form.descuento} onChange={handleInput} type="number" min="0" max="1" step="0.01" placeholder="Descuento (ej: 0.15)" />
-          <label style={{marginLeft:10}}>
+        <form
+          onSubmit={editing ? handleUpdate : handleCreate}
+          className="product-form"
+          encType="multipart/form-data"
+          style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}
+        >
+          <div>
+            <label>Nombre</label>
+            <input name="nombre" value={form.nombre} onChange={handleInput} required />
+          </div>
+          <div>
+            <label>Descripción</label>
+            <input name="descripcion" value={form.descripcion} onChange={handleInput} required />
+          </div>
+          <div>
+            <label>Precio</label>
+            <input
+              name="precio"
+              value={form.precio}
+              onChange={handleInput}
+              type="number"
+              min="0"
+              required
+            />
+          </div>
+          <div>
+            <label>Categoría</label>
+            <input name="categoria" value={form.categoria} onChange={handleInput} required />
+          </div>
+          <div>
+            <label>Marca</label>
+            <input name="marca" value={form.marca} onChange={handleInput} required />
+          </div>
+          <div>
+            <label>Descuento (ej: 0.15)</label>
+            <input
+              name="descuento"
+              value={form.descuento}
+              onChange={handleInput}
+              type="number"
+              min="0"
+              max="1"
+              step="0.01"
+              placeholder="0.15"
+            />
+          </div>
+          <div>
+            <label>Stock</label>
+            <input
+              name="stock"
+              value={form.stock}
+              onChange={handleInput}
+              type="number"
+              min="0"
+              required
+            />
+          </div>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
             <input
               type="checkbox"
               name="envioGratis"
               checked={form.envioGratis}
               onChange={handleInput}
-              style={{marginRight:6}}
-            /> Envío gratis
-          </label>
-          <input name="juego" value={form.juego} onChange={handleInput} placeholder="Juego (si corresponde)" />
+              style={{ marginRight: 6 }}
+            />
+            <label style={{margin: 0}}>Envío gratis</label>
+          </div>
+          <div>
+            <label>Juego (si corresponde)</label>
+            <input name="juego" value={form.juego} onChange={handleInput} />
+          </div>
           {!editing && (
-            <input type="file" name="imagenFile" accept="image/*" onChange={handleFileInput} />
+            <div>
+              <label>Imagen</label>
+              <input type="file" name="imagenFile" accept="image/*" onChange={handleFileInput} />
+            </div>
           )}
-          <Button type="submit" style={{marginTop:12}} variant="primary">{editing ? "Actualizar" : "Crear"}</Button>
-          {editing && (
-            <Button type="button" style={{marginTop:12, marginLeft:8}} variant="secondary" onClick={() => {
-              setEditing(null);
-              setForm({
-                nombre:'', descripcion:'', precio:0, categoria:'', marca:'',
-                descuento:0, envioGratis:false, juego:''
-              });
-              setFile(null);
-              setShowModal(false);
-            }}>Cancelar</Button>
-          )}
+          <div style={{ display: 'flex', gap: 12, justifyContent: 'center', marginTop: 12 }}>
+            <Button type="submit" variant="primary">
+              {editing ? "Actualizar" : "Crear"}
+            </Button>
+            {editing && (
+              <Button
+                type="button"
+                variant="secondary"
+                onClick={() => {
+                  setEditing(null);
+                  setForm({
+                    nombre:'', descripcion:'', precio:0, categoria:'', marca:'',
+                    descuento:0, envioGratis:false, juego:'', imagen:'', stock:0
+                  });
+                  setFile(null);
+                  setShowModal(false);
+                }}
+              >Cancelar</Button>
+            )}
+          </div>
         </form>
+
+
       </Modal.Body>
     </Modal>
   );
@@ -183,7 +237,6 @@ export default function Dashboard({ admin, token }) {
           Gestión de productos
         </button>
       </div>
-
       <div className="dashboard-content">
         {tab === 'datos' && (
           <div className="admin-info">
@@ -195,7 +248,6 @@ export default function Dashboard({ admin, token }) {
             <p><b>Edad:</b> {admin?.edad}</p>
             <p><b>Rol:</b> {admin?.rol}</p>
             <p><b>Correo:</b> {admin?.correo}</p>
-            {/* ...otros campos que tengas */}
           </div>
         )}
         {tab === 'productos' && (
@@ -213,6 +265,7 @@ export default function Dashboard({ admin, token }) {
                     {prod.descuento > 0 && <span> | Descuento: {(prod.descuento * 100).toFixed(0)}%</span>}
                     {prod.envioGratis && <span> | 🚚 Envío gratis</span>}
                     {prod.juego && <span> | Juego: {prod.juego}</span>}
+                    <span> | Stock: {prod.stock}</span>
                   </span>
                   {prod.imagen && (
                     <img

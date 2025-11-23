@@ -147,7 +147,7 @@
 .modal-title {
   font-family: "Orbitron", "Montserrat", monospace, sans-serif;
   font-size: 2rem;
-  color: #ffec53;
+  color: #fff !important;
   letter-spacing: 0.03em;
 }
 
