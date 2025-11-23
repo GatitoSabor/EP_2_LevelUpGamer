@@ -97,11 +97,21 @@ export default function Navbar({ user, onNavChange, cartCount, products, onSelec
 
         {user ? (
           <>
-            <li><button onClick={() => handleNavChange('miCuenta')}>Mi Cuenta</button></li>
+            {user.role === 'ADMIN' ? (
+              <li>
+                <button onClick={() => handleNavChange('dashboard')}>Dashboard</button>
+              </li>
+            ) : (
+              <li>
+                <button onClick={() => handleNavChange('miCuenta')}>Mi Cuenta</button>
+              </li>
+            )}
             <li><button onClick={handleLogout}>Cerrar sesión</button></li>
           </>
         ) : (
-          <li><button onClick={() => handleNavChange('login')}>Registro / Login</button></li>
+          <li>
+            <button onClick={() => handleNavChange('login')}>Registro / Login</button>
+          </li>
         )}
 
         <li><button onClick={() => handleNavChange('catalogo')}>Catálogo</button></li>

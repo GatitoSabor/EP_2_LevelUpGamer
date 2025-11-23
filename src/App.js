@@ -190,18 +190,38 @@ export default function App() {
     }
   };
 
-  const handleStartCheckout = () => {
+  const handleStartCheckout = async () => {
     if (cart.length === 0) {
       alert('El carrito está vacío');
       return;
     }
     if (!user) {
       alert('Debes iniciar sesión para realizar una compra.');
-      // Aquí navega a login con router
       return;
     }
-    setShowCheckout(true);
+
+    // Enviar al backend los productos para descontar stock
+    try {
+      const response = await fetch('http://localhost:8080/api/v1/producto/descontar-stock', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${user.token}`},
+        body: JSON.stringify(cart.map(item => ({
+          idProducto: item.idProducto,
+          cantidad: item.quantity
+        })))
+      });
+      if (!response.ok) {
+        alert('Ocurrió un error al intentar validar la compra o el stock.');
+        return;
+      }
+      // Vacía el carrito y confirma compra
+      setCart([]);
+      alert('¡Compra realizada con éxito!');
+    } catch (error) {
+      alert('Error al conectar con el servidor.');
+    }
   };
+
 
   const actualizarDirecciones = (nuevasDirecciones) => {
     setDirecciones(nuevasDirecciones);
@@ -355,10 +375,11 @@ export default function App() {
         });
         if (response.ok) {
           const data = await response.json();
+          console.log("Login response:", data);
           const token = data.token || '';
           localStorage.setItem('jwt', token);
           if (data.tipo === "ADMIN") {
-            setUser({ ...data.admin, role: 'ADMIN', token });
+            setUser({ ...data.datos, role: 'ADMIN', token });
             navigate('/dashboard');
           } else if (data.tipo === "USER") {
             setUser({ ...data.usuario, role: 'USER', token });
@@ -403,17 +424,6 @@ export default function App() {
           }}
         />
         <main className="main-content">
-          {selectedProduct &&
-            <ProductDetailModal
-              product={selectedProduct}
-              onAddToCart={addToCart}
-              onClose={closeModal}
-              onGoToCart={() => navigate('/carrito')}
-              onBuyNow={() => alert('Función comprar ahora no implementada')}
-              onSelectProduct={handleSelectProduct}
-              allProducts={products}
-            />
-          }
           <Routes>
             <Route path="/" element={
               <Home
@@ -450,6 +460,14 @@ export default function App() {
                 }}
               />
             } />
+            {/* --- RUTA DETALLE PRODUCTO --- */}
+            <Route path="/producto/:id" element={
+              <ProductDetailModal
+                allProducts={products}
+                onAddToCart={addToCart}
+                onGoToCart={() => navigate('/carrito')}
+              />
+            } />
             <Route path="/miCuenta" element={
               user?.role === 'USER'
                 ? <MiCuenta
@@ -465,17 +483,18 @@ export default function App() {
                     cupones={cuponesInternos}
                     setCuponesInternos={setCuponesInternos}
                   />
-                : <Navigate to="/miCuenta" />
+                : <Navigate to="/" />
             } />
             <Route path="/dashboard" element={
               user?.role === 'ADMIN'
                 ? <Dashboard admin={user} token={user.token} />
-                : <Navigate to="/dashboard" />
+                : <Navigate to="/" />
             } />
             <Route path="/noticias" element={<Noticias onNavigate={navigate} />} />
             <Route path="/eventos" element={<Eventos onNavigate={navigate} />} />
             <Route path="/contacto" element={<FormularioContacto />} />
             <Route path="/terminos" element={<Terminos />} />
+            {/* --- Carrito full incluido --- */}
             <Route path="/carrito" element={
               showCheckout
                 ? <CheckoutStepper
@@ -496,7 +515,148 @@ export default function App() {
                   />
                 : (
                   <section className="cart">
-                    {/* tu sección de carrito igual que antes, si la quieres aquí */}
+                    <h2 className="mb-4">Tu Carrito</h2>
+                    {cart.length === 0 ? (
+                      <p className="text-center">Tu carrito está vacío.</p>
+                    ) : (
+                      <table className="table align-middle">
+                        <thead>
+                          <tr>
+                            <th>Producto</th>
+                            <th>Imagen</th>
+                            <th>Cantidad</th>
+                            <th>Precio Unitario</th>
+                            <th>Descuento</th>
+                            <th>Total</th>
+                            <th>Acciones</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {cart.map(item => {
+                            const precioDescuento = item.precio * (1 - (item.descuento ?? 0));
+                            return (
+                              <tr key={item.idProducto}>
+                                <td>
+                                  <div style={{ maxWidth: 180, fontWeight: 500 }}>{item.nombre}</div>
+                                </td>
+                                <td>
+                                  <img
+                                    src={item.imagen?.startsWith('http') ? item.imagen : `http://localhost:8080${item.imagen}`}
+                                    alt={item.nombre}
+                                    style={{ width: 67, height: 67, objectFit: "contain", borderRadius: 7, background: "#f2f2f2" }}
+                                  />
+                                </td>
+                                <td>
+                                  <div className="d-flex align-items-center">
+                                    <button
+                                      className="btn btn-sm btn-secondary"
+                                      onClick={() => decrementQuantity(item.idProducto)}
+                                      style={{ fontSize: 18, marginRight: 3 }}
+                                    >-</button>
+                                    <span style={{ margin: '0 7px', minWidth: 20, textAlign: 'center', display: 'inline-block' }}>{item.quantity}</span>
+                                    <button
+                                      className="btn btn-sm btn-secondary"
+                                      onClick={() => incrementQuantity(item.idProducto)}
+                                      style={{ fontSize: 18, marginLeft: 3 }}
+                                    >+</button>
+                                  </div>
+                                </td>
+                                <td>
+                                  ${item.precio.toLocaleString('es-CL')}
+                                </td>
+                                <td>
+                                  {item.descuento && item.descuento > 0
+                                    ? `${(item.descuento * 100).toFixed(0)}%`
+                                    : "-"}
+                                </td>
+                                <td>
+                                  ${(precioDescuento * item.quantity).toLocaleString('es-CL')}
+                                </td>
+                                <td>
+                                  <button
+                                    className="btn btn-sm btn-danger"
+                                    onClick={() => removeFromCart(item.idProducto)}
+                                  >Quitar</button>
+                                </td>
+                              </tr>
+                            );
+                          })}
+                        </tbody>
+                      </table>
+                    )}
+
+                    {/* Apartado de cupón */}
+                    {cart.length > 0 && (
+                      <div className="cart-summary mt-4" style={{ maxWidth: 480 }}>
+                        <hr />
+                        <div className="mb-3 mt-3">
+                          <h5>¿Tienes un cupón?</h5>
+                          <div className="input-group">
+                            <input
+                              type="text"
+                              value={couponCode}
+                              onChange={e => setCouponCode(e.target.value)}
+                              className="form-control"
+                              placeholder="Código de cupón"
+                            />
+                            <button className="btn btn-outline-info" onClick={handleApplyCoupon} type="button">
+                              Aplicar
+                            </button>
+                          </div>
+                          {couponError && <small className="text-danger">{couponError}</small>}
+                          {discountPercent > 0 && (
+                            <div>
+                              <span className="badge bg-success mt-2">
+                                ¡Cupón aplicado! {discountPercent}% de descuento extra
+                              </span>
+                            </div>
+                          )}
+                        </div>
+                        <div>
+                          <p>
+                            <strong>Subtotal:</strong>
+                            {" "}
+                            ${cart.reduce((acc, item) =>
+                              acc + item.precio * item.quantity,
+                              0
+                            ).toLocaleString('es-CL')}
+                          </p>
+                          <p>
+                            <strong>Descuento productos:</strong>
+                            {" "}
+                            -${cart.reduce((acc, item) =>
+                              acc + (item.precio * (item.descuento ?? 0)) * item.quantity,
+                              0
+                            ).toLocaleString('es-CL')}
+                          </p>
+                          {discountPercent > 0 && (
+                            <p>
+                              <strong>Descuento cupón:</strong>
+                              {" "}
+                              -${cart.reduce((acc, item) =>
+                                acc + item.precio * (1 - (item.descuento ?? 0)) * item.quantity * (discountPercent / 100),
+                                0
+                              ).toLocaleString('es-CL')}
+                            </p>
+                          )}
+                          <p>
+                            <strong>Total a pagar:</strong>
+                            {" "}
+                            ${(cart.reduce((acc, item) =>
+                              acc + item.precio * (1 - (item.descuento ?? 0)) * item.quantity,
+                              0
+                            ) * (1 - discountPercent / 100)).toLocaleString('es-CL')}
+                          </p>
+                          <button
+                            className="btn btn-success mt-2"
+                            onClick={handleStartCheckout}
+                            disabled={cart.length === 0}
+                          >
+                            Ir a pagar
+                          </button>
+                        </div>
+                      </div>
+                    )}
                   </section>
                 )
             } />
@@ -508,15 +668,16 @@ export default function App() {
               }
             />
             <Route path="/signup"
-                element={
-                  !user
-                    ? <AuthTabs onLogin={authLogin} onSignUp={handleSignUp} />
-                    : <Navigate to="/" />
-                }
+              element={
+                !user
+                  ? <AuthTabs onLogin={authLogin} onSignUp={handleSignUp} />
+                  : <Navigate to="/" />
+              }
             />
             <Route path="*" element={<Navigate to="/" />} />
           </Routes>
         </main>
+
         <Footer
           onNavigate={path => navigate(path)}
           setCompraSeleccionada={setCompraSeleccionada}

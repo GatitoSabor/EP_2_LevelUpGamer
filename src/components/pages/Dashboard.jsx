@@ -87,6 +87,7 @@ export default function Dashboard({ admin, token }) {
   const handleEdit = producto => {
     setEditing(producto.idProducto);
     setForm({
+      idProducto: producto.idProducto,
       nombre: producto.nombre || '',
       descripcion: producto.descripcion || '',
       precio: producto.precio || 0,
@@ -184,18 +185,19 @@ export default function Dashboard({ admin, token }) {
       </div>
 
       <div className="dashboard-content">
-        {tab === 'datos' && adminData && (
+        {tab === 'datos' && (
           <div className="admin-info">
             <h2>Datos del Administrador</h2>
-            <p><b>ID:</b> {adminData.idAdministrador}</p>
-            <p><b>Nombre:</b> {adminData.nombre} {adminData.apellido}</p>
-            <p><b>RUT:</b> {adminData.rut}</p>
-            <p><b>Fecha de nacimiento:</b> {new Date(adminData.fecha_nacimiento).toLocaleDateString()}</p>
-            <p><b>Edad:</b> {adminData.edad}</p>
-            <p><b>Rol:</b> {adminData.rol}</p>
+            <p><b>ID:</b> {admin?.idAdministrador}</p>
+            <p><b>Nombre:</b> {admin?.nombre} {admin?.apellido}</p>
+            <p><b>RUT:</b> {admin?.rut}</p>
+            <p><b>Fecha de nacimiento:</b> {admin?.fecha_nacimiento ? new Date(admin.fecha_nacimiento).toLocaleDateString() : ''}</p>
+            <p><b>Edad:</b> {admin?.edad}</p>
+            <p><b>Rol:</b> {admin?.rol}</p>
+            <p><b>Correo:</b> {admin?.correo}</p>
+            {/* ...otros campos que tengas */}
           </div>
         )}
-
         {tab === 'productos' && (
           <div className="product-manager">
             <h2>Gestión de productos</h2>

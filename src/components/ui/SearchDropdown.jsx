@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import '../../styles/SearchDropdown.css';
 
-export default function SearchDropdown({ products = [], onSelectProduct, clearSignal }) {
+export default function SearchDropdown({ onSelectProduct, clearSignal }) {
   const [query, setQuery] = useState('');
   const [filteredCategories, setFilteredCategories] = useState([]);
   const [filteredProducts, setFilteredProducts] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     if (clearSignal) {
@@ -14,30 +15,30 @@ export default function SearchDropdown({ products = [], onSelectProduct, clearSi
     }
   }, [clearSignal]);
 
-  const handleInputChange = (e) => {
-    const value = e.target.value;
-    setQuery(value);
-
-    if (value.length > 1) {
-      const productsMatched = products.filter(p =>
-        p.name.toLowerCase().includes(value.toLowerCase()) ||
-        p.description.toLowerCase().includes(value.toLowerCase())
-      );
-
-      const categoriesMatched = [
-        ...new Set(
-          products
-            .map(p => p.category)
-            .filter(cat => cat && cat.toLowerCase().includes(value.toLowerCase()))
-        )
-      ];
-
-      setFilteredProducts(productsMatched.slice(0, 10));
-      setFilteredCategories(categoriesMatched.slice(0, 5));
+  // --- FETCH dinámico al backend ---
+  useEffect(() => {
+    if (query.length > 1) {
+      setLoading(true);
+      fetch(`http://localhost:8080/api/v1/productos/search?query=${encodeURIComponent(query)}`)
+        .then(res => res.json())
+        .then(data => {
+          // Supón que el backend devuelve { products: [...], categories: [...] }
+          setFilteredProducts(data.products.slice(0, 10));
+          setFilteredCategories(data.categories.slice(0, 5));
+        })
+        .catch(() => {
+          setFilteredProducts([]);
+          setFilteredCategories([]);
+        })
+        .finally(() => setLoading(false));
     } else {
-      setFilteredCategories([]);
       setFilteredProducts([]);
+      setFilteredCategories([]);
     }
+  }, [query]);
+
+  const handleInputChange = (e) => {
+    setQuery(e.target.value);
   };
 
   const clearInput = () => {
@@ -62,6 +63,10 @@ export default function SearchDropdown({ products = [], onSelectProduct, clearSi
         </button>
       )}
 
+      <div style={{minHeight: 20, textAlign: "left", color: "#555", fontSize: 13}}>
+        {loading && <span>Buscando...</span>}
+      </div>
+
       {(filteredCategories.length > 0 || filteredProducts.length > 0) && (
         <div className="search-dropdown-results">
           {filteredCategories.length > 0 && (
@@ -73,7 +78,8 @@ export default function SearchDropdown({ products = [], onSelectProduct, clearSi
                   className="search-suggestion-item"
                   onMouseDown={() => {
                     setQuery(cat);
-                    setFilteredProducts(products.filter(p => p.category === cat));
+                    // Podrías hacer un fetch de productos por categoría aquí si lo quieres más dinámico
+                    // O mostrar los productos más adelante
                   }}
                 >
                   {cat}

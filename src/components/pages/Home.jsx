@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
 import Carousel from 'react-spring-3d-carousel';
 import { config } from 'react-spring';
-import ProductDetailModal from './ProductDetailModal';
+import { useNavigate } from 'react-router-dom'; // <---- IMPORTANTE
 import ProductService from '../../services/ProductService';
 import promoImage from '../../assets/promos/promo.jpg';
 import promoImage2 from '../../assets/promos/promodes.jpg';
@@ -29,9 +29,10 @@ export default function Home({
   onShowCategory
 }) {
   const [goToSlide, setGoToSlide] = useState(0);
-  const [selectedProduct, setSelectedProduct] = useState(null);
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
+
+  const navigate = useNavigate(); // <---- HOOK PARA NAVEGAR
 
   // Cargar productos del backend
   useEffect(() => {
@@ -83,19 +84,6 @@ export default function Home({
     return <div className="text-center my-5">Cargando productos...</div>;
   }
 
-  if (selectedProduct) {
-    return (
-      <ProductDetailModal
-        product={selectedProduct}
-        onClose={() => setSelectedProduct(null)}
-        onAddToCart={onAddToCart}
-        onBuyNow={onBuyNow}
-        onSelectProduct={setSelectedProduct}
-        allProducts={products}
-      />
-    );
-  }
-
   return (
     <div className="home-root">
       <Container>
@@ -128,7 +116,7 @@ export default function Home({
                 key={product.idProducto} 
                 className="discounted-product-card" 
                 style={{ cursor: 'pointer', margin: '0 3px' }} 
-                onClick={() => setSelectedProduct(product)}
+                onClick={() => navigate(`/producto/${product.idProducto}`)}
               >
                 {product.estado && (
                   <div className={`product-label ${product.estado.toLowerCase().replace(/\s/g, '-')}`}>
@@ -162,7 +150,7 @@ export default function Home({
                 key={product.idProducto} 
                 className="discounted-product-card" 
                 style={{ cursor: 'pointer', margin: '0 3px' }} 
-                onClick={() => setSelectedProduct(product)}
+                onClick={() => navigate(`/producto/${product.idProducto}`)}
               >
                 {product.estado && (
                   <div className={`product-label ${product.estado.toLowerCase().replace(/\s/g, '-')}`}>
@@ -209,7 +197,7 @@ export default function Home({
                 key={product.idProducto} 
                 className="discounted-product-card" 
                 style={{ cursor: 'pointer', margin: '0 3px' }} 
-                onClick={() => setSelectedProduct(product)}
+                onClick={() => navigate(`/producto/${product.idProducto}`)}
               >
                 {product.estado && (
                   <div className={`product-label ${product.estado.toLowerCase().replace(/\s/g, '-')}`}>

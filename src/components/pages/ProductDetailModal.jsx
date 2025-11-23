@@ -1,5 +1,6 @@
 // src/components/pages/ProductDetailModal.jsx
-import React from 'react';
+import React, { useMemo } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
 import '../../styles/ProductDetailModal.css';
 import { 
   calcularStock, 
@@ -8,15 +9,22 @@ import {
   obtenerProductosRelacionados 
 } from '../../services/ProductDetailModal';
 
-export default function ProductDetailModal({ 
-  product, 
-  onClose, 
-  onAddToCart, 
-  onGoToCart, 
-  onBuyNow, 
-  onSelectProduct = () => {},
-  allProducts = [] // <-- Necesitas pasar todos los productos desde el componente padre
-}) {
+// Supón que tienes acceso a todos los productos como prop,
+// si no, podrías traerlos desde contexto o hacer un fetch por id.
+export default function ProductDetailModal({ allProducts = [], onAddToCart, onGoToCart }) {
+  const { id } = useParams();
+  const navigate = useNavigate();
+
+  // Busca el producto por ID
+  const product = useMemo(() => 
+    allProducts.find(p => String(p.idProducto) === id), 
+    [allProducts, id]
+  );
+
+  if (!product) {
+    return <section className="product-detail-page"><p>Producto no encontrado.</p></section>;
+  }
+
   const stock = calcularStock(product);
   const discountedPrice = obtenerPrecioDescontado(product);
   const transferPrice = obtenerPrecioTransferencia(product);
@@ -25,11 +33,16 @@ export default function ProductDetailModal({
   return (
     <section className="product-detail-page">
       <div className="product-detail-wrapper">
-        <button className="back-btn" onClick={onClose}>← Volver</button>
+        <button className="back-btn" onClick={() => navigate(-1)}>← Volver</button>
 
         <div className="product-main-info">
           <div className="image-container">
-            <img src={product.imagen} alt={product.nombre} />
+            <img src={product.imagen
+                        ? product.imagen.startsWith('http')
+                          ? product.imagen
+                          : `http://localhost:8080${product.imagen}`
+                        : 'URL_FALLBACK_O_PLACEHOLDER'} 
+                  alt={product.nombre} />
           </div>
 
           <div className="info-container">
@@ -63,10 +76,7 @@ export default function ProductDetailModal({
               </button>
               <button className="buy-now-btn" onClick={() => {
                 onAddToCart(product);
-                onClose();
-                if (typeof onGoToCart === 'function') {
-                  onGoToCart();
-                }
+                navigate("/carrito"); // Navega directamente al carrito
               }}>
                 Comprar ahora
               </button>
@@ -79,7 +89,7 @@ export default function ProductDetailModal({
         </div>
 
         <section className="additional-info">
-          <h3>Descripción</h3>
+          
           <div dangerouslySetInnerHTML={{ __html: product.descripcionModal }} />
 
           <h3>Productos relacionados</h3>
@@ -91,7 +101,7 @@ export default function ProductDetailModal({
                 <div
                   key={p.idProducto}
                   className="related-product-card"
-                  onClick={() => onSelectProduct(p)}
+                  onClick={() => navigate(`/producto/${p.idProducto}`)}
                   style={{ cursor: 'pointer' }}
                 >
                   <img

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Container, Form } from 'react-bootstrap';
+import { useNavigate } from 'react-router-dom'; // Importa useNavigate
 import ProductService from '../../services/ProductService';
 import '../../styles/Catalog.css';
 
@@ -8,7 +9,6 @@ export default function Catalog({
   showFreeShippingOnly,
   setShowFreeShippingOnly,
   onAddToCart,
-  setSelectedProduct,
   initialFilters = {},
 }) {
   const [products, setProducts] = useState(productsProp && productsProp.length > 0 ? productsProp : []);
@@ -24,6 +24,7 @@ export default function Catalog({
   });
   const [loading, setLoading] = useState(productsProp ? false : true);
   const [error, setError] = useState('');
+  const navigate = useNavigate(); // Hook para navegar rutas
 
   // Solo hace fetch si no hay products por props
   useEffect(() => {
@@ -71,7 +72,6 @@ export default function Catalog({
         <>
           <div className="filter-menu mb-4">
             <Form>
-              {/* Marca */}
               <Form.Group className="mb-3" controlId="marca">
                 <Form.Label>Marca</Form.Label>
                 <Form.Select
@@ -84,7 +84,6 @@ export default function Catalog({
                   ))}
                 </Form.Select>
               </Form.Group>
-              {/* Categoría */}
               <Form.Group className="mb-3" controlId="categoria">
                 <Form.Label>Categoría</Form.Label>
                 <Form.Select
@@ -97,7 +96,6 @@ export default function Catalog({
                   ))}
                 </Form.Select>
               </Form.Group>
-              {/* Juego */}
               <Form.Group className="mb-3" controlId="juego">
                 <Form.Label>Juego</Form.Label>
                 <Form.Select
@@ -110,7 +108,6 @@ export default function Catalog({
                   ))}
                 </Form.Select>
               </Form.Group>
-              {/* Precio mínimo */}
               <Form.Group className="mb-3" controlId="precioMin">
                 <Form.Label>Precio mínimo</Form.Label>
                 <Form.Control
@@ -119,7 +116,6 @@ export default function Catalog({
                   onChange={e => setFilters({ ...filters, precioMin: Number(e.target.value) })}
                 />
               </Form.Group>
-              {/* Precio máximo */}
               <Form.Group className="mb-3" controlId="precioMax">
                 <Form.Label>Precio máximo</Form.Label>
                 <Form.Control
@@ -133,7 +129,6 @@ export default function Catalog({
                   }
                 />
               </Form.Group>
-              {/* Solo con descuento */}
               <Form.Group className="mb-3" controlId="soloConDescuento">
                 <Form.Check
                   type="checkbox"
@@ -142,7 +137,6 @@ export default function Catalog({
                   onChange={e => setFilters({ ...filters, soloConDescuento: e.target.checked })}
                 />
               </Form.Group>
-              {/* Envío gratis */}
               <Form.Group className="mb-3" controlId="envioGratis">
                 <Form.Check
                   type="checkbox"
@@ -168,7 +162,23 @@ export default function Catalog({
                     }
                     alt={producto.nombre}
                   />
-                  <h5>{producto.nombre}</h5>
+                  <h5
+                    style={{
+                      fontWeight: "bold",
+                      color: "#000",
+                      width: "100%",
+                      maxWidth: "220px",
+                      overflow: "hidden",
+                      textOverflow: "ellipsis",
+                      display: "-webkit-box",
+                      WebkitLineClamp: 2,
+                      WebkitBoxOrient: "vertical",
+                      margin: "0 auto 8px auto",
+                      textAlign: "center"
+                    }}
+                  >
+                    {producto.nombre}
+                  </h5>
                   <p className="text-muted">{producto.descripcion}</p>
                   <p><strong>Marca:</strong> {producto.marca}</p>
                   <p><strong>Categoría:</strong> {producto.categoria}</p>
@@ -194,14 +204,13 @@ export default function Catalog({
                         Agregar al carrito
                       </button>
                     )}
-                    {setSelectedProduct && (
-                      <button
-                        className="btn btn-outline-secondary btn-sm"
-                        onClick={() => setSelectedProduct(producto)}
-                      >
-                        Ver detalle
-                      </button>
-                    )}
+                    {/* Aquí se usa navigate en vez de setSelectedProduct */}
+                    <button
+                      className="btn btn-outline-secondary btn-sm"
+                      onClick={() => navigate(`/producto/${producto.idProducto}`)}
+                    >
+                      Ver detalle
+                    </button>
                   </div>
                 </div>
               ))}
