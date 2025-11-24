@@ -375,7 +375,6 @@ export default function App() {
         });
         if (response.ok) {
           const data = await response.json();
-          console.log("Login response:", data);
           const token = data.token || '';
           localStorage.setItem('jwt', token);
           if (data.tipo === "ADMIN") {
