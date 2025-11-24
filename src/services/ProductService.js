@@ -1,7 +1,7 @@
 // src/services/ProductService.js
 import axios from 'axios';
 
-const API_URL = 'http://localhost:8080/api/v1/producto';
+const API_URL = 'http://18.116.201.66:8080/api/v1/producto';
 
 const ProductService = {
   getAll(token) {

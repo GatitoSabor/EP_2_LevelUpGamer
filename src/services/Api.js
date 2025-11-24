@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_URL = 'http://localhost:8080/api/v1/producto'; // Cambia la URL según tu backend
+const API_URL = 'http://18.116.201.66:8080/api/v1/producto'; // Cambia la URL según tu backend
 
 export const getProductos = async () => {
   const response = await axios.get(API_URL);

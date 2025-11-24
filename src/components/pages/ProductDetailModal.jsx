@@ -40,7 +40,7 @@ export default function ProductDetailModal({ allProducts = [], onAddToCart, onGo
             <img src={product.imagen
                         ? product.imagen.startsWith('http')
                           ? product.imagen
-                          : `http://localhost:8080${product.imagen}`
+                          : `http://18.116.201.66:8080${product.imagen}`
                         : 'URL_FALLBACK_O_PLACEHOLDER'} 
                   alt={product.nombre} />
           </div>

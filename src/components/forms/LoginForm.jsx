@@ -11,31 +11,37 @@ export default function LoginForm({ onLogin }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
-    await onLogin(credentials); // Llama al handler pasado por props
+    await onLogin(credentials);
     setLoading(false);
   };
 
   return (
-    <form className="login-form" onSubmit={handleSubmit}>
+    <form className="form login-form" onSubmit={handleSubmit}>
+      <label htmlFor="login-email">Correo electrónico</label>
       <input
-        type="text"
+        id="login-email"
+        type="email"
         name="username"
         placeholder="Correo electrónico"
         value={credentials.username}
         onChange={handleChange}
-        required
         autoComplete="username"
+        required
       />
+
+      <label htmlFor="login-password">Contraseña</label>
       <input
+        id="login-password"
         type="password"
         name="password"
         placeholder="Contraseña"
         value={credentials.password}
         onChange={handleChange}
-        required
         autoComplete="current-password"
+        required
       />
-      <button type="submit" disabled={loading}>
+
+      <button type="submit" className="submit-btn" disabled={loading}>
         {loading ? 'Ingresando...' : 'Ingresar'}
       </button>
     </form>

@@ -202,7 +202,7 @@ export default function App() {
 
     // Enviar al backend los productos para descontar stock
     try {
-      const response = await fetch('http://localhost:8080/api/v1/producto/descontar-stock', {
+      const response = await fetch('http://18.116.201.66:8080/api/v1/producto/descontar-stock', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${user.token}`},
         body: JSON.stringify(cart.map(item => ({
@@ -324,7 +324,7 @@ export default function App() {
 
   const handleSignUp = async (datosUsuario) => {
     try {
-      const response = await fetch('http://localhost:8080/api/v1/usuario', {
+      const response = await fetch('http://18.116.201.66:8080/api/v1/usuario', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -368,7 +368,7 @@ export default function App() {
     const navigate = useNavigate();
     const login = async ({ username, password }) => {
       try {
-        const response = await fetch('http://localhost:8080/api/v1/usuario/login', {
+        const response = await fetch('http://18.116.201.66:8080/api/v1/usuario/login', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ correo: username, password: password })
@@ -541,7 +541,7 @@ export default function App() {
                                 </td>
                                 <td>
                                   <img
-                                    src={item.imagen?.startsWith('http') ? item.imagen : `http://localhost:8080${item.imagen}`}
+                                    src={item.imagen?.startsWith('http') ? item.imagen : `http://18.116.201.66:8080${item.imagen}`}
                                     alt={item.nombre}
                                     style={{ width: 67, height: 67, objectFit: "contain", borderRadius: 7, background: "#f2f2f2" }}
                                   />

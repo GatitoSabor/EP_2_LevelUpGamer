@@ -1,5 +1,5 @@
 import axios from 'axios';
-const BASE_URL = 'http://localhost:8080/api/v1/usuario';
+const BASE_URL = 'http://18.116.201.66:8080/api/v1/usuario';
 
 class UserService {
   getAll() {

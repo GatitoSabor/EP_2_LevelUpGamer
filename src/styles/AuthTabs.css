@@ -72,8 +72,51 @@
 .form {
   display: flex;
   flex-direction: column;
-  gap: 18px;
+  gap: 8px;                      /* Antes 18px */
   animation: slideIn 0.4s ease forwards;
+  padding: 0;                   /* Si tuvieras padding extra, elimínalo */
+}
+.form label {
+  color: #7b2ff7;
+  font-weight: 600;
+  font-size: 1.01rem;
+  margin-bottom: 2px;
+  margin-top: 2px;
+  letter-spacing: .01em;
+}
+
+.form input {
+  padding: 10px 13px;           /* Antes 14px 18px */
+  border-radius: 8px;           /* Antes 12px, ahora más compacto */
+  border: none;
+  font-size: 1.02rem;           /* Antes 1.1rem */
+  background-color: #e1a6fd;
+  color: #4c357a;
+  transition: background-color 0.3s;
+}
+
+.form input:focus {
+  background-color: #7b2ff7;
+  color: white;
+}
+
+.submit-btn {
+  background: linear-gradient(135deg, #7b2ff7, #9336fd);
+  color: white;
+  border: none;
+  padding: 12px;                /* Antes 16px */
+  font-weight: 700;
+  border-radius: 10px;          /* Antes 14px */
+  cursor: pointer;
+  font-size: 1.07rem;           /* Antes 1.15rem */
+  transition: background 0.3s, box-shadow 0.3s;
+  box-shadow: 0 3px 8px rgba(123, 47, 247, 0.4);
+  margin-top: 4px;
+}
+
+.submit-btn:hover {
+  background: linear-gradient(135deg, #9336fd, #7b2ff7);
+  box-shadow: 0 6px 12px rgba(147, 54, 253, 0.7);
 }
 
 @keyframes slideIn {
@@ -121,3 +164,4 @@
   background: linear-gradient(135deg, #9336fd, #7b2ff7);
   box-shadow: 0 8px 14px rgba(147, 54, 253, 0.85);
 }
+

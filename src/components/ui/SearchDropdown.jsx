@@ -19,7 +19,7 @@ export default function SearchDropdown({ onSelectProduct, clearSignal }) {
   useEffect(() => {
     if (query.length > 1) {
       setLoading(true);
-      fetch(`http://localhost:8080/api/v1/productos/search?query=${encodeURIComponent(query)}`)
+      fetch(`http://18.116.201.66:8080/api/v1/productos/search?query=${encodeURIComponent(query)}`)
         .then(res => res.json())
         .then(data => {
           // Supón que el backend devuelve { products: [...], categories: [...] }

@@ -269,7 +269,7 @@ export default function Dashboard({ admin, token }) {
                   </span>
                   {prod.imagen && (
                     <img
-                      src={prod.imagen.startsWith('http') ? prod.imagen : `http://localhost:8080${prod.imagen}`}
+                      src={prod.imagen.startsWith('http') ? prod.imagen : `http://18.116.201.66:8080${prod.imagen}`}
                       alt={prod.nombre}
                       style={{ width: '100px', borderRadius: '5px', marginTop: '8px' }}
                     />

@@ -157,7 +157,7 @@ export default function Catalog({
                       producto.imagen
                         ? producto.imagen.startsWith('http')
                           ? producto.imagen
-                          : `http://localhost:8080${producto.imagen}`
+                          : `http://18.116.201.66:8080${producto.imagen}`
                         : 'URL_FALLBACK_O_PLACEHOLDER'
                     }
                     alt={producto.nombre}

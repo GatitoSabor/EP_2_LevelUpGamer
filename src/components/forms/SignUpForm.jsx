@@ -19,13 +19,15 @@ export default function SignUpForm({ onSignUp }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
-    await onSignUp(data); // Llama al handler pasado por props
+    await onSignUp(data);
     setLoading(false);
   };
 
   return (
-    <form className="signup-form" onSubmit={handleSubmit}>
+    <form className="form signup-form" onSubmit={handleSubmit}>
+      <label htmlFor="signup-username">Usuario</label>
       <input
+        id="signup-username"
         type="text"
         name="username"
         placeholder="Usuario"
@@ -33,7 +35,9 @@ export default function SignUpForm({ onSignUp }) {
         onChange={handleChange}
         required
       />
+      <label htmlFor="signup-password">Contraseña</label>
       <input
+        id="signup-password"
         type="password"
         name="password"
         placeholder="Contraseña"
@@ -41,7 +45,9 @@ export default function SignUpForm({ onSignUp }) {
         onChange={handleChange}
         required
       />
+      <label htmlFor="signup-fullName">Nombre completo</label>
       <input
+        id="signup-fullName"
         type="text"
         name="fullName"
         placeholder="Nombre completo"
@@ -49,7 +55,9 @@ export default function SignUpForm({ onSignUp }) {
         onChange={handleChange}
         required
       />
+      <label htmlFor="signup-rut">RUT</label>
       <input
+        id="signup-rut"
         type="text"
         name="rut"
         placeholder="RUT"
@@ -57,7 +65,9 @@ export default function SignUpForm({ onSignUp }) {
         onChange={handleChange}
         required
       />
+      <label htmlFor="signup-birthDate">Fecha de Nacimiento</label>
       <input
+        id="signup-birthDate"
         type="date"
         name="birthDate"
         placeholder="dd/mm/aaaa"
@@ -65,7 +75,9 @@ export default function SignUpForm({ onSignUp }) {
         onChange={handleChange}
         required
       />
+      <label htmlFor="signup-email">Correo electrónico</label>
       <input
+        id="signup-email"
         type="email"
         name="email"
         placeholder="Correo electrónico"
@@ -73,14 +85,16 @@ export default function SignUpForm({ onSignUp }) {
         onChange={handleChange}
         required
       />
+      <label htmlFor="signup-referralCode">Código referido (opcional)</label>
       <input
+        id="signup-referralCode"
         type="text"
         name="referralCode"
         placeholder="Código referido (opcional)"
         value={data.referralCode}
         onChange={handleChange}
       />
-      <button type="submit" disabled={loading}>
+      <button type="submit" className="submit-btn" disabled={loading}>
         {loading ? 'Registrando...' : 'Registrar'}
       </button>
     </form>
