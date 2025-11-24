@@ -1,4 +1,3 @@
-// src/services/catalog.js
 export function filtrarProductos(products, filters) {
   return products.filter(p => 
     (filters.marca === '' || p.marca === filters.marca) &&

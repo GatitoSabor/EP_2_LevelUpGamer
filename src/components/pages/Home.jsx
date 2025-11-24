@@ -1,9 +1,8 @@
-// src/components/pages/Home.jsx
 import React, { useState, useEffect } from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
 import Carousel from 'react-spring-3d-carousel';
 import { config } from 'react-spring';
-import { useNavigate } from 'react-router-dom'; // <---- IMPORTANTE
+import { useNavigate } from 'react-router-dom';
 import ProductService from '../../services/ProductService';
 import promoImage from '../../assets/promos/promo.jpg';
 import promoImage2 from '../../assets/promos/promodes.jpg';
@@ -32,9 +31,8 @@ export default function Home({
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  const navigate = useNavigate(); // <---- HOOK PARA NAVEGAR
+  const navigate = useNavigate(); 
 
-  // Cargar productos del backend
   useEffect(() => {
     ProductService.getAll()
       .then(response => {
@@ -75,7 +73,6 @@ export default function Home({
     return () => clearInterval(timer);
   }, [slides.length]);
 
-  // Obtener productos filtrados
   const filteredProducts = getDiscountProducts(products);
   const valorantProducts = getValorantProducts(products);
   const freeShippingProducts = getFreeShippingProducts(products);

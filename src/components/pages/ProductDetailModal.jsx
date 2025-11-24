@@ -1,4 +1,3 @@
-// src/components/pages/ProductDetailModal.jsx
 import React, { useMemo } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import '../../styles/ProductDetailModal.css';
@@ -9,13 +8,10 @@ import {
   obtenerProductosRelacionados 
 } from '../../services/ProductDetailModal';
 
-// Supón que tienes acceso a todos los productos como prop,
-// si no, podrías traerlos desde contexto o hacer un fetch por id.
 export default function ProductDetailModal({ allProducts = [], onAddToCart, onGoToCart }) {
   const { id } = useParams();
   const navigate = useNavigate();
 
-  // Busca el producto por ID
   const product = useMemo(() => 
     allProducts.find(p => String(p.idProducto) === id), 
     [allProducts, id]
@@ -76,7 +72,7 @@ export default function ProductDetailModal({ allProducts = [], onAddToCart, onGo
               </button>
               <button className="buy-now-btn" onClick={() => {
                 onAddToCart(product);
-                navigate("/carrito"); // Navega directamente al carrito
+                navigate("/carrito"); 
               }}>
                 Comprar ahora
               </button>

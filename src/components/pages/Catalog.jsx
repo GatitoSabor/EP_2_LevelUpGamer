@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Container, Form } from 'react-bootstrap';
-import { useNavigate } from 'react-router-dom'; // Importa useNavigate
+import { useNavigate } from 'react-router-dom'; 
 import ProductService from '../../services/ProductService';
 import '../../styles/Catalog.css';
 
@@ -24,9 +24,8 @@ export default function Catalog({
   });
   const [loading, setLoading] = useState(productsProp ? false : true);
   const [error, setError] = useState('');
-  const navigate = useNavigate(); // Hook para navegar rutas
+  const navigate = useNavigate(); 
 
-  // Solo hace fetch si no hay products por props
   useEffect(() => {
     if (productsProp && productsProp.length > 0) {
       setProducts(productsProp);

@@ -105,7 +105,6 @@ export default function App() {
     return usuarios ? JSON.parse(usuarios) : [];
   };
 
-  // Define las funciones de filtros aquí:
   const handleShowDiscountProducts = () => {
     setShowDiscountOnly(true);
     setShowValorantOnly(false);
@@ -152,7 +151,6 @@ export default function App() {
     setCart([]);
     setDiscountPercent(0);
     setCouponCode('');
-    // navegación vía react-router ahora, antes era setPage('home');
     setShowCheckout(false);
   };
 
@@ -200,7 +198,6 @@ export default function App() {
       return;
     }
 
-    // Enviar al backend los productos para descontar stock
     try {
       const response = await fetch('http://18.116.201.66:8080/api/v1/producto/descontar-stock', {
         method: 'POST',
@@ -214,7 +211,6 @@ export default function App() {
         alert('Ocurrió un error al intentar validar la compra o el stock.');
         return;
       }
-      // Vacía el carrito y confirma compra
       setCart([]);
       alert('¡Compra realizada con éxito!');
     } catch (error) {
@@ -235,7 +231,6 @@ export default function App() {
     }
     if (!user) {
       alert('Debes iniciar sesión para realizar una compra.');
-      // Aquí navega a login con router
       return;
     }
     if (couponCode) {
@@ -397,7 +392,7 @@ export default function App() {
   function AppRoutes() {
     const navigate = useNavigate();
     const location = useLocation();
-    const authLogin = useAuthNavigate(); // si o si arriba
+    const authLogin = useAuthNavigate(); 
 
     useEffect(() => {
       localStorage.setItem('lastPage', location.pathname);

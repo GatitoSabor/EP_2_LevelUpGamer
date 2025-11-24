@@ -10,7 +10,6 @@ export default function Dashboard({ admin, token }) {
   const [editing, setEditing] = useState(null);
   const [showModal, setShowModal] = useState(false);
 
-  // Ahora el estado incluye "stock"
   const [form, setForm] = useState({
     nombre: '', descripcion: '', precio: 0, categoria: '',
     marca: '', descuento: 0, envioGratis: false, juego: '',

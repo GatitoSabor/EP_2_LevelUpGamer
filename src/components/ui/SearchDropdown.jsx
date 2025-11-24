@@ -15,14 +15,12 @@ export default function SearchDropdown({ onSelectProduct, clearSignal }) {
     }
   }, [clearSignal]);
 
-  // --- FETCH dinámico al backend ---
   useEffect(() => {
     if (query.length > 1) {
       setLoading(true);
       fetch(`http://18.116.201.66:8080/api/v1/productos/search?query=${encodeURIComponent(query)}`)
         .then(res => res.json())
         .then(data => {
-          // Supón que el backend devuelve { products: [...], categories: [...] }
           setFilteredProducts(data.products.slice(0, 10));
           setFilteredCategories(data.categories.slice(0, 5));
         })
@@ -78,8 +76,6 @@ export default function SearchDropdown({ onSelectProduct, clearSignal }) {
                   className="search-suggestion-item"
                   onMouseDown={() => {
                     setQuery(cat);
-                    // Podrías hacer un fetch de productos por categoría aquí si lo quieres más dinámico
-                    // O mostrar los productos más adelante
                   }}
                 >
                   {cat}

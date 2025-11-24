@@ -11,6 +11,5 @@ class UserService {
   delete(id) {
     return axios.delete(`${BASE_URL}/${id}`);
   }
-  // Puedes agregar update y getById si lo necesitas
 }
 export default new UserService();
