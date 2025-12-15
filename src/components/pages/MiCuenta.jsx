@@ -7,19 +7,70 @@ export default function MiCuenta({ compraSeleccionada, setCompraSeleccionada, us
   const [activeTab, setActiveTab] = useState('compras');
   const [puntos, setPuntos] = useState(user?.puntos || 5000);
   const [historialPuntos, setHistorialPuntos] = useState([]);
-
   const [editIndex, setEditIndex] = useState(null);
   const [calle, setCalle] = useState('');
   const [numero, setNumero] = useState('');
   const [tipo, setTipo] = useState('Casa');
-
   const [editableUser, setEditableUser] = useState(user);
+  const [loading, setLoading] = useState(false);
 
-  const [passwordForm, setPasswordForm] = useState({ actual: '', nueva: '', repetir: '' });
-
+  // ========== OBTENER DATOS DEL USUARIO DESDE EL BACKEND ==========
   useEffect(() => {
-    setEditableUser(user);
-  }, [user]);
+    const fetchUserDataFromBackend = async () => {
+      if (!user || !user.idUsuario || !user.token) {
+        console.log('No hay usuario o token disponible');
+        return;
+      }
+      
+      setLoading(true);
+      try {
+        const response = await fetch(`http://18.116.201.66:8080/api/v1/usuario/${user.idUsuario}`, {
+          method: 'GET',
+          headers: {
+            'Authorization': `Bearer ${user.token}`,
+            'Content-Type': 'application/json'
+          }
+        });
+
+        if (response.ok) {
+          const userData = await response.json();
+          console.log('Datos del backend:', userData);
+          
+          setEditableUser({
+            ...user,
+            idUsuario: userData.idUsuario,
+            username: userData.correo,
+            fullName: userData.nombre_completo,
+            rut: userData.rut,
+            fechaNacimiento: userData.fecha_nacimiento,
+            email: userData.correo,
+            edad: userData.edad,
+            descuentoDuoc: userData.descuentoDuoc
+          });
+          
+          setUser({
+            ...user,
+            idUsuario: userData.idUsuario,
+            username: userData.correo,
+            fullName: userData.nombre_completo,
+            rut: userData.rut,
+            fechaNacimiento: userData.fecha_nacimiento,
+            email: userData.correo,
+            edad: userData.edad,
+            descuentoDuoc: userData.descuentoDuoc
+          });
+        } else {
+          console.error('Error al obtener datos del usuario:', response.status);
+        }
+      } catch (error) {
+        console.error('Error de conexión al obtener datos:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchUserDataFromBackend();
+  }, []);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -31,6 +82,7 @@ export default function MiCuenta({ compraSeleccionada, setCompraSeleccionada, us
       setHistorialPuntos(prev => [...prev, nuevoEvento]);
       setPuntos(prev => prev + nuevoEvento.puntos);
     }, 5000);
+
     return () => clearInterval(interval);
   }, []);
 
@@ -43,29 +95,74 @@ export default function MiCuenta({ compraSeleccionada, setCompraSeleccionada, us
     setEditableUser(prev => ({ ...prev, [name]: value }));
   };
 
-  const handleSaveUser = () => {
-    setUser(editableUser);
-    alert('Datos personales actualizados con éxito');
+  const handleSaveUser = async () => {
+    if (!user || !user.token || !user.idUsuario) {
+      alert('No se ha iniciado sesión correctamente');
+      return;
+    }
+
+    setLoading(true);
+    try {
+      const usuarioActualizado = {
+        idUsuario: user.idUsuario,
+        nombre_completo: editableUser.fullName,
+        rut: editableUser.rut,
+        fecha_nacimiento: editableUser.fechaNacimiento,
+        correo: editableUser.email,
+        edad: calcularEdad(editableUser.fechaNacimiento),
+        descuentoDuoc: editableUser.email?.toLowerCase().endsWith('@duoc.cl') || false,
+        rol: user.rol || 'USER',
+        password: user.password
+      };
+
+      const response = await fetch(`http://18.116.201.66:8080/api/v1/usuario/${user.idUsuario}`, {
+        method: 'PUT',
+        headers: {
+          'Authorization': `Bearer ${user.token}`,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(usuarioActualizado)
+      });
+
+      if (response.ok) {
+        const updatedData = await response.json();
+        console.log('Datos actualizados:', updatedData);
+        
+        setUser({
+          ...user,
+          fullName: editableUser.fullName,
+          rut: editableUser.rut,
+          fechaNacimiento: editableUser.fechaNacimiento,
+          email: editableUser.email,
+          username: editableUser.email,
+          edad: usuarioActualizado.edad,
+          descuentoDuoc: usuarioActualizado.descuentoDuoc
+        });
+        
+        alert('✅ Datos personales actualizados con éxito');
+      } else {
+        const errorText = await response.text();
+        console.error('Error del servidor:', errorText);
+        alert(`❌ Error al actualizar: ${errorText}`);
+      }
+    } catch (error) {
+      console.error('Error:', error);
+      alert('❌ No se pudo conectar con el servidor');
+    } finally {
+      setLoading(false);
+    }
   };
 
-  const handlePasswordChange = (e) => {
-    const { name, value } = e.target;
-    setPasswordForm(prev => ({ ...prev, [name]: value }));
-  };
-
-  const handleSavePassword = () => {
-    if (!passwordForm.actual || !passwordForm.nueva || !passwordForm.repetir) {
-      return alert('Completa todos los campos de contraseña.');
+  const calcularEdad = (fechaNacimiento) => {
+    if (!fechaNacimiento) return 0;
+    const birthDate = new Date(fechaNacimiento);
+    const today = new Date();
+    let age = today.getFullYear() - birthDate.getFullYear();
+    const m = today.getMonth() - birthDate.getMonth();
+    if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+      age--;
     }
-    if (passwordForm.nueva !== passwordForm.repetir) {
-      return alert('Las nuevas contraseñas no coinciden.');
-    }
-    if (passwordForm.actual !== user.password) {
-      return alert('Contraseña actual incorrecta.');
-    }
-    setUser(prev => ({ ...prev, password: passwordForm.nueva }));
-    alert('Contraseña modificada con éxito');
-    setPasswordForm({ actual: '', nueva: '', repetir: '' });
+    return age;
   };
 
   const handleAddDireccion = () => {
@@ -106,12 +203,10 @@ export default function MiCuenta({ compraSeleccionada, setCompraSeleccionada, us
         <button className={activeTab === 'cupones' ? 'active' : ''} onClick={() => setActiveTab('cupones')}>Cupones</button>
         <button className={activeTab === 'datos' ? 'active' : ''} onClick={() => setActiveTab('datos')}>Datos personales</button>
         <button className={activeTab === 'direcciones' ? 'active' : ''} onClick={() => setActiveTab('direcciones')}>Direcciones</button>
-        <button className={activeTab === 'contrasena' ? 'active' : ''} onClick={() => setActiveTab('contrasena')}>Contraseña</button>
         <button className={activeTab === 'tiendaPuntos' ? 'active' : ''} onClick={() => setActiveTab('tiendaPuntos')}>Tienda Puntos Level-Up</button>
       </nav>
 
       <section className="content">
-
         {activeTab === 'compras' && (
           <div>
             <h2>Compras</h2>
@@ -168,22 +263,65 @@ export default function MiCuenta({ compraSeleccionada, setCompraSeleccionada, us
         {activeTab === 'datos' && (
           <div className="datos-personales">
             <h2>Datos Personales</h2>
-            <label>Usuario</label>
-            <input name="username" value={editableUser?.username || ''} onChange={handleChangeUser} />
-
-            <label>Nombre completo</label>
-            <input name="fullName" value={editableUser?.fullName || ''} onChange={handleChangeUser} />
-
-            <label>RUT</label>
-            <input name="rut" value={editableUser?.rut || ''} onChange={handleChangeUser} />
-
-            <label>Fecha de nacimiento</label>
-            <input name="fechaNacimiento" type="date" value={editableUser?.fechaNacimiento || ''} onChange={handleChangeUser} />
-
-            <label>Correo electrónico</label>
-            <input name="email" type="email" value={editableUser?.email || ''} onChange={handleChangeUser} />
-
-            <button onClick={handleSaveUser} className="guardar-btn">Guardar cambios</button>
+            {loading ? (
+              <p>⏳ Cargando datos desde el servidor...</p>
+            ) : (
+              <>
+                <label>Correo electrónico (Usuario)</label>
+                <input 
+                  name="email" 
+                  type="email"
+                  value={editableUser?.email || ''} 
+                  onChange={handleChangeUser}
+                  disabled
+                  style={{ backgroundColor: '#f0f0f0' }}
+                />
+                
+                <label>Nombre completo</label>
+                <input 
+                  name="fullName" 
+                  value={editableUser?.fullName || ''} 
+                  onChange={handleChangeUser} 
+                  placeholder="Ingresa tu nombre completo"
+                />
+                
+                <label>RUT</label>
+                <input 
+                  name="rut" 
+                  value={editableUser?.rut || ''} 
+                  onChange={handleChangeUser} 
+                  placeholder="12345678-9"
+                />
+                
+                <label>Fecha de nacimiento</label>
+                <input 
+                  name="fechaNacimiento" 
+                  type="date" 
+                  value={editableUser?.fechaNacimiento || ''} 
+                  onChange={handleChangeUser} 
+                />
+                
+                {editableUser?.edad && (
+                  <div style={{ marginTop: '10px', color: '#666' }}>
+                    <small>Edad: {editableUser.edad} años</small>
+                  </div>
+                )}
+                
+                {editableUser?.descuentoDuoc && (
+                  <div style={{ marginTop: '10px', padding: '10px', backgroundColor: '#d4edda', borderRadius: '5px' }}>
+                    <small>✅ Tienes descuento DUOC activo</small>
+                  </div>
+                )}
+                
+                <button 
+                  onClick={handleSaveUser} 
+                  className="guardar-btn"
+                  disabled={loading}
+                >
+                  {loading ? '⏳ Guardando...' : '💾 Guardar cambios'}
+                </button>
+              </>
+            )}
           </div>
         )}
 
@@ -218,8 +356,20 @@ export default function MiCuenta({ compraSeleccionada, setCompraSeleccionada, us
                 </li>
               ))}
             </ul>
-            <input type="text" placeholder="Calle o Avenida" value={calle} onChange={e => setCalle(e.target.value)} style={{ marginRight: '10px' }} />
-            <input type="text" placeholder="Número" value={numero} onChange={e => setNumero(e.target.value)} style={{ marginRight: '10px' }} />
+            <input 
+              type="text" 
+              placeholder="Calle o Avenida" 
+              value={calle} 
+              onChange={e => setCalle(e.target.value)} 
+              style={{ marginRight: '10px' }} 
+            />
+            <input 
+              type="text" 
+              placeholder="Número" 
+              value={numero} 
+              onChange={e => setNumero(e.target.value)} 
+              style={{ marginRight: '10px' }} 
+            />
             <select value={tipo} onChange={e => setTipo(e.target.value)}>
               <option value="Casa">Casa</option>
               <option value="Apartamento">Apartamento</option>
@@ -233,18 +383,7 @@ export default function MiCuenta({ compraSeleccionada, setCompraSeleccionada, us
           </div>
         )}
 
-        {activeTab === 'contrasena' && (
-          <div className="contrasena-section">
-            <h2>Modificar contraseña</h2>
-            <label>Contraseña actual</label>
-            <input type="password" name="actual" value={passwordForm.actual} onChange={handlePasswordChange} />
-            <label>Nueva contraseña</label>
-            <input type="password" name="nueva" value={passwordForm.nueva} onChange={handlePasswordChange} />
-            <label>Repetir nueva contraseña</label>
-            <input type="password" name="repetir" value={passwordForm.repetir} onChange={handlePasswordChange} />
-            <button onClick={handleSavePassword}>Guardar nueva contraseña</button>
-          </div>
-        )}
+
 
         {activeTab === 'tiendaPuntos' && (
           <div className="tienda-puntos">

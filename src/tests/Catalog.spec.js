@@ -1,10 +1,10 @@
 import { filtrarProductos, obtenerMarcas, obtenerCategorias, obtenerJuegos } from '../services/Catalog';
 
 const mockProducts = [
-  { marca: 'Logitech', categoria: 'Teclado', juego: 'Fortnite', price: 50000, discount: 10, envioGratis: true },
-  { marca: 'Razer', categoria: 'Mouse', juego: null, price: 35000, discount: 0, envioGratis: false },
-  { marca: 'HyperX', categoria: 'Auriculares', juego: 'Valorant', price: 45000, discount: 20, envioGratis: false },
-  { marca: 'Logitech', categoria: 'Teclado', juego: 'Valorant', price: 60000, discount: 0, envioGratis: true }
+  { marca: 'Logitech', categoria: 'Teclado', juego: 'Fortnite', precio: 50000, descuento: 10, envioGratis: true },
+  { marca: 'Razer', categoria: 'Mouse', juego: null, precio: 35000, descuento: 0, envioGratis: false },
+  { marca: 'HyperX', categoria: 'Auriculares', juego: 'Valorant', precio: 45000, descuento: 20, envioGratis: false },
+  { marca: 'Logitech', categoria: 'Teclado', juego: 'Valorant', precio: 60000, descuento: 0, envioGratis: true }
 ];
 
 describe('filtrarProductos', () => {
@@ -38,13 +38,13 @@ describe('filtrarProductos', () => {
   it('filtra por rango de precio', () => {
     const filters = { marca: '', categoria: '', juego: '', precioMin: 45000, precioMax: 60000, soloConDescuento: false, envioGratis: false };
     const resultado = filtrarProductos(mockProducts, filters);
-    expect(resultado.every(p => p.price >= 45000 && p.price <= 60000)).toBe(true);
+    expect(resultado.every(p => p.precio >= 45000 && p.precio <= 60000)).toBe(true);
   });
 
   it('filtra solo con descuento', () => {
     const filters = { marca: '', categoria: '', juego: '', precioMin: 0, precioMax: 100000, soloConDescuento: true, envioGratis: false };
     const resultado = filtrarProductos(mockProducts, filters);
-    expect(resultado.every(p => p.discount && p.discount > 0)).toBe(true);
+    expect(resultado.every(p => p.descuento && p.descuento > 0)).toBe(true);
   });
 
   it('filtra por envio gratis', () => {
@@ -60,6 +60,7 @@ describe('filtrarProductos', () => {
     expect(resultado.every(p => p.juego === 'Valorant')).toBe(true);
   });
 });
+
 
 describe('obtenerMarcas', () => {
   it('retorna las marcas únicas', () => {
